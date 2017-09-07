@@ -31,3 +31,6 @@ At Purdue University events occur almost every single day, only issue is a major
 - Clone using `git clone https://github.com/Deadlocked007/EventUp.git`
 - Navigate to directory `cd EventUp\`
 - Open project `open EventUp\!xcodeproj/`
+
+
+Copyright by Siraj Zaneer, Jackson Didat, Joe Davey, Joey Dafforn, Sammy Carbone, Yan Abusamen. Abid Kaisani is not allowed to use any of this code for any purpose.
