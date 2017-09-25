@@ -2,6 +2,8 @@
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Get user&apos;s location</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
