@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2951DB387623E6DCB57F303B /* Pods_EventUp_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00BEE0174A91D69362D7DEA /* Pods_EventUp_.framework */; };
 		C764020C1F7959DF00AA3F06 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C764020B1F7959DF00AA3F06 /* Map.storyboard */; };
 		C764020E1F795AA500AA3F06 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C764020D1F795AA500AA3F06 /* MapViewController.swift */; };
 		C76402111F7975E700AA3F06 /* Events.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C76402101F7975E700AA3F06 /* Events.storyboard */; };
@@ -21,6 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0ECBAAF3044ED4B96DC08B27 /* Pods-EventUp!.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventUp!.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!.debug.xcconfig"; sourceTree = "<group>"; };
+		A00BEE0174A91D69362D7DEA /* Pods_EventUp_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EventUp_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8642049167ECB3A8DF5E8AB /* Pods-EventUp!.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventUp!.release.xcconfig"; path = "Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!.release.xcconfig"; sourceTree = "<group>"; };
 		C764020B1F7959DF00AA3F06 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		C764020D1F795AA500AA3F06 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C76402101F7975E700AA3F06 /* Events.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Events.storyboard; sourceTree = "<group>"; };
@@ -42,12 +46,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				C764021A1F797E6300AA3F06 /* MapKit.framework in Frameworks */,
+				2951DB387623E6DCB57F303B /* Pods_EventUp_.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E9E571413FA467D8A193A2F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0ECBAAF3044ED4B96DC08B27 /* Pods-EventUp!.debug.xcconfig */,
+				B8642049167ECB3A8DF5E8AB /* Pods-EventUp!.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		C764020A1F7959CE00AA3F06 /* Map */ = {
 			isa = PBXGroup;
 			children = (
@@ -71,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				C76402191F797E6300AA3F06 /* MapKit.framework */,
+				A00BEE0174A91D69362D7DEA /* Pods_EventUp_.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -81,6 +96,7 @@
 				C7C5D37C1F5F2EA0001BCE38 /* EventUp! */,
 				C7C5D37B1F5F2EA0001BCE38 /* Products */,
 				C76402181F797E6300AA3F06 /* Frameworks */,
+				4E9E571413FA467D8A193A2F /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -114,9 +130,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C7C5D38C1F5F2EA0001BCE38 /* Build configuration list for PBXNativeTarget "EventUp!" */;
 			buildPhases = (
+				0C0EAE1CC3A1A0B3853CC8BA /* [CP] Check Pods Manifest.lock */,
 				C7C5D3761F5F2E9F001BCE38 /* Sources */,
 				C7C5D3771F5F2E9F001BCE38 /* Frameworks */,
 				C7C5D3781F5F2E9F001BCE38 /* Resources */,
+				59A0C6EC71F9F7C2E3F36CDD /* [CP] Embed Pods Frameworks */,
+				AEB0E66B5741BDC91C67F856 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -175,6 +194,68 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0C0EAE1CC3A1A0B3853CC8BA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EventUp!-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		59A0C6EC71F9F7C2E3F36CDD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AEB0E66B5741BDC91C67F856 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C7C5D3761F5F2E9F001BCE38 /* Sources */ = {
@@ -320,6 +401,7 @@
 		};
 		C7C5D38D1F5F2EA0001BCE38 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0ECBAAF3044ED4B96DC08B27 /* Pods-EventUp!.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -335,6 +417,7 @@
 		};
 		C7C5D38E1F5F2EA0001BCE38 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B8642049167ECB3A8DF5E8AB /* Pods-EventUp!.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
