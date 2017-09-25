@@ -7,13 +7,19 @@
 //
 
 import UIKit
+import MapKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
 
+    @IBOutlet weak var eventMapView: MKMapView!
+    let locationManager = CLLocationManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
         // Do any additional setup after loading the view.
+        setupLocation()
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,7 +27,26 @@ class MapViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func setupLocation() {
+        eventMapView.delegate = self
+        eventMapView.showsUserLocation = true
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.requestWhenInUseAuthorization()
+        } else {
+            // Tell user to turn on location
+        }
+        
+        locationManager.delegate = self
+    }
 
+    @IBAction func onLocation(_ sender: Any) {
+        if let userLocation = locationManager.location?.coordinate {
+            let region = MKCoordinateRegion(center: userLocation, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+            eventMapView.setRegion(region, animated: true)
+        }
+        
+        
+    }
     /*
     // MARK: - Navigation
 
