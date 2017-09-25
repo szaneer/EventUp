@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		C764020C1F7959DF00AA3F06 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C764020B1F7959DF00AA3F06 /* Map.storyboard */; };
 		C764020E1F795AA500AA3F06 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C764020D1F795AA500AA3F06 /* MapViewController.swift */; };
+		C76402111F7975E700AA3F06 /* Events.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C76402101F7975E700AA3F06 /* Events.storyboard */; };
+		C76402151F79776900AA3F06 /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76402141F79776900AA3F06 /* EventsViewController.swift */; };
+		C76402171F79782100AA3F06 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76402161F79782100AA3F06 /* EventCell.swift */; };
 		C7C5D37E1F5F2EA0001BCE38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C5D37D1F5F2EA0001BCE38 /* AppDelegate.swift */; };
 		C7C5D3801F5F2EA0001BCE38 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C5D37F1F5F2EA0001BCE38 /* ViewController.swift */; };
 		C7C5D3831F5F2EA0001BCE38 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7C5D3811F5F2EA0001BCE38 /* Main.storyboard */; };
@@ -19,6 +22,9 @@
 /* Begin PBXFileReference section */
 		C764020B1F7959DF00AA3F06 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		C764020D1F795AA500AA3F06 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		C76402101F7975E700AA3F06 /* Events.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Events.storyboard; sourceTree = "<group>"; };
+		C76402141F79776900AA3F06 /* EventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
+		C76402161F79782100AA3F06 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		C7C5D37A1F5F2EA0001BCE38 /* EventUp!.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EventUp!.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7C5D37D1F5F2EA0001BCE38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7C5D37F1F5F2EA0001BCE38 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -48,6 +54,16 @@
 			path = Map;
 			sourceTree = "<group>";
 		};
+		C764020F1F7975D800AA3F06 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				C76402101F7975E700AA3F06 /* Events.storyboard */,
+				C76402141F79776900AA3F06 /* EventsViewController.swift */,
+				C76402161F79782100AA3F06 /* EventCell.swift */,
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
 		C7C5D3711F5F2E9F001BCE38 = {
 			isa = PBXGroup;
 			children = (
@@ -67,6 +83,7 @@
 		C7C5D37C1F5F2EA0001BCE38 /* EventUp! */ = {
 			isa = PBXGroup;
 			children = (
+				C764020F1F7975D800AA3F06 /* Events */,
 				C764020A1F7959CE00AA3F06 /* Map */,
 				C7C5D37D1F5F2EA0001BCE38 /* AppDelegate.swift */,
 				C7C5D37F1F5F2EA0001BCE38 /* ViewController.swift */,
@@ -141,6 +158,7 @@
 				C7C5D3851F5F2EA0001BCE38 /* Assets.xcassets in Resources */,
 				C7C5D3831F5F2EA0001BCE38 /* Main.storyboard in Resources */,
 				C764020C1F7959DF00AA3F06 /* Map.storyboard in Resources */,
+				C76402111F7975E700AA3F06 /* Events.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,6 +170,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7C5D3801F5F2EA0001BCE38 /* ViewController.swift in Sources */,
+				C76402151F79776900AA3F06 /* EventsViewController.swift in Sources */,
+				C76402171F79782100AA3F06 /* EventCell.swift in Sources */,
 				C764020E1F795AA500AA3F06 /* MapViewController.swift in Sources */,
 				C7C5D37E1F5F2EA0001BCE38 /* AppDelegate.swift in Sources */,
 			);
