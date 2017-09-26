@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class EventsViewController: UITableViewController {
 
@@ -18,6 +19,9 @@ class EventsViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        Database.database().reference().child("events").observe(.value) { (snapshot) in
+            print(snapshot)
+        }
     }
 
     override func didReceiveMemoryWarning() {
