@@ -5,6 +5,8 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -80,6 +82,10 @@
                                     <outlet property="nameLabel" destination="cOM-xH-1bQ" id="sVq-Yn-8Z1"/>
                                     <outlet property="tagLabel" destination="HSB-Xg-xVH" id="lmz-AQ-O79"/>
                                     <outlet property="timeLabel" destination="3Uc-25-KWW" id="CWl-yE-Db2"/>
+                                    <segue destination="Bsj-OG-3Y9" kind="show" action="showDetailViewController:sender:" id="w4f-8N-kZg">
+                                        <segue key="commit" inheritsFrom="parent" id="vdB-EX-YCg"/>
+                                        <segue key="preview" inheritsFrom="commit" id="UKX-bo-gEH"/>
+                                    </segue>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -95,6 +101,62 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hXV-OE-L5w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="917.60000000000002" y="-99.400299850074973"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="0ON-wd-ROh">
+            <objects>
+                <viewController id="Bsj-OG-3Y9" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9cM-ao-eT3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="zCD-NK-XtP">
+                                <rect key="frame" x="0.0" y="323" width="375" height="344"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="v3T-ZD-39T"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dgJ-ge-dPj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1680.8" y="-99.400299850074973"/>
+        </scene>
+        <!--Event Map View Controller-->
+        <scene sceneID="kwT-Pg-pry">
+            <objects>
+                <viewController id="Hgp-l0-gkX" customClass="EventMapViewController" customModule="EventUp_" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IFw-T2-qQo">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="wmd-bs-B1k">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XFc-qh-9tu">
+                                <rect key="frame" x="313" y="617" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="onLocation:" destination="Hgp-l0-gkX" eventType="touchUpInside" id="EqX-9M-YVO"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="s2c-Pb-hi8"/>
+                    </view>
+                    <connections>
+                        <outlet property="eventMapView" destination="wmd-bs-B1k" id="uTH-YM-wCv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a8o-0r-agw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2404" y="-99.400299850074973"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="gVt-bv-1Cx">
@@ -115,4 +177,7 @@
             <point key="canvasLocation" x="188.80000000000001" y="-98.950524737631198"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="w4f-8N-kZg"/>
+    </inferredMetricsTieBreakers>
 </document>
