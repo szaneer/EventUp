@@ -13,6 +13,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
     @IBOutlet weak var eventMapView: MKMapView!
     let locationManager = CLLocationManager()
+    let geoCoder = CLGeocoder()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +40,30 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         locationManager.delegate = self
     }
 
+    func loadEvents() {
+        EventUpClient.sharedInstance.getCurrEvent { (events) in
+            for event in events {
+                self.addEventToMap(event: event)
+            }
+        }
+    }
+    
+    func addEventToMap(event: Event) {
+        DispatchQueue.global().async {
+            self.geoCoder.geocodeAddressString(event.location) { (placemarks: [CLPlacemark]?, error: Error?) in
+                if error != nil {
+                    print(error?.localizedDescription)
+                } else {
+                    if let placemark = placemarks?[0] {
+                        let coordinate = CLLocationCoordinate2DMake((placemark.location?.coordinate.latitude)!, (placemark.location?.coordinate.longitude)!)
+                        let annotation = EventAnnotation(coordinate: coordinate, title: event.name, event: event)
+                        self.eventMapView.addAnnotation(annotation)
+                    }
+                }
+            }
+        }
+    }
+    
     @IBAction func onLocation(_ sender: Any) {
         if let userLocation = locationManager.location?.coordinate {
             let region = MKCoordinateRegion(center: userLocation, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))

@@ -17,6 +17,10 @@
 		C764021D1F79891300AA3F06 /* EventMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C764021C1F79891300AA3F06 /* EventMapViewController.swift */; };
 		C764021F1F7C34B900AA3F06 /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C764021E1F7C34B900AA3F06 /* EventDetailViewController.swift */; };
 		C76402231F7C45B400AA3F06 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76402221F7C45B400AA3F06 /* FilterViewController.swift */; };
+		C76402251F7C4C0400AA3F06 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76402241F7C4C0400AA3F06 /* CreateViewController.swift */; };
+		C76402281F7DB8C500AA3F06 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76402271F7DB8C500AA3F06 /* Event.swift */; };
+		C764022A1F7DB97B00AA3F06 /* EventUpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76402291F7DB97B00AA3F06 /* EventUpClient.swift */; };
+		C764022E1F7DBD4800AA3F06 /* EventAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C764022D1F7DBD4800AA3F06 /* EventAnnotation.swift */; };
 		C7C5D37E1F5F2EA0001BCE38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C5D37D1F5F2EA0001BCE38 /* AppDelegate.swift */; };
 		C7C5D3801F5F2EA0001BCE38 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C5D37F1F5F2EA0001BCE38 /* ViewController.swift */; };
 		C7C5D3831F5F2EA0001BCE38 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7C5D3811F5F2EA0001BCE38 /* Main.storyboard */; };
@@ -38,6 +42,10 @@
 		C764021C1F79891300AA3F06 /* EventMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMapViewController.swift; sourceTree = "<group>"; };
 		C764021E1F7C34B900AA3F06 /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		C76402221F7C45B400AA3F06 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		C76402241F7C4C0400AA3F06 /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
+		C76402271F7DB8C500AA3F06 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		C76402291F7DB97B00AA3F06 /* EventUpClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventUpClient.swift; sourceTree = "<group>"; };
+		C764022D1F7DBD4800AA3F06 /* EventAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAnnotation.swift; sourceTree = "<group>"; };
 		C7C5D37A1F5F2EA0001BCE38 /* EventUp!.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EventUp!.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7C5D37D1F5F2EA0001BCE38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7C5D37F1F5F2EA0001BCE38 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -74,6 +82,7 @@
 			children = (
 				C764020B1F7959DF00AA3F06 /* Map.storyboard */,
 				C764020D1F795AA500AA3F06 /* MapViewController.swift */,
+				C764022D1F7DBD4800AA3F06 /* EventAnnotation.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -87,6 +96,7 @@
 				C764021C1F79891300AA3F06 /* EventMapViewController.swift */,
 				C764021E1F7C34B900AA3F06 /* EventDetailViewController.swift */,
 				C76402221F7C45B400AA3F06 /* FilterViewController.swift */,
+				C76402241F7C4C0400AA3F06 /* CreateViewController.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -98,6 +108,14 @@
 				A00BEE0174A91D69362D7DEA /* Pods_EventUp_.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C76402261F7DB8A400AA3F06 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C76402271F7DB8C500AA3F06 /* Event.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		C7C5D3711F5F2E9F001BCE38 = {
@@ -121,6 +139,7 @@
 		C7C5D37C1F5F2EA0001BCE38 /* EventUp! */ = {
 			isa = PBXGroup;
 			children = (
+				C76402261F7DB8A400AA3F06 /* Models */,
 				C764020F1F7975D800AA3F06 /* Events */,
 				C764020A1F7959CE00AA3F06 /* Map */,
 				C7C5D37D1F5F2EA0001BCE38 /* AppDelegate.swift */,
@@ -130,6 +149,7 @@
 				C7C5D3861F5F2EA0001BCE38 /* LaunchScreen.storyboard */,
 				C7C5D3891F5F2EA0001BCE38 /* Info.plist */,
 				C764021B1F7985F400AA3F06 /* GoogleService-Info.plist */,
+				C76402291F7DB97B00AA3F06 /* EventUpClient.swift */,
 			);
 			path = "EventUp!";
 			sourceTree = "<group>";
@@ -275,11 +295,15 @@
 			files = (
 				C7C5D3801F5F2EA0001BCE38 /* ViewController.swift in Sources */,
 				C76402151F79776900AA3F06 /* EventsViewController.swift in Sources */,
+				C76402251F7C4C0400AA3F06 /* CreateViewController.swift in Sources */,
 				C76402231F7C45B400AA3F06 /* FilterViewController.swift in Sources */,
+				C76402281F7DB8C500AA3F06 /* Event.swift in Sources */,
+				C764022E1F7DBD4800AA3F06 /* EventAnnotation.swift in Sources */,
 				C76402171F79782100AA3F06 /* EventCell.swift in Sources */,
 				C764020E1F795AA500AA3F06 /* MapViewController.swift in Sources */,
 				C764021D1F79891300AA3F06 /* EventMapViewController.swift in Sources */,
 				C764021F1F7C34B900AA3F06 /* EventDetailViewController.swift in Sources */,
+				C764022A1F7DB97B00AA3F06 /* EventUpClient.swift in Sources */,
 				C7C5D37E1F5F2EA0001BCE38 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
