@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 
+
 class EventAnnotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     var title: String?
@@ -20,3 +21,4 @@ class EventAnnotation: NSObject, MKAnnotation {
         self.event = event
     }
 }
+
