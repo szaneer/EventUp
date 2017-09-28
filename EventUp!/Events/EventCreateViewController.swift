@@ -27,7 +27,16 @@ class EventCreateViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    @IBAction func onCreate(_ sender: Any) {
+        
+    }
+    
+    func validateInput() {
+        guard let name = nameField.text, !name.isEmpty else {
+            return
+        }
+    }
+    
     /*
     // MARK: - Navigation
 
