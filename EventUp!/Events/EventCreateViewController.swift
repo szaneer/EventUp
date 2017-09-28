@@ -1,15 +1,21 @@
 //
-//  CreateViewController.swift
+//  EventCreateViewController.swift
 //  EventUp!
 //
-//  Created by Siraj Zaneer on 9/27/17.
+//  Created by Siraj Zaneer on 9/28/17.
 //  Copyright © 2017 Siraj Zaneer. All rights reserved.
 //
 
 import UIKit
 
-class CreateViewController: UIViewController {
+class EventCreateViewController: UIViewController {
 
+    @IBOutlet weak var eventView: UIImageView!
+    @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var locationField: UITextField!
+    @IBOutlet weak var dateField: UITextField!
+    @IBOutlet weak var timeField: UITextField!
+    @IBOutlet weak var tagsField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 
