@@ -118,6 +118,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		C76402311F7F141B00AA3F06 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				C7C5D3811F5F2EA0001BCE38 /* Main.storyboard */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		C7C5D3711F5F2E9F001BCE38 = {
 			isa = PBXGroup;
 			children = (
@@ -139,12 +147,12 @@
 		C7C5D37C1F5F2EA0001BCE38 /* EventUp! */ = {
 			isa = PBXGroup;
 			children = (
+				C76402311F7F141B00AA3F06 /* Main */,
 				C76402261F7DB8A400AA3F06 /* Models */,
 				C764020F1F7975D800AA3F06 /* Events */,
 				C764020A1F7959CE00AA3F06 /* Map */,
 				C7C5D37D1F5F2EA0001BCE38 /* AppDelegate.swift */,
 				C7C5D37F1F5F2EA0001BCE38 /* ViewController.swift */,
-				C7C5D3811F5F2EA0001BCE38 /* Main.storyboard */,
 				C7C5D3841F5F2EA0001BCE38 /* Assets.xcassets */,
 				C7C5D3861F5F2EA0001BCE38 /* LaunchScreen.storyboard */,
 				C7C5D3891F5F2EA0001BCE38 /* Info.plist */,
