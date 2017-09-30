@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class EventCreateViewController: UIViewController {
 
@@ -28,7 +29,9 @@ class EventCreateViewController: UIViewController {
     }
     
     @IBAction func onCreate(_ sender: Any) {
-        
+        let eventInfo = ["test"]
+    
+        Database.database().reference().child("events").child(UUID.init().uuidString).setValue(eventInfo)
     }
     
     func validateInput() {
