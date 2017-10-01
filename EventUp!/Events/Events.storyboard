@@ -210,6 +210,7 @@
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Events" id="h2U-Yu-G4p"/>
                     <navigationItem key="navigationItem" id="KGV-zw-5gi">
+                        <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" title="Filter" style="plain" id="5h6-xr-8cr">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fqT-KF-yyc">
                                 <rect key="frame" x="16" y="7" width="35" height="30"/>
@@ -220,6 +221,14 @@
                                 </connections>
                             </button>
                         </barButtonItem>
+                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Pcy-18-VAH">
+                            <rect key="frame" x="155" y="7" width="65" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Curr/Past"/>
+                            <connections>
+                                <action selector="onTimeSwitch:" destination="gP4-rh-N2L" eventType="touchUpInside" id="Aqp-W7-nvx"/>
+                            </connections>
+                        </button>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="Foq-4l-NrG">
                             <connections>
                                 <segue destination="8dI-5P-fZe" kind="show" id="wIQ-b5-hbW"/>
