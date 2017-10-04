@@ -16,4 +16,8 @@ class Event: NSObject {
     var image: String!
     var tags: String!
     var location: String!
+    
+    init(eventData: [String: Any]) {
+        
+    }
 }

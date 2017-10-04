@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Firebase
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
 
@@ -17,8 +18,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
         // Do any additional setup after loading the view.
         setupLocation()
     }
@@ -41,11 +40,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
 
     func loadEvents() {
-        EventUpClient.sharedInstance.getCurrEvent { (events) in
-            for event in events {
-                self.addEventToMap(event: event)
-            }
-        }
+//        EventUpClient.sharedInstance.getCurrEvent { (events) in
+//            for event in events {
+//                self.addEventToMap(event: event)
+//            }
+//        }
     }
     
     func addEventToMap(event: Event) {
