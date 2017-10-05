@@ -242,6 +242,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="attendeesLabel" destination="8mF-9L-Sk9" id="tKb-PP-pdS"/>
                                     <outlet property="dateLabel" destination="5UM-rl-fFb" id="HgX-OB-LZ2"/>
                                     <outlet property="distanceLabel" destination="TX1-JW-ybQ" id="zjh-Cd-x6C"/>
                                     <outlet property="eventView" destination="c0R-VD-srr" id="yo8-Tu-cW6"/>

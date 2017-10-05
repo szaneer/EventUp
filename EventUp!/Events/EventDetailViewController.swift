@@ -35,6 +35,7 @@ class EventDetailViewController: UIViewController {
         dateLabel.text = dateFormatter.string(from: date)
         locationLabel.text = event.location
         tagsLabel.text = event.tags
+        attendeesLabel.text = "Attendees: \(event.peopleCount!)"
         let annotation = MKPointAnnotation()
         annotation.coordinate = CLLocationCoordinate2D(latitude: Double(event.latitude)!, longitude: Double(event.longitude)!)
         annotation.title = event.name
