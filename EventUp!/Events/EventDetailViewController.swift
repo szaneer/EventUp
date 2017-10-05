@@ -14,8 +14,7 @@ class EventDetailViewController: UIViewController {
     @IBOutlet weak var eventView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var dateLabel: UIDatePicker!
     @IBOutlet weak var tagsLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
