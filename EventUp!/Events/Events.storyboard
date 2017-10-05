@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Er6-YS-Nqi">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13526" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Er6-YS-Nqi">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13524"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -160,6 +160,7 @@
                         <outlet property="locationField" destination="SoQ-IF-s4K" id="qKL-fS-bn6"/>
                         <outlet property="longField" destination="oQJ-ew-qXM" id="0p4-vj-MFw"/>
                         <outlet property="nameField" destination="9Dh-Tb-SyE" id="KwU-C4-dVq"/>
+                        <outlet property="submitButton" destination="Rg2-Fs-5bu" id="Kus-sT-1u2"/>
                         <outlet property="tagsField" destination="7k1-LM-0ia" id="U1M-SJ-6hw"/>
                     </connections>
                 </viewController>
@@ -448,17 +449,15 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="zCD-NK-XtP">
                                 <rect key="frame" x="0.0" y="234" width="375" height="384"/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xmw-gu-r7P">
-                                <rect key="frame" x="280" y="155" width="87" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xmw-gu-r7P">
+                                <rect key="frame" x="284" y="152" width="87" height="30"/>
                                 <state key="normal" title="Delete Event"/>
                                 <connections>
                                     <action selector="deleteEvent:" destination="Bsj-OG-3Y9" eventType="touchUpInside" id="jND-KA-15o"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vmI-8b-Ott">
-                                <rect key="frame" x="290" y="122" width="69" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vmI-8b-Ott">
+                                <rect key="frame" x="302" y="118" width="69" height="30"/>
                                 <state key="normal" title="Edit Event"/>
                                 <connections>
                                     <segue destination="8dI-5P-fZe" kind="show" identifier="editSegue" id="SsQ-jO-dlL"/>
@@ -481,13 +480,17 @@
                             <constraint firstItem="zCD-NK-XtP" firstAttribute="top" secondItem="rFJ-bq-1tf" secondAttribute="bottom" constant="8" id="Vpr-Hp-yK6"/>
                             <constraint firstItem="zCD-NK-XtP" firstAttribute="bottom" secondItem="v3T-ZD-39T" secondAttribute="bottom" id="XVG-WW-0dH"/>
                             <constraint firstItem="Qbp-K9-eOu" firstAttribute="top" secondItem="v3T-ZD-39T" secondAttribute="top" constant="4" id="YTK-ib-eeN"/>
+                            <constraint firstItem="Xmw-gu-r7P" firstAttribute="top" secondItem="vmI-8b-Ott" secondAttribute="bottom" constant="4" id="aEi-W3-2QX"/>
                             <constraint firstItem="v3T-ZD-39T" firstAttribute="trailing" secondItem="Qbp-K9-eOu" secondAttribute="trailing" constant="4" id="hTm-De-Com"/>
                             <constraint firstItem="zCD-NK-XtP" firstAttribute="leading" secondItem="v3T-ZD-39T" secondAttribute="leading" id="mpt-3o-mMx"/>
+                            <constraint firstItem="vmI-8b-Ott" firstAttribute="top" secondItem="BXx-5E-cRJ" secondAttribute="bottom" constant="4" id="n4j-5G-gwE"/>
                             <constraint firstItem="rFJ-bq-1tf" firstAttribute="leading" secondItem="v3T-ZD-39T" secondAttribute="leading" constant="8" id="n90-EA-sCO"/>
                             <constraint firstItem="bf5-RY-icH" firstAttribute="leading" secondItem="bLf-8B-Rah" secondAttribute="trailing" constant="8" id="nXx-Nc-yl1"/>
                             <constraint firstItem="v3T-ZD-39T" firstAttribute="trailing" secondItem="rFJ-bq-1tf" secondAttribute="trailing" constant="8" id="omY-gm-n42"/>
                             <constraint firstItem="VYs-ct-zUM" firstAttribute="top" secondItem="bf5-RY-icH" secondAttribute="bottom" constant="4" id="png-0I-SWs"/>
+                            <constraint firstItem="v3T-ZD-39T" firstAttribute="trailing" secondItem="Xmw-gu-r7P" secondAttribute="trailing" constant="4" id="pnz-bP-E1z"/>
                             <constraint firstItem="cjd-IE-Tsl" firstAttribute="leading" secondItem="bLf-8B-Rah" secondAttribute="trailing" constant="8" id="uEe-6L-am3"/>
+                            <constraint firstItem="v3T-ZD-39T" firstAttribute="trailing" secondItem="vmI-8b-Ott" secondAttribute="trailing" constant="4" id="zPR-wU-ItV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="v3T-ZD-39T"/>
                     </view>
