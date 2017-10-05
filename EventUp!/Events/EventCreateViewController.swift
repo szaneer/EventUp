@@ -35,11 +35,21 @@ class EventCreateViewController: UIViewController {
         eventInfo["Tags"] = tagsField.text
         let date = dateField.date.timeIntervalSince1970.magnitude
         eventInfo["Date"] = String(date)
+        
         EventUpClient.sharedInstance.createEvent(eventData: eventInfo, success: { (event) in
-            print("Success")
+            let alert = UIAlertController(title: "Success!", message: "The event was created successfully", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in self.onSuccessfulEventCreation()}))
+            self.present(alert, animated: true, completion: nil)
+
         }) { (error) in
             print(error)
         }
+
+    }
+    
+    func onSuccessfulEventCreation() {
+        _ = self.navigationController?.popViewController(animated: true)
+
     }
     
     func validateInput() {
