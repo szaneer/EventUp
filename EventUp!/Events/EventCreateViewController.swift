@@ -16,6 +16,8 @@ class EventCreateViewController: UIViewController {
     @IBOutlet weak var locationField: UITextField!
     @IBOutlet weak var dateField: UIDatePicker!
     @IBOutlet weak var tagsField: UITextField!
+    @IBOutlet weak var latField: UITextField!
+    @IBOutlet weak var longField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,12 +31,14 @@ class EventCreateViewController: UIViewController {
     
     @IBAction func onCreate(_ sender: Any) {
         validateInput()
-        var eventInfo = [String: String]()
+        var eventInfo = [String: Any]()
         eventInfo["Name"] = nameField.text
         eventInfo["Location"] = locationField.text
         eventInfo["Tags"] = tagsField.text
-        let date = dateField.date.timeIntervalSince1970.magnitude
-        eventInfo["Date"] = String(date)
+        let date = Double(dateField.date.timeIntervalSince1970)
+        eventInfo["Date"] = date
+        eventInfo["LAT"] = Double(latField.text!)
+        eventInfo["LONG"] = Double(longField.text!)
         
         EventUpClient.sharedInstance.createEvent(eventData: eventInfo, success: { (event) in
             let alert = UIAlertController(title: "Success!", message: "The event was created successfully", preferredStyle: UIAlertControllerStyle.alert)
