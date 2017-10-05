@@ -12,6 +12,7 @@ class FilterViewController: UITableViewController {
 
     @IBOutlet weak var nameSwitch: UISwitch!
     @IBOutlet weak var distanceSwitch: UISwitch!
+    @IBOutlet weak var timeSwitch: UISwitch!
     
     var delegate: FilterDelegate!
     
@@ -34,7 +35,7 @@ class FilterViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        return 3
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -44,13 +45,23 @@ class FilterViewController: UITableViewController {
     
     @IBAction func onDistance(_ sender: Any) {
         nameSwitch.isOn = false
+        timeSwitch.isOn = false
         delegate.filter(type: "distance")
     }
     
     @IBAction func onName(_ sender: Any) {
         distanceSwitch.isOn = false
+        timeSwitch.isOn = false
         delegate.filter(type: "name")
     }
+    
+    @IBAction func onTime(_ sender: Any) {
+        distanceSwitch.isOn = false
+        nameSwitch.isOn = false
+        delegate.filter(type: "time")
+        
+    }
+    
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
