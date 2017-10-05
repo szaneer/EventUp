@@ -18,6 +18,9 @@ class EventCreateViewController: UIViewController {
     @IBOutlet weak var tagsField: UITextField!
     @IBOutlet weak var latField: UITextField!
     @IBOutlet weak var longField: UITextField!
+    @IBOutlet weak var infoView: UITextView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -39,10 +42,11 @@ class EventCreateViewController: UIViewController {
         eventInfo["date"] = date
         eventInfo["latitude"] = latField.text!
         eventInfo["longitude"] = longField.text!
-        
+        eventInfo["location"] = locationField.text!
+        eventInfo["info"] = infoView.text
         EventUpClient.sharedInstance.createEvent(eventData: eventInfo, success: { (event) in
             let alert = UIAlertController(title: "Success!", message: "The event was created successfully", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in self.onSuccessfulEventCreation()}))
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in self.onSuccessfulEventCreation()}))
             self.present(alert, animated: true, completion: nil)
 
         }) { (error) in

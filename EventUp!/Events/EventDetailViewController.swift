@@ -27,7 +27,7 @@ class EventDetailViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         nameLabel.text = event.name
-        descriptionLabel.text = "sdjfkjlsdbfkjhsdkghkfngkjdfnkghdkfhgkdfjgjdhfkjgnkdjfnbkjdfnkvjndfkjnvkkxhfhjjhkjhkjkjhkjkhjkhjkjkjkjkjkjkkokjhjkhjijhbghjh"
+        descriptionLabel.text = event.info
         descriptionLabel.sizeToFit()
         let date = Date(timeIntervalSince1970: event.date)
         let dateFormatter = DateFormatter()
@@ -36,6 +36,10 @@ class EventDetailViewController: UIViewController {
         locationLabel.text = event.location
         let annotation = MKPointAnnotation()
         annotation.coordinate = CLLocationCoordinate2D(latitude: Double(event.latitude)!, longitude: Double(event.longitude)!)
+        annotation.title = event.name
+        let region = MKCoordinateRegion(center: annotation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
+        eventMapView.setRegion(region, animated: true)
+        eventMapView.addAnnotation(annotation)
     }
 
     override func didReceiveMemoryWarning() {
