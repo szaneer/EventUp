@@ -20,13 +20,29 @@ class EventCreateViewController: UIViewController {
     @IBOutlet weak var longField: UITextField!
     @IBOutlet weak var infoView: UITextView!
     
+    var editEvent: Event?
+    var delegate: FilterDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        if let editEvent = editEvent {
+            setupEdit()
+        }
     }
 
+    func setupEdit() {
+        nameField.text = editEvent?.name
+        //eventInfo["Location"] = locationField.text
+        tagsField.text = editEvent!.tags
+        dateField.date = Date(timeIntervalSince1970: editEvent!.date)
+        latField.text = editEvent!.latitude
+        longField.text = editEvent!.longitude
+        locationField.text = editEvent!.location
+        infoView.text = editEvent!.info
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -44,19 +60,32 @@ class EventCreateViewController: UIViewController {
         eventInfo["longitude"] = longField.text!
         eventInfo["location"] = locationField.text!
         eventInfo["info"] = infoView.text
-        EventUpClient.sharedInstance.createEvent(eventData: eventInfo, success: { (event) in
-            let alert = UIAlertController(title: "Success!", message: "The event was created successfully", preferredStyle: UIAlertControllerStyle.alert)
+        guard let editEvent = editEvent else {
+            EventUpClient.sharedInstance.createEvent(eventData: eventInfo, success: { (event) in
+                let alert = UIAlertController(title: "Success!", message: "The event was created successfully", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in self.onSuccessfulEventCreation()}))
+                self.present(alert, animated: true, completion: nil)
+                
+            }) { (error) in
+                print(error)
+            }
+            return
+        }
+        EventUpClient.sharedInstance.editEvent(event: editEvent, eventData: eventInfo, success: { (event) in
+            let alert = UIAlertController(title: "Success!", message: "The event was edited successfully", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in self.onSuccessfulEventCreation()}))
             self.present(alert, animated: true, completion: nil)
-
+            
         }) { (error) in
             print(error)
         }
+        return
 
     }
     
     func onSuccessfulEventCreation() {
-        _ = self.navigationController?.popViewController(animated: true)
+        delegate.refresh(event: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
     func validateInput() {

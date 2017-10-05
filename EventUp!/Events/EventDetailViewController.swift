@@ -10,7 +10,7 @@
 import UIKit
 import MapKit
 
-class EventDetailViewController: UIViewController {
+class EventDetailViewController: UIViewController, FilterDelegate {
     @IBOutlet weak var eventView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
@@ -28,6 +28,10 @@ class EventDetailViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        setup()
+    }
+    
+    func setup() {
         nameLabel.text = event.name
         descriptionLabel.text = event.info
         descriptionLabel.sizeToFit()
@@ -40,7 +44,8 @@ class EventDetailViewController: UIViewController {
         
         // Display the number of people that RSVP'd to the event
         attendeesLabel.text = "Attendees: \(event.peopleCount!)"
-        
+        eventMapView.removeAnnotations(eventMapView.annotations)
+        eventMapView.addAnnotation(eventMapView.userLocation)
         let annotation = MKPointAnnotation()
         annotation.coordinate = CLLocationCoordinate2D(latitude: Double(event.latitude)!, longitude: Double(event.longitude)!)
         annotation.title = event.name
@@ -65,7 +70,7 @@ class EventDetailViewController: UIViewController {
         
     }
     func onSuccessful() {
-        self.delegate.refresh()
+        self.delegate.refresh(event: nil)
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -80,20 +85,46 @@ class EventDetailViewController: UIViewController {
             print(error.localizedDescription)
         }
     }
+    
+    func filter(type: String) {
+        return
+    }
+    
+    func refresh(event: Event?) {
+        if let event = event {
+            self.event = event
+            setup()
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        
+        guard let segueID = segue.identifier else {
+            return
+        }
+        
+        switch segueID {
+        case "editSegue":
+            let destination = segue.destination as! EventCreateViewController
+            destination.editEvent = event
+            destination.delegate = self
+        default:
+            return
+        }
     }
-    */
+    
 
 }

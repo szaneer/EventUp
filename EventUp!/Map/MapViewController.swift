@@ -58,7 +58,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         return
     }
     
-    func refresh() {
+    func refresh(event: Event?) {
         SVProgressHUD.show()
         loadEvents()
     }
