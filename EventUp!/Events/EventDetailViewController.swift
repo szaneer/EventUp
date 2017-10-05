@@ -47,14 +47,21 @@ class EventDetailViewController: UIViewController {
         eventMapView.addAnnotation(annotation)
     }
     @IBAction func deleteEvent(_ sender: Any) {
-
+        EventUpClient.sharedInstance.deleteEvent(uid: event.uid, success: {
+            let alert = UIAlertController(title: "Success!", message: "The event was successfully deleted", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in self.onSuccessfulEventDeletion()}))
+            self.present(alert, animated: true, completion: nil)
+        }) { (error) in
+            print(error)
+        }
+    }
+    func onSuccessfulEventDeletion() {
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func rsvpUser(_ sender: Any) {
         
-        
         EventUpClient.sharedInstance.checkInEvent(uid: event.uid, success: {
-            print("checkedin")
             self.attendeesLabel.text = String(self.event.peopleCount + 1)
         }) { (error) in
             print(error.localizedDescription)

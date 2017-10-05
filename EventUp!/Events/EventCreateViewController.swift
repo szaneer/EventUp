@@ -57,7 +57,6 @@ class EventCreateViewController: UIViewController {
     
     func onSuccessfulEventCreation() {
         _ = self.navigationController?.popViewController(animated: true)
-
     }
     
     func validateInput() {
