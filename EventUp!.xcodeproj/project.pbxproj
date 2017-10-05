@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2951DB387623E6DCB57F303B /* Pods_EventUp_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00BEE0174A91D69362D7DEA /* Pods_EventUp_.framework */; };
+		839240231F85BA07003C0DAF /* RatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839240221F85BA07003C0DAF /* RatingViewController.swift */; };
+		839240241F85BAEA003C0DAF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C764021B1F7985F400AA3F06 /* GoogleService-Info.plist */; };
 		C764020C1F7959DF00AA3F06 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C764020B1F7959DF00AA3F06 /* Map.storyboard */; };
 		C764020E1F795AA500AA3F06 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C764020D1F795AA500AA3F06 /* MapViewController.swift */; };
 		C76402111F7975E700AA3F06 /* Events.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C76402101F7975E700AA3F06 /* Events.storyboard */; };
@@ -30,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		0ECBAAF3044ED4B96DC08B27 /* Pods-EventUp!.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventUp!.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!.debug.xcconfig"; sourceTree = "<group>"; };
+		839240221F85BA07003C0DAF /* RatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingViewController.swift; sourceTree = "<group>"; };
 		A00BEE0174A91D69362D7DEA /* Pods_EventUp_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EventUp_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8642049167ECB3A8DF5E8AB /* Pods-EventUp!.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventUp!.release.xcconfig"; path = "Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!.release.xcconfig"; sourceTree = "<group>"; };
 		C764020B1F7959DF00AA3F06 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
@@ -97,6 +100,7 @@
 				C764021E1F7C34B900AA3F06 /* EventDetailViewController.swift */,
 				C76402221F7C45B400AA3F06 /* FilterViewController.swift */,
 				C764022F1F7DBF1400AA3F06 /* EventCreateViewController.swift */,
+				839240221F85BA07003C0DAF /* RatingViewController.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -229,6 +233,7 @@
 				C7C5D3831F5F2EA0001BCE38 /* Main.storyboard in Resources */,
 				C764020C1F7959DF00AA3F06 /* Map.storyboard in Resources */,
 				C76402111F7975E700AA3F06 /* Events.storyboard in Resources */,
+				839240241F85BAEA003C0DAF /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +310,7 @@
 				C76402301F7DBF1400AA3F06 /* EventCreateViewController.swift in Sources */,
 				C76402151F79776900AA3F06 /* EventsViewController.swift in Sources */,
 				C76402231F7C45B400AA3F06 /* FilterViewController.swift in Sources */,
+				839240231F85BA07003C0DAF /* RatingViewController.swift in Sources */,
 				C76402281F7DB8C500AA3F06 /* Event.swift in Sources */,
 				C764022E1F7DBD4800AA3F06 /* EventAnnotation.swift in Sources */,
 				C76402171F79782100AA3F06 /* EventCell.swift in Sources */,
