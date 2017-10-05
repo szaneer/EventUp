@@ -21,6 +21,7 @@ class Event: NSObject {
     var location: String!
     var info: String!
     var uid: String!
+    var image: String?
     
     init(eventData: [String: Any]) {
         name = eventData["name"] as! String
@@ -34,5 +35,6 @@ class Event: NSObject {
         location = eventData["location"] as! String
         info = eventData["info"] as! String
         uid = eventData["uid"] as! String
+        image = eventData["image"] as? String
     }
 }

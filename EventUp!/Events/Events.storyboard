@@ -107,15 +107,29 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uYU-at-8ox">
+                                <rect key="frame" x="8" y="72" width="125" height="125"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="75"/>
+                                <state key="normal" title="+">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <action selector="onImage:" destination="8dI-5P-fZe" eventType="touchUpInside" id="Co2-mE-bMy"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="tKm-gz-dv3" firstAttribute="leading" secondItem="NuS-wM-J1G" secondAttribute="trailing" constant="8" id="0kj-Ly-Kxw"/>
                             <constraint firstItem="Ust-R6-pAL" firstAttribute="leading" secondItem="NuS-wM-J1G" secondAttribute="trailing" constant="8" id="1EL-kJ-RRm"/>
+                            <constraint firstItem="uYU-at-8ox" firstAttribute="width" secondItem="NuS-wM-J1G" secondAttribute="width" id="1QH-pr-4RF"/>
+                            <constraint firstItem="uYU-at-8ox" firstAttribute="top" secondItem="lTQ-lm-LRm" secondAttribute="top" constant="8" id="3G7-sl-eDy"/>
                             <constraint firstItem="7k1-LM-0ia" firstAttribute="top" secondItem="aqQ-tM-xhT" secondAttribute="bottom" constant="8" id="56m-fy-O0C"/>
                             <constraint firstItem="Rg2-Fs-5bu" firstAttribute="leading" secondItem="lTQ-lm-LRm" secondAttribute="leading" constant="8" id="5g4-YY-aNa"/>
+                            <constraint firstItem="uYU-at-8ox" firstAttribute="height" secondItem="NuS-wM-J1G" secondAttribute="height" id="7uI-eC-IFz"/>
                             <constraint firstItem="9Dh-Tb-SyE" firstAttribute="leading" secondItem="gZX-qx-VbB" secondAttribute="trailing" constant="8" id="FIP-S6-Baa"/>
+                            <constraint firstItem="uYU-at-8ox" firstAttribute="leading" secondItem="lTQ-lm-LRm" secondAttribute="leading" constant="8" id="Hph-oF-sEP"/>
                             <constraint firstItem="lTQ-lm-LRm" firstAttribute="trailing" secondItem="7k1-LM-0ia" secondAttribute="trailing" constant="8" id="LWl-eF-3ZJ"/>
                             <constraint firstItem="NuS-wM-J1G" firstAttribute="leading" secondItem="lTQ-lm-LRm" secondAttribute="leading" constant="8" id="Owx-dd-Fm5"/>
                             <constraint firstItem="oQJ-ew-qXM" firstAttribute="centerY" secondItem="tKm-gz-dv3" secondAttribute="centerY" id="OzU-Oi-rcT"/>
@@ -160,6 +174,7 @@
                         <outlet property="locationField" destination="SoQ-IF-s4K" id="qKL-fS-bn6"/>
                         <outlet property="longField" destination="oQJ-ew-qXM" id="0p4-vj-MFw"/>
                         <outlet property="nameField" destination="9Dh-Tb-SyE" id="KwU-C4-dVq"/>
+                        <outlet property="plusButton" destination="uYU-at-8ox" id="dwF-ba-JNv"/>
                         <outlet property="submitButton" destination="Rg2-Fs-5bu" id="Kus-sT-1u2"/>
                         <outlet property="tagsField" destination="7k1-LM-0ia" id="U1M-SJ-6hw"/>
                     </connections>
@@ -171,7 +186,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1457" y="-906"/>
+            <point key="canvasLocation" x="1456.8" y="-906.29685157421295"/>
         </scene>
         <!--Events-->
         <scene sceneID="vPi-cY-tjA">

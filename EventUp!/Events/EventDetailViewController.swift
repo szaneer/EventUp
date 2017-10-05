@@ -41,7 +41,9 @@ class EventDetailViewController: UIViewController, FilterDelegate {
         dateLabel.text = dateFormatter.string(from: date)
         locationLabel.text = event.location
         tagsLabel.text = event.tags
-        
+        if let image = event.image {
+            eventView.image = EventUpClient.sharedInstance.base64DecodeImage(image)
+        }
         // Display the number of people that RSVP'd to the event
         attendeesLabel.text = "Attendees: \(event.peopleCount!)"
         eventMapView.removeAnnotations(eventMapView.annotations)

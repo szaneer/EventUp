@@ -107,6 +107,10 @@ class EventsViewController: UITableViewController, CLLocationManagerDelegate, Fi
         cell.attendeesLabel.text = "Attendees: \(event.peopleCount!)"
         cell.locationLabel.text = event.location
         cell.ratingLabel.text = "\(event.rating!)"
+        if let image = event.image {
+            print(image)
+            cell.eventView.image = EventUpClient.sharedInstance.base64DecodeImage(image)
+        }
         if let userLocation = locationManager.location?.coordinate {
             let coordinateMe = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
             let coordinateE = CLLocation(latitude: Double(event.latitude)!, longitude: Double(event.longitude)!)

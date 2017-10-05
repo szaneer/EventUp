@@ -56,13 +56,17 @@ class EventUpClient: NSObject {
         }
     }
     
-    func createEvent(eventData: [String: Any], success: @escaping (Event) ->(), failure: @escaping (Error) -> ()) {
+    func createEvent(eventData: [String: Any], eventImage: UIImage?, success: @escaping (Event) ->(), failure: @escaping (Error) -> ()) {
         var eventData = eventData
         let uid = UUID.init().uuidString
         eventData["peopleCount"] = 0;
         eventData["rating"] = 0.00
         eventData["ratingCount"] = 0
         eventData["uid"] = uid
+        if let eventImage = eventImage {
+            let imageString = base64EncodeImage(eventImage)
+            eventData["image"] = imageString
+        }
         let newEvent = db.collection("events").document(uid)
         newEvent.setData(eventData) { (error) in
             if let error = error {
@@ -130,13 +134,17 @@ class EventUpClient: NSObject {
         }
     }
     
-    func editEvent(event: Event, eventData: [String: Any], success: @escaping (Event) ->(), failure: @escaping (Error) -> ()) {
+    func editEvent(event: Event, eventData: [String: Any], eventImage: UIImage?, success: @escaping (Event) ->(), failure: @escaping (Error) -> ()) {
         var eventData = eventData
         let uid = event.uid!
         eventData["peopleCount"] = event.peopleCount
         eventData["rating"] = event.rating
         eventData["ratingCount"] = event.ratingCount
         eventData["uid"] = uid
+        if let eventImage = eventImage {
+            let imageString = base64EncodeImage(eventImage)
+            eventData["image"] = imageString
+        }
         let currEvent = db.collection("events").document(uid)
         currEvent.setData(eventData) { (error) in
             if let error = error {
@@ -145,5 +153,35 @@ class EventUpClient: NSObject {
                 success(Event(eventData: eventData))
             }
         }
+    }
+    
+    // Resize a given image using a given GCSize
+    func resizeImage(_ imageSize: CGSize, image: UIImage) -> Data {
+        UIGraphicsBeginImageContext(imageSize)
+        image.draw(in: CGRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        let resizedImage = UIImagePNGRepresentation(newImage!)
+        UIGraphicsEndImageContext()
+        return resizedImage!
+    }
+    
+    // Encode image to string
+    func base64EncodeImage(_ image: UIImage) -> String {
+        var imagedata = UIImagePNGRepresentation(image)
+        
+        // Resize the image if it exceeds the 2MB API limit
+        if ((imagedata?.count)! > 1048487) {
+            let oldSize: CGSize = image.size
+            let newSize: CGSize = CGSize(width: 400, height: oldSize.height / oldSize.width * 400)
+            imagedata = resizeImage(newSize, image: image)
+        }
+        
+        return imagedata!.base64EncodedString(options: .endLineWithCarriageReturn)
+    }
+    
+    func base64DecodeImage(_ data: String) -> UIImage {
+        let data = Data(base64Encoded: data, options: .ignoreUnknownCharacters)!
+        
+        return UIImage(data: data)!
     }
 }

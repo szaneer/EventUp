@@ -8,8 +8,9 @@
 
 import UIKit
 import Firebase
+import AVFoundation
 
-class EventCreateViewController: UIViewController {
+class EventCreateViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     @IBOutlet weak var eventView: UIImageView!
     @IBOutlet weak var nameField: UITextField!
@@ -23,6 +24,7 @@ class EventCreateViewController: UIViewController {
     @IBOutlet weak var submitButton: UIButton!
     var editEvent: Event?
     var delegate: FilterDelegate!
+    @IBOutlet weak var plusButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +44,9 @@ class EventCreateViewController: UIViewController {
         longField.text = editEvent!.longitude
         locationField.text = editEvent!.location
         infoView.text = editEvent!.info
+        if let image = editEvent!.image {
+            eventView.image = EventUpClient.sharedInstance.base64DecodeImage(image)
+        }
         submitButton.setTitle("Edit", for: .normal)
         submitButton.setTitle("Edit", for: .highlighted)
     }
@@ -64,7 +69,7 @@ class EventCreateViewController: UIViewController {
         eventInfo["location"] = locationField.text!
         eventInfo["info"] = infoView.text
         guard let editEvent = editEvent else {
-            EventUpClient.sharedInstance.createEvent(eventData: eventInfo, success: { (event) in
+            EventUpClient.sharedInstance.createEvent(eventData: eventInfo, eventImage: eventView.image, success: { (event) in
                 let alert = UIAlertController(title: "Success!", message: "The event was created successfully", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in self.onSuccessfulEventCreation()}))
                 self.present(alert, animated: true, completion: nil)
@@ -74,7 +79,7 @@ class EventCreateViewController: UIViewController {
             }
             return
         }
-        EventUpClient.sharedInstance.editEvent(event: editEvent, eventData: eventInfo, success: { (event) in
+        EventUpClient.sharedInstance.editEvent(event: editEvent, eventData: eventInfo, eventImage: eventView.image, success: { (event) in
             let alert = UIAlertController(title: "Success!", message: "The event was edited successfully", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in self.onSuccessfulEventCreation()}))
             self.present(alert, animated: true, completion: nil)
@@ -103,6 +108,26 @@ class EventCreateViewController: UIViewController {
         }
     }
     
+    @IBAction func onImage(_ sender: Any) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        guard let image = info[UIImagePickerControllerEditedImage] as? UIImage else {
+            picker.dismiss(animated: true, completion: nil)
+            return
+        }
+        
+        plusButton.setTitle("", for: .normal)
+        plusButton.setTitle("", for: .highlighted)
+        eventView.image = image
+        picker.dismiss(animated: true, completion: nil)
+        
+    }
     @IBAction func onTouchScreen(_ sender: Any) {
         resignFirstResponder()
     }

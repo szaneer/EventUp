@@ -2,6 +2,8 @@
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Upload event image</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -21,9 +23,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Get user's location</string>
+	<string>Get user&apos;s location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Get user's location</string>
+	<string>Get user&apos;s location</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
