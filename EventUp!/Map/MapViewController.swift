@@ -12,7 +12,7 @@ import Firebase
 import SVProgressHUD
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
-
+    
     @IBOutlet weak var eventMapView: MKMapView!
     var events: [Event] = []
     let locationManager = CLLocationManager()
@@ -25,7 +25,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         setupLocation()
         loadEvents()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -42,7 +42,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         locationManager.delegate = self
     }
-
+    
     
     
     @IBAction func onLocation(_ sender: Any) {
@@ -72,11 +72,20 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         annotation.coordinate = CLLocationCoordinate2D(latitude: Double(event.latitude)!, longitude: Double(event.longitude)!)
         annotation.event = event
         annotation.title = event.name
+        let heatCircle = MKCircle(center: annotation.coordinate, radius: CLLocationDistance(event.peopleCount * 100))
         eventMapView.addAnnotation(annotation)
+        eventMapView.add(heatCircle)
     }
     
     func goToDetail(event: Event) {
         performSegue(withIdentifier: "detailSegue", sender: event)
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKCircleRenderer(overlay: overlay)
+        renderer.fillColor = UIColor.cyan.withAlphaComponent(0.5)
+        renderer.strokeColor = UIColor.cyan.withAlphaComponent(0.8)
+        return renderer
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
@@ -108,7 +117,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
@@ -123,5 +132,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     
-
+    
 }
+
