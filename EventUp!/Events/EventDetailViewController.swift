@@ -46,7 +46,10 @@ class EventDetailViewController: UIViewController {
         eventMapView.setRegion(region, animated: true)
         eventMapView.addAnnotation(annotation)
     }
+    @IBAction func deleteEvent(_ sender: Any) {
 
+    }
+    
     @IBAction func rsvpUser(_ sender: Any) {
         
         
