@@ -70,11 +70,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             for event in events {
                 self.addEventToMap(event: event)
             }
-            view.isUserInteractionEnabled = true
+            self.view.isUserInteractionEnabled = true
             SVProgressHUD.dismiss()
         }) { (error) in
             print(error.localizedDescription)
-            view.isUserInteractionEnabled = true
+            self.view.isUserInteractionEnabled = true
             SVProgressHUD.dismiss()
         }
     }
