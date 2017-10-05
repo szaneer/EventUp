@@ -10,6 +10,8 @@ import UIKit
 
 class RSVPViewController: UIViewController {
     
+    var delegate: FilterDelegate!
+    
     @IBAction func rsvp(_ sender: Any) {
         
     }

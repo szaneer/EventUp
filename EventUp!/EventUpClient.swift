@@ -73,23 +73,24 @@ class EventUpClient: NSObject {
         }
     }
     
-    func rateEvent(rating: Double, uid: String, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
+    func rateEvent(rating: Double, uid: String, success: @escaping (Double) ->(), failure: @escaping (Error) -> ()) {
         let event = db.collection("events").document(uid)
         event.getDocument { (eventSnapshot, error) in
             if let error = error {
                 failure(error)
             } else {
-                let currRating = eventSnapshot?.value(forKey: "rating") as! Double
-                let ratingCount = eventSnapshot?.value(forKey: "ratingCount") as! Double
+                var eventData = eventSnapshot!.data()
+                let currRating = eventData["rating"] as! Double
+                let ratingCount = eventData["ratingCount"] as! Double
                 
                 let newRatingCount = ratingCount + 1
                 let newRating = (currRating * ratingCount + rating) / newRatingCount
                 
-                event.updateData(["rating": newRating, "ratingCount": newRating], completion: { (error) in
+                event.updateData(["rating": newRating, "ratingCount": ratingCount], completion: { (error) in
                     if let error = error {
                         failure(error)
                     } else {
-                        success()
+                        success(newRating)
                     }
                 })
             }
