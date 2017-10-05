@@ -58,6 +58,7 @@ class EventUpClient: NSObject {
     
     func createEvent(eventData: [String: Any], success: @escaping (Event) ->(), failure: @escaping (Error) -> ()) {
         var eventData = eventData
+        eventData["peopleCount"] = 0;
         eventData["rating"] = 0.00
         eventData["ratingCount"] = 0
         let newEvent = db.collection("events").document()

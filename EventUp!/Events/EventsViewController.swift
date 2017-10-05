@@ -14,13 +14,18 @@ class EventsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        Database.database().reference().child("events").observe(.value) { (snapshot) in
-            print(snapshot)
+        
+        
+        EventUpClient.sharedInstance.getEvents(success: { (events) in
+            print(events)
+        }) { (error) in
+            print(error)
         }
     }
 
