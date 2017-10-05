@@ -18,6 +18,8 @@ class Event: NSObject {
     var peopleCount: Int!
     var rating: Double!
     var ratingCount: Int!
+    var location: String!
+    var info: String!
     
     init(eventData: [String: Any]) {
         name = eventData["name"] as! String
@@ -28,5 +30,7 @@ class Event: NSObject {
         peopleCount = eventData["peopleCount"] as! Int
         rating = eventData["rating"] as! Double
         ratingCount = eventData["ratingCount"] as! Int
+        location = eventData["location"] as! String
+        info = eventData["info"] as! String
     }
 }

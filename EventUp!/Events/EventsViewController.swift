@@ -8,9 +8,12 @@
 
 import UIKit
 import Firebase
+import SVProgressHUD
 
 class EventsViewController: UITableViewController {
 
+    var events: [Event] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,12 +23,27 @@ class EventsViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
-        
+        tableView.estimatedRowHeight = 155
+        tableView.rowHeight = UITableViewAutomaticDimension
+        SVProgressHUD.show()
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(self.loadEvents), for: .valueChanged)
+        view.isUserInteractionEnabled = false
+        loadEvents()
+    }
+    
+    @objc func loadEvents() {
         EventUpClient.sharedInstance.getEvents(success: { (events) in
-            print(events)
+            self.events = events
+            self.tableView.reloadData()
+            SVProgressHUD.dismiss()
+            self.view.isUserInteractionEnabled = true
+            self.refreshControl?.endRefreshing()
         }) { (error) in
-            print(error)
+            print(error.localizedDescription)
+            SVProgressHUD.dismiss()
+            self.view.isUserInteractionEnabled = true
+            self.refreshControl?.endRefreshing()
         }
     }
 
@@ -38,12 +56,12 @@ class EventsViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return events.count
     }
 
     
@@ -52,6 +70,16 @@ class EventsViewController: UITableViewController {
 
         // Configure the cell...
 
+        let event = events[indexPath.row]
+        let date = Date(timeIntervalSince1970: event.date)
+        cell.nameLabel.text = event.name
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        cell.dateLabel.text = dateFormatter.string(from: date)
+        cell.tagLabel.text = event.tags
+        
+        cell.locationLabel.text = event.location
+        
         return cell
     }
     
@@ -93,14 +121,28 @@ class EventsViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        guard let segueID = segue.identifier else {
+            return
+        }
+        
+        switch segueID {
+        case "detailSegue":
+            let destination = segue.destination as! EventDetailViewController
+            let cell = sender as! EventCell
+            let indexPath = tableView.indexPath(for: cell)!
+            let event = events[indexPath.row]
+            destination.event = event
+        default:
+            return
+        }
     }
-    */
+    
 
 }
