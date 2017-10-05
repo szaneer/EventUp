@@ -11,17 +11,17 @@ import MapKit
 import Firebase
 import SVProgressHUD
 
-class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, FilterDelegate {
     
     @IBOutlet weak var eventMapView: MKMapView!
     var events: [Event] = []
     let locationManager = CLLocationManager()
-    let geoCoder = CLGeocoder()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         SVProgressHUD.show()
+        view.isUserInteractionEnabled = false
         setupLocation()
         loadEvents()
     }
@@ -54,15 +54,27 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
     }
     
+    func filter(type: String) {
+        return
+    }
+    
+    func refresh() {
+        SVProgressHUD.show()
+        loadEvents()
+    }
+    
+    
     func loadEvents() {
         EventUpClient.sharedInstance.getEvents(success: { (events) in
             self.events = events
             for event in events {
                 self.addEventToMap(event: event)
             }
+            view.isUserInteractionEnabled = true
             SVProgressHUD.dismiss()
         }) { (error) in
             print(error.localizedDescription)
+            view.isUserInteractionEnabled = true
             SVProgressHUD.dismiss()
         }
     }
@@ -129,6 +141,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         if id == "detailSegue" {
             let destination = segue.destination as! EventDetailViewController
             destination.event = sender as! Event
+            destination.delegate = self
         }
     }
     
