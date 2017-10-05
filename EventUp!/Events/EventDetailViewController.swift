@@ -121,6 +121,10 @@ class EventDetailViewController: UIViewController, FilterDelegate {
             let destination = segue.destination as! EventCreateViewController
             destination.editEvent = event
             destination.delegate = self
+        case "ratingSegue":
+            let destination = segue.destination as! RatingViewController
+            destination.event = event
+            destination.delegate = self
         default:
             return
         }

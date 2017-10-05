@@ -232,6 +232,12 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tqf-fr-MZj">
+                                            <rect key="frame" x="336" y="54" width="35" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="HSB-Xg-xVH" firstAttribute="leading" secondItem="c0R-VD-srr" secondAttribute="trailing" constant="8" id="BdH-Fn-RgQ"/>
@@ -242,6 +248,8 @@
                                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="c0R-VD-srr" secondAttribute="bottom" constant="8" id="NH8-qM-mI4"/>
                                         <constraint firstItem="5UM-rl-fFb" firstAttribute="leading" secondItem="c0R-VD-srr" secondAttribute="trailing" constant="8" id="OTE-qe-pLU"/>
                                         <constraint firstItem="g6q-KT-tb4" firstAttribute="top" secondItem="cOM-xH-1bQ" secondAttribute="bottom" constant="4" id="R2M-Wz-q2A"/>
+                                        <constraint firstItem="Tqf-fr-MZj" firstAttribute="top" secondItem="8mF-9L-Sk9" secondAttribute="bottom" constant="4" id="VCX-Yv-kmJ"/>
+                                        <constraint firstAttribute="trailing" secondItem="Tqf-fr-MZj" secondAttribute="trailing" constant="4" id="WtG-kO-zYp"/>
                                         <constraint firstItem="5UM-rl-fFb" firstAttribute="top" secondItem="g6q-KT-tb4" secondAttribute="bottom" constant="4" id="XHe-P3-fV4"/>
                                         <constraint firstItem="c0R-VD-srr" firstAttribute="leading" secondItem="CVt-IO-tmT" secondAttribute="leading" constant="8" id="ZTl-jN-6PE"/>
                                         <constraint firstItem="8mF-9L-Sk9" firstAttribute="top" secondItem="TX1-JW-ybQ" secondAttribute="bottom" constant="4" id="buh-Z1-O6S"/>
@@ -258,6 +266,7 @@
                                     <outlet property="eventView" destination="c0R-VD-srr" id="yo8-Tu-cW6"/>
                                     <outlet property="locationLabel" destination="g6q-KT-tb4" id="0dB-wC-RJJ"/>
                                     <outlet property="nameLabel" destination="cOM-xH-1bQ" id="sVq-Yn-8Z1"/>
+                                    <outlet property="ratingLabel" destination="Tqf-fr-MZj" id="AmD-5x-dy8"/>
                                     <outlet property="tagLabel" destination="HSB-Xg-xVH" id="lmz-AQ-O79"/>
                                     <segue destination="Bsj-OG-3Y9" kind="show" identifier="detailSegue" id="Pl2-jY-X1v"/>
                                 </connections>
@@ -502,7 +511,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="Rate"/>
                                     <connections>
-                                        <segue destination="hHX-S0-wp1" kind="show" id="LcK-Os-zJo"/>
+                                        <segue destination="hHX-S0-wp1" kind="show" identifier="ratingSegue" id="LcK-Os-zJo"/>
                                     </connections>
                                 </button>
                             </barButtonItem>
@@ -665,6 +674,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="SsQ-jO-dlL"/>
+        <segue reference="wIQ-b5-hbW"/>
     </inferredMetricsTieBreakers>
 </document>
