@@ -20,6 +20,7 @@ class EventCreateViewController: UIViewController {
     @IBOutlet weak var longField: UITextField!
     @IBOutlet weak var infoView: UITextView!
     
+    @IBOutlet weak var submitButton: UIButton!
     var editEvent: Event?
     var delegate: FilterDelegate!
     
@@ -27,7 +28,7 @@ class EventCreateViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        if let editEvent = editEvent {
+        if editEvent != nil {
             setupEdit()
         }
     }
@@ -41,6 +42,8 @@ class EventCreateViewController: UIViewController {
         longField.text = editEvent!.longitude
         locationField.text = editEvent!.location
         infoView.text = editEvent!.info
+        submitButton.setTitle("Edit", for: .normal)
+        submitButton.setTitle("Edit", for: .highlighted)
     }
     
     override func didReceiveMemoryWarning() {
