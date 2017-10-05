@@ -115,11 +115,12 @@ class EventsViewController: UITableViewController, CLLocationManagerDelegate, Fi
     
     func filter(type: String) {
         switch type {
-        case "distance":
-            events.sort(by: { (first, second) -> Bool in
-                first.name > second.name
-            })
         case "name":
+            events.sort(by: { (first, second) -> Bool in
+                first.name.lowercased() < second.name.lowercased()
+            })
+            break
+        case "distance":
             events.sort(by: { (first, second) -> Bool in
                 if let userLocation = locationManager.location?.coordinate {
                     let coordinateMe = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
@@ -127,13 +128,19 @@ class EventsViewController: UITableViewController, CLLocationManagerDelegate, Fi
                     let coordinateSecond = CLLocation(latitude: Double(second.latitude)!, longitude: Double(second.longitude)!)
                     let distanceFirst = Int(coordinateFirst.distance(from: coordinateMe) / 1609.0)
                     let distanceSecond = Int(coordinateSecond.distance(from: coordinateMe) / 1609.0)
-                    return distanceFirst > distanceSecond
+                    if distanceFirst > distanceSecond {
+                        return true
+                    }
+                    return false
                 }
                 return false
             })
+            break
         default:
             return
         }
+        
+        tableView.reloadData()
     }
     
     @IBAction func onTimeSwitch(_ sender: Any) {
