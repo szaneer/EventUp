@@ -381,7 +381,7 @@
         <!--Title-->
         <scene sceneID="0ON-wd-ROh">
             <objects>
-                <viewController id="Bsj-OG-3Y9" customClass="EventDetailViewController" customModule="EventUp_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EventDetail" id="Bsj-OG-3Y9" customClass="EventDetailViewController" customModule="EventUp_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9cM-ao-eT3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -482,10 +482,10 @@
                                     <rect key="frame" x="281" y="7" width="38" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="RSVP"/>
+                                    <connections>
+                                        <action selector="rsvpUser:" destination="Bsj-OG-3Y9" eventType="touchUpInside" id="hUY-xf-qM9"/>
+                                    </connections>
                                 </button>
-                                <connections>
-                                    <action selector="rsvp:" destination="7uZ-Ig-0P4" id="e5M-7j-KHH"/>
-                                </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
@@ -502,7 +502,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dgJ-ge-dPj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="7uZ-Ig-0P4" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1060" y="612"/>
         </scene>

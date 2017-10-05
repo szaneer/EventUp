@@ -47,6 +47,16 @@ class EventDetailViewController: UIViewController {
         eventMapView.addAnnotation(annotation)
     }
 
+    @IBAction func rsvpUser(_ sender: Any) {
+        
+        
+        EventUpClient.sharedInstance.checkInEvent(uid: event.uid, success: {
+            print("checkedin")
+            self.attendeesLabel.text = String(self.event.peopleCount + 1)
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
