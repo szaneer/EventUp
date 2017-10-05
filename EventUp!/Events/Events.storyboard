@@ -441,11 +441,13 @@
             </objects>
             <point key="canvasLocation" x="2545" y="563"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Events-->
         <scene sceneID="gVt-bv-1Cx">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Er6-YS-Nqi" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Events" id="ycB-PS-oCB"/>
                     <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="V51-GG-dIO">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
