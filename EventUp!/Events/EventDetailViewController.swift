@@ -53,6 +53,7 @@ class EventDetailViewController: UIViewController, FilterDelegate {
         eventMapView.setRegion(region, animated: true)
         eventMapView.addAnnotation(annotation)
     }
+    // Confirm then delete event
     @IBAction func deleteEvent(_ sender: Any) {
         let alert = UIAlertController(title: "Delete " + event.name, message: "Are you sure you want to delete this event?", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in
