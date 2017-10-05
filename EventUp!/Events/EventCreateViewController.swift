@@ -32,13 +32,13 @@ class EventCreateViewController: UIViewController {
     @IBAction func onCreate(_ sender: Any) {
         validateInput()
         var eventInfo = [String: Any]()
-        eventInfo["Name"] = nameField.text
-        eventInfo["Location"] = locationField.text
-        eventInfo["Tags"] = tagsField.text
+        eventInfo["name"] = nameField.text!
+        //eventInfo["Location"] = locationField.text
+        eventInfo["tags"] = tagsField.text!
         let date = Double(dateField.date.timeIntervalSince1970)
-        eventInfo["Date"] = date
-        eventInfo["LAT"] = Double(latField.text!)
-        eventInfo["LONG"] = Double(longField.text!)
+        eventInfo["date"] = date
+        eventInfo["latitude"] = latField.text!
+        eventInfo["longitude"] = longField.text!
         
         EventUpClient.sharedInstance.createEvent(eventData: eventInfo, success: { (event) in
             let alert = UIAlertController(title: "Success!", message: "The event was created successfully", preferredStyle: UIAlertControllerStyle.alert)

@@ -49,17 +49,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     func addEventToMap(event: Event) {
         DispatchQueue.global().async {
-            self.geoCoder.geocodeAddressString(event.location) { (placemarks: [CLPlacemark]?, error: Error?) in
-                if error != nil {
-                    print(error?.localizedDescription)
-                } else {
-                    if let placemark = placemarks?[0] {
-                        let coordinate = CLLocationCoordinate2DMake((placemark.location?.coordinate.latitude)!, (placemark.location?.coordinate.longitude)!)
-                        let annotation = EventAnnotation(coordinate: coordinate, title: event.name, event: event)
-                        self.eventMapView.addAnnotation(annotation)
-                    }
-                }
-            }
+//            self.geoCoder.geocodeAddressString(event.location) { (placemarks: [CLPlacemark]?, error: Error?) in
+//                if error != nil {
+//                    print(error?.localizedDescription)
+//                } else {
+//                    if let placemark = placemarks?[0] {
+//                        let coordinate = CLLocationCoordinate2DMake((placemark.location?.coordinate.latitude)!, (placemark.location?.coordinate.longitude)!)
+//                        let annotation = EventAnnotation(coordinate: coordinate, title: event.name, event: event)
+//                        self.eventMapView.addAnnotation(annotation)
+//                    }
+//                }
+//            }
         }
     }
     
