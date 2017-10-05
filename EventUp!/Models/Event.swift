@@ -10,14 +10,23 @@ import UIKit
 
 class Event: NSObject {
 
-    var email: String!
     var name: String!
-    var eventsAttended: Int!
-    var image: String!
+    var date: Double!
+    var longitude: String!
+    var latitude: String!
     var tags: String!
-    var location: String!
+    var peopleCount: Int!
+    var rating: Double!
+    var ratingCount: Int!
     
     init(eventData: [String: Any]) {
-        
+        name = eventData["name"] as! String
+        date = eventData["date"] as! Double
+        longitude = eventData["longitude"] as! String
+        latitude = eventData["latitude"] as! String
+        tags = eventData["tags"] as! String
+        peopleCount = eventData["peopleCount"] as! Int
+        rating = eventData["rating"] as! Double
+        ratingCount = eventData["ratingCount"] as! Int
     }
 }
