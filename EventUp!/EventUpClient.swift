@@ -102,9 +102,10 @@ class EventUpClient: NSObject {
             if let error = error {
                 failure(error)
             } else {
-                var currPeopleCount = eventSnapshot?.value(forKey: "peopleCount") as! Int
+                var eventData = eventSnapshot!.data()
+                var currPeopleCount = eventData["peopleCount"] as! Int
                 currPeopleCount += 1
-                
+                print(currPeopleCount)
                 event.updateData(["peopleCount": currPeopleCount], completion: { (error) in
                     if let error = error {
                         failure(error)
