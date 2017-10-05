@@ -13,7 +13,7 @@ import MapKit
 
 protocol FilterDelegate {
     func filter(type: String)
-    func refresh()
+    func refresh(event: Event?)
 }
 
 class EventsViewController: UITableViewController, CLLocationManagerDelegate, FilterDelegate {
@@ -49,7 +49,7 @@ class EventsViewController: UITableViewController, CLLocationManagerDelegate, Fi
         locationManager.delegate = self
     }
     
-    func refresh() {
+    func refresh(event: Event?) {
         SVProgressHUD.show()
         loadEvents()
     }
@@ -202,6 +202,9 @@ class EventsViewController: UITableViewController, CLLocationManagerDelegate, Fi
             destination.delegate = self
         case "filterSegue":
             let destination = segue.destination as! FilterViewController
+            destination.delegate = self
+        case "createSegue":
+            let destination = segue.destination as! EventCreateViewController
             destination.delegate = self
         default:
             return

@@ -170,7 +170,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="917.60000000000002" y="-789.35532233883066"/>
+            <point key="canvasLocation" x="1457" y="-906"/>
         </scene>
         <!--Events-->
         <scene sceneID="vPi-cY-tjA">
@@ -290,7 +290,7 @@
                         </button>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="Foq-4l-NrG">
                             <connections>
-                                <segue destination="8dI-5P-fZe" kind="show" id="wIQ-b5-hbW"/>
+                                <segue destination="8dI-5P-fZe" kind="show" identifier="createSegue" id="wIQ-b5-hbW"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -427,11 +427,19 @@
                                 <rect key="frame" x="0.0" y="234" width="375" height="384"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xmw-gu-r7P">
-                                <rect key="frame" x="279" y="134" width="87" height="30"/>
+                                <rect key="frame" x="280" y="155" width="87" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Delete Event"/>
                                 <connections>
                                     <action selector="deleteEvent:" destination="Bsj-OG-3Y9" eventType="touchUpInside" id="jND-KA-15o"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vmI-8b-Ott">
+                                <rect key="frame" x="290" y="122" width="69" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Edit Event"/>
+                                <connections>
+                                    <segue destination="8dI-5P-fZe" kind="show" identifier="editSegue" id="SsQ-jO-dlL"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -499,7 +507,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dgJ-ge-dPj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1060" y="612"/>
+            <point key="canvasLocation" x="1060" y="611.24437781109452"/>
         </scene>
         <!--Rating View Controller-->
         <scene sceneID="Or2-Vj-N8I">
@@ -631,4 +639,7 @@
             <point key="canvasLocation" x="-282" y="-81"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="SsQ-jO-dlL"/>
+    </inferredMetricsTieBreakers>
 </document>

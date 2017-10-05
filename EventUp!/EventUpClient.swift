@@ -96,6 +96,7 @@ class EventUpClient: NSObject {
         }
     }
     
+    
     func checkInEvent(uid: String, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
         let event = db.collection("events").document(uid)
         event.getDocument { (eventSnapshot, error) in
@@ -125,6 +126,23 @@ class EventUpClient: NSObject {
                 return
             }
             success()
+        }
+    }
+    
+    func editEvent(event: Event, eventData: [String: Any], success: @escaping (Event) ->(), failure: @escaping (Error) -> ()) {
+        var eventData = eventData
+        let uid = event.uid!
+        eventData["peopleCount"] = event.peopleCount
+        eventData["rating"] = event.rating
+        eventData["ratingCount"] = event.ratingCount
+        eventData["uid"] = uid
+        let currEvent = db.collection("events").document(uid)
+        currEvent.setData(eventData) { (error) in
+            if let error = error {
+                failure(error)
+            } else {
+                success(Event(eventData: eventData))
+            }
         }
     }
 }
