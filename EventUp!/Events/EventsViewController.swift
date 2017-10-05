@@ -77,7 +77,7 @@ class EventsViewController: UITableViewController {
         dateFormatter.dateFormat = "MM/dd/yyyy"
         cell.dateLabel.text = dateFormatter.string(from: date)
         cell.tagLabel.text = event.tags
-        
+        cell.attendeesLabel.text = "Attendees: \(event.peopleCount!)"
         cell.locationLabel.text = event.location
         
         return cell
