@@ -9,10 +9,17 @@
 import UIKit
 import Firebase
 import SVProgressHUD
+import MapKit
 
-class EventsViewController: UITableViewController {
+protocol FilterDelegate {
+    func filter(type: String)
+    func refresh()
+}
+
+class EventsViewController: UITableViewController, CLLocationManagerDelegate, FilterDelegate {
 
     var events: [Event] = []
+    let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +36,21 @@ class EventsViewController: UITableViewController {
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(self.loadEvents), for: .valueChanged)
         view.isUserInteractionEnabled = false
+        loadEvents()
+    }
+    
+    func setupLocation() {
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.requestWhenInUseAuthorization()
+        } else {
+            // Tell user to turn on location
+        }
+        
+        locationManager.delegate = self
+    }
+    
+    func refresh() {
+        SVProgressHUD.show()
         loadEvents()
     }
     
@@ -79,8 +101,39 @@ class EventsViewController: UITableViewController {
         cell.tagLabel.text = event.tags
         cell.attendeesLabel.text = "Attendees: \(event.peopleCount!)"
         cell.locationLabel.text = event.location
+        if let userLocation = locationManager.location?.coordinate {
+            let coordinateMe = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
+            let coordinateE = CLLocation(latitude: Double(event.latitude)!, longitude: Double(event.longitude)!)
+            
+            let distance = Int(coordinateE.distance(from: coordinateMe) / 1609.0)
+            cell.distanceLabel.text = "\(distance)mi"
+        }
+        
         
         return cell
+    }
+    
+    func filter(type: String) {
+        switch type {
+        case "distance":
+            events.sort(by: { (first, second) -> Bool in
+                first.name > second.name
+            })
+        case "name":
+            events.sort(by: { (first, second) -> Bool in
+                if let userLocation = locationManager.location?.coordinate {
+                    let coordinateMe = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
+                    let coordinateFirst = CLLocation(latitude: Double(first.latitude)!, longitude: Double(first.longitude)!)
+                    let coordinateSecond = CLLocation(latitude: Double(second.latitude)!, longitude: Double(second.longitude)!)
+                    let distanceFirst = Int(coordinateFirst.distance(from: coordinateMe) / 1609.0)
+                    let distanceSecond = Int(coordinateSecond.distance(from: coordinateMe) / 1609.0)
+                    return distanceFirst > distanceSecond
+                }
+                return false
+            })
+        default:
+            return
+        }
     }
     
     @IBAction func onTimeSwitch(_ sender: Any) {
@@ -139,6 +192,10 @@ class EventsViewController: UITableViewController {
             let indexPath = tableView.indexPath(for: cell)!
             let event = events[indexPath.row]
             destination.event = event
+            destination.delegate = self
+        case "filterSegue":
+            let destination = segue.destination as! FilterViewController
+            destination.delegate = self
         default:
             return
         }

@@ -22,6 +22,8 @@ class EventDetailViewController: UIViewController {
     @IBOutlet weak var eventMapView: MKMapView!
     
     var event: Event!
+    var delegate: FilterDelegate!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,16 +49,24 @@ class EventDetailViewController: UIViewController {
         eventMapView.addAnnotation(annotation)
     }
     @IBAction func deleteEvent(_ sender: Any) {
-        EventUpClient.sharedInstance.deleteEvent(uid: event.uid, success: {
-            let alert = UIAlertController(title: "Success!", message: "The event was successfully deleted", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in self.onSuccessful()}))
-            self.present(alert, animated: true, completion: nil)
-        }) { (error) in
-            print(error)
-        }
+        let alert = UIAlertController(title: "Delete " + event.name, message: "Are you sure you want to delete this event?", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in
+            EventUpClient.sharedInstance.deleteEvent(uid: self.event.uid, success: {
+                self.onSuccessful()
+            }) { (error) in
+                print(error)
+            }
+        
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+            
+        self.present(alert, animated: true, completion: nil)
+        
     }
     func onSuccessful() {
-        _ = self.navigationController?.popViewController(animated: true)
+        self.delegate.refresh()
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func rsvpUser(_ sender: Any) {

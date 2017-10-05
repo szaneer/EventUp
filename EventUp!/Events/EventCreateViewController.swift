@@ -71,6 +71,9 @@ class EventCreateViewController: UIViewController {
         }
     }
     
+    @IBAction func onTouchScreen(_ sender: Any) {
+        resignFirstResponder()
+    }
     /*
     // MARK: - Navigation
 

@@ -10,6 +10,11 @@ import UIKit
 
 class FilterViewController: UITableViewController {
 
+    @IBOutlet weak var nameSwitch: UISwitch!
+    @IBOutlet weak var distanceSwitch: UISwitch!
+    
+    var delegate: FilterDelegate!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,14 +34,23 @@ class FilterViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 1
     }
-
+    
+    @IBAction func onDistance(_ sender: Any) {
+        nameSwitch.isOn = false
+        delegate.filter(type: "distance")
+    }
+    
+    @IBAction func onName(_ sender: Any) {
+        distanceSwitch.isOn = false
+        delegate.filter(type: "name")
+    }
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
