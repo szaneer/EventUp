@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2951DB387623E6DCB57F303B /* Pods_EventUp_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00BEE0174A91D69362D7DEA /* Pods_EventUp_.framework */; };
+		7C3C6D591F861C2000511686 /* RSVPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3C6D581F861C2000511686 /* RSVPViewController.swift */; };
 		839240231F85BA07003C0DAF /* RatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839240221F85BA07003C0DAF /* RatingViewController.swift */; };
 		B5710CDA1F85D5DD000D1E70 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5710CD91F85D5DD000D1E70 /* ProfileViewController.swift */; };
 		B5710CDC1F85D607000D1E70 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5710CDB1F85D607000D1E70 /* Profile.storyboard */; };
@@ -34,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		0ECBAAF3044ED4B96DC08B27 /* Pods-EventUp!.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventUp!.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!.debug.xcconfig"; sourceTree = "<group>"; };
+		7C3C6D581F861C2000511686 /* RSVPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSVPViewController.swift; sourceTree = "<group>"; };
 		839240221F85BA07003C0DAF /* RatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingViewController.swift; sourceTree = "<group>"; };
 		A00BEE0174A91D69362D7DEA /* Pods_EventUp_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EventUp_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5710CD91F85D5DD000D1E70 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileViewController.swift; path = "EventUp!/Profile/ProfileViewController.swift"; sourceTree = SOURCE_ROOT; };
@@ -114,6 +116,7 @@
 				C76402221F7C45B400AA3F06 /* FilterViewController.swift */,
 				C764022F1F7DBF1400AA3F06 /* EventCreateViewController.swift */,
 				839240221F85BA07003C0DAF /* RatingViewController.swift */,
+				7C3C6D581F861C2000511686 /* RSVPViewController.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -326,11 +329,11 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!-resources.sh",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseAuthUI.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseFacebookAuthUI.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseGoogleAuthUI.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebasePhoneAuthUI.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseTwitterAuthUI.bundle",
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseFacebookAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseGoogleAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebasePhoneAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseTwitterAuthUI.bundle,
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterShareExtensionUIResources.bundle",
@@ -365,6 +368,7 @@
 				B5710CDA1F85D5DD000D1E70 /* ProfileViewController.swift in Sources */,
 				C764022A1F7DB97B00AA3F06 /* EventUpClient.swift in Sources */,
 				C7C5D37E1F5F2EA0001BCE38 /* AppDelegate.swift in Sources */,
+				7C3C6D591F861C2000511686 /* RSVPViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
