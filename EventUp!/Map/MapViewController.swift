@@ -13,6 +13,7 @@ import Firebase
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
 
     @IBOutlet weak var eventMapView: MKMapView!
+    var events: [Event] = []
     let locationManager = CLLocationManager()
     let geoCoder = CLGeocoder()
     
@@ -20,6 +21,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupLocation()
+        //loadEvents()
     }
 
     override func didReceiveMemoryWarning() {
@@ -39,29 +41,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         locationManager.delegate = self
     }
 
-    func loadEvents() {
-//        EventUpClient.sharedInstance.getCurrEvent { (events) in
-//            for event in events {
-//                self.addEventToMap(event: event)
-//            }
-//        }
-    }
     
-    func addEventToMap(event: Event) {
-        DispatchQueue.global().async {
-//            self.geoCoder.geocodeAddressString(event.location) { (placemarks: [CLPlacemark]?, error: Error?) in
-//                if error != nil {
-//                    print(error?.localizedDescription)
-//                } else {
-//                    if let placemark = placemarks?[0] {
-//                        let coordinate = CLLocationCoordinate2DMake((placemark.location?.coordinate.latitude)!, (placemark.location?.coordinate.longitude)!)
-//                        let annotation = EventAnnotation(coordinate: coordinate, title: event.name, event: event)
-//                        self.eventMapView.addAnnotation(annotation)
-//                    }
-//                }
-//            }
-        }
-    }
     
     @IBAction func onLocation(_ sender: Any) {
         if let userLocation = locationManager.location?.coordinate {
