@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2951DB387623E6DCB57F303B /* Pods_EventUp_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00BEE0174A91D69362D7DEA /* Pods_EventUp_.framework */; };
+		B5710CDA1F85D5DD000D1E70 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5710CD91F85D5DD000D1E70 /* ProfileViewController.swift */; };
+		B5710CDC1F85D607000D1E70 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5710CDB1F85D607000D1E70 /* Profile.storyboard */; };
 		C764020C1F7959DF00AA3F06 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C764020B1F7959DF00AA3F06 /* Map.storyboard */; };
 		C764020E1F795AA500AA3F06 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C764020D1F795AA500AA3F06 /* MapViewController.swift */; };
 		C76402111F7975E700AA3F06 /* Events.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C76402101F7975E700AA3F06 /* Events.storyboard */; };
@@ -32,6 +34,8 @@
 /* Begin PBXFileReference section */
 		0ECBAAF3044ED4B96DC08B27 /* Pods-EventUp!.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventUp!.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!.debug.xcconfig"; sourceTree = "<group>"; };
 		A00BEE0174A91D69362D7DEA /* Pods_EventUp_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EventUp_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5710CD91F85D5DD000D1E70 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileViewController.swift; path = "EventUp!/Profile/ProfileViewController.swift"; sourceTree = SOURCE_ROOT; };
+		B5710CDB1F85D607000D1E70 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		B8642049167ECB3A8DF5E8AB /* Pods-EventUp!.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventUp!.release.xcconfig"; path = "Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!.release.xcconfig"; sourceTree = "<group>"; };
 		C764020B1F7959DF00AA3F06 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		C764020D1F795AA500AA3F06 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -76,6 +80,15 @@
 				B8642049167ECB3A8DF5E8AB /* Pods-EventUp!.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		B5710CD81F85D5AB000D1E70 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				B5710CD91F85D5DD000D1E70 /* ProfileViewController.swift */,
+				B5710CDB1F85D607000D1E70 /* Profile.storyboard */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		C764020A1F7959CE00AA3F06 /* Map */ = {
@@ -148,6 +161,7 @@
 		C7C5D37C1F5F2EA0001BCE38 /* EventUp! */ = {
 			isa = PBXGroup;
 			children = (
+				B5710CD81F85D5AB000D1E70 /* Profile */,
 				C76402311F7F141B00AA3F06 /* Main */,
 				C76402261F7DB8A400AA3F06 /* Models */,
 				C764020F1F7975D800AA3F06 /* Events */,
@@ -230,6 +244,7 @@
 				C7C5D3831F5F2EA0001BCE38 /* Main.storyboard in Resources */,
 				C764020C1F7959DF00AA3F06 /* Map.storyboard in Resources */,
 				C76402111F7975E700AA3F06 /* Events.storyboard in Resources */,
+				B5710CDC1F85D607000D1E70 /* Profile.storyboard in Resources */,
 				C7C164641F852AF6007226FA /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -345,6 +360,7 @@
 				C764020E1F795AA500AA3F06 /* MapViewController.swift in Sources */,
 				C764021D1F79891300AA3F06 /* EventMapViewController.swift in Sources */,
 				C764021F1F7C34B900AA3F06 /* EventDetailViewController.swift in Sources */,
+				B5710CDA1F85D5DD000D1E70 /* ProfileViewController.swift in Sources */,
 				C764022A1F7DB97B00AA3F06 /* EventUpClient.swift in Sources */,
 				C7C5D37E1F5F2EA0001BCE38 /* AppDelegate.swift in Sources */,
 			);
