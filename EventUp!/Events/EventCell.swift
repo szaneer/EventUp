@@ -16,6 +16,7 @@ class EventCell: UITableViewCell {
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var tagLabel: UILabel!
+    // added the attendees label here
     @IBOutlet weak var attendeesLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
