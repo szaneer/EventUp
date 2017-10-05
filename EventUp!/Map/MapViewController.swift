@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import Firebase
+import SVProgressHUD
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
 
@@ -20,6 +21,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        SVProgressHUD.show()
         setupLocation()
         loadEvents()
     }
@@ -58,8 +60,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             for event in events {
                 self.addEventToMap(event: event)
             }
+            SVProgressHUD.dismiss()
         }) { (error) in
             print(error.localizedDescription)
+            SVProgressHUD.dismiss()
         }
     }
     
