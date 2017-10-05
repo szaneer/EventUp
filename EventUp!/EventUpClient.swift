@@ -116,4 +116,15 @@ class EventUpClient: NSObject {
             }
         }
     }
+    
+    func deleteEvent(uid: String, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
+        let event = db.collection("events").document(uid)
+        event.delete { (error) in
+            if let error = error {
+                failure(error)
+                return
+            }
+            success()
+        }
+    }
 }
