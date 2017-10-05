@@ -79,6 +79,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         if control == view.rightCalloutAccessoryView {
             let eventAnnotation = view.annotation as! EventAnnotation
             goToDetail(event: eventAnnotation.event)
+        } else if control == view.leftCalloutAccessoryView {
+            let eventAnnotation = view.annotation as! EventAnnotation
+            let coordinate = CLLocationCoordinate2D(latitude: Double(eventAnnotation.event.latitude)!, longitude: Double(eventAnnotation.event.longitude)!)
+            let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))
+            mapItem.name = eventAnnotation.event.name
+            mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
         }
     }
     
@@ -87,8 +93,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             return nil
         }
         let annotationView = MKAnnotationView(annotation: eventAnnotation, reuseIdentifier: nil)
-        let annotationButton = UIButton(type: .detailDisclosure)
-        annotationView.rightCalloutAccessoryView = annotationButton
+        annotationView.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        annotationView.leftCalloutAccessoryView = UIButton(type: .detailDisclosure)
         annotationView.canShowCallout = true
         annotationView.isEnabled = true
         let annotationImage = UIImage(named: "EventAnnotation")
