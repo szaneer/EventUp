@@ -19,6 +19,7 @@ protocol FilterDelegate {
 class EventsViewController: UITableViewController, CLLocationManagerDelegate, FilterDelegate {
 
     var events: [Event] = []
+    var currFilter: String?
     let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
@@ -61,6 +62,10 @@ class EventsViewController: UITableViewController, CLLocationManagerDelegate, Fi
             SVProgressHUD.dismiss()
             self.view.isUserInteractionEnabled = true
             self.refreshControl?.endRefreshing()
+            guard let filter = self.currFilter else {
+                return
+            }
+            self.filter(type: filter)
         }) { (error) in
             print(error.localizedDescription)
             SVProgressHUD.dismiss()
@@ -114,6 +119,7 @@ class EventsViewController: UITableViewController, CLLocationManagerDelegate, Fi
     }
     
     func filter(type: String) {
+        currFilter = type
         switch type {
         case "name":
             events.sort(by: { (first, second) -> Bool in
@@ -134,6 +140,11 @@ class EventsViewController: UITableViewController, CLLocationManagerDelegate, Fi
                     return false
                 }
                 return false
+            })
+            break
+        case "time":
+            events.sort(by: { (first, second) -> Bool in
+                first.date < second.date
             })
             break
         default:
