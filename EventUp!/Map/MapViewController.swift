@@ -94,7 +94,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
         let annotationView = MKAnnotationView(annotation: eventAnnotation, reuseIdentifier: nil)
         annotationView.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-        annotationView.leftCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        let navButton = UIButton(type: .detailDisclosure)
+        annotationView.leftCalloutAccessoryView = navButton
         annotationView.canShowCallout = true
         annotationView.isEnabled = true
         let annotationImage = UIImage(named: "EventAnnotation")
