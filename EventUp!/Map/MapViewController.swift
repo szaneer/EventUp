@@ -21,7 +21,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupLocation()
-        //loadEvents()
+        loadEvents()
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,14 +51,66 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
         
     }
-    /*
+    
+    func loadEvents() {
+        EventUpClient.sharedInstance.getEvents(success: { (events) in
+            self.events = events
+            for event in events {
+                self.addEventToMap(event: event)
+            }
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+    }
+    
+    func addEventToMap(event: Event) {
+        let annotation = EventAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D(latitude: Double(event.latitude)!, longitude: Double(event.longitude)!)
+        annotation.event = event
+        annotation.title = event.name
+        eventMapView.addAnnotation(annotation)
+    }
+    
+    func goToDetail(event: Event) {
+        performSegue(withIdentifier: "detailSegue", sender: event)
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if control == view.rightCalloutAccessoryView {
+            let eventAnnotation = view.annotation as! EventAnnotation
+            goToDetail(event: eventAnnotation.event)
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let eventAnnotation = annotation as? EventAnnotation else {
+            return nil
+        }
+        let annotationView = MKAnnotationView(annotation: eventAnnotation, reuseIdentifier: nil)
+        let annotationButton = UIButton(type: .detailDisclosure)
+        annotationView.rightCalloutAccessoryView = annotationButton
+        annotationView.canShowCallout = true
+        annotationView.isEnabled = true
+        let annotationImage = UIImage(named: "EventAnnotation")
+        annotationView.image = annotationImage
+        return annotationView
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        guard let id = segue.identifier else {
+            return
+        }
+        
+        if id == "detailSegue" {
+            let destination = segue.destination as! EventDetailViewController
+            destination.event = sender as! Event
+        }
     }
-    */
+    
 
 }

@@ -12,6 +12,8 @@
 		839240231F85BA07003C0DAF /* RatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839240221F85BA07003C0DAF /* RatingViewController.swift */; };
 		B5710CDA1F85D5DD000D1E70 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5710CD91F85D5DD000D1E70 /* ProfileViewController.swift */; };
 		B5710CDC1F85D607000D1E70 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5710CDB1F85D607000D1E70 /* Profile.storyboard */; };
+		C72B02B71F8692F1005E7B97 /* EventAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72B02B61F8692F1005E7B97 /* EventAnnotation.swift */; };
+		C72B02B91F869BD4005E7B97 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C72B02B81F869B8E005E7B97 /* Assets.xcassets */; };
 		C764020C1F7959DF00AA3F06 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C764020B1F7959DF00AA3F06 /* Map.storyboard */; };
 		C764020E1F795AA500AA3F06 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C764020D1F795AA500AA3F06 /* MapViewController.swift */; };
 		C76402111F7975E700AA3F06 /* Events.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C76402101F7975E700AA3F06 /* Events.storyboard */; };
@@ -23,13 +25,11 @@
 		C76402231F7C45B400AA3F06 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76402221F7C45B400AA3F06 /* FilterViewController.swift */; };
 		C76402281F7DB8C500AA3F06 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76402271F7DB8C500AA3F06 /* Event.swift */; };
 		C764022A1F7DB97B00AA3F06 /* EventUpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76402291F7DB97B00AA3F06 /* EventUpClient.swift */; };
-		C764022E1F7DBD4800AA3F06 /* EventAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C764022D1F7DBD4800AA3F06 /* EventAnnotation.swift */; };
 		C76402301F7DBF1400AA3F06 /* EventCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C764022F1F7DBF1400AA3F06 /* EventCreateViewController.swift */; };
 		C7C164641F852AF6007226FA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C7C164631F852AE6007226FA /* GoogleService-Info.plist */; };
 		C7C5D37E1F5F2EA0001BCE38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C5D37D1F5F2EA0001BCE38 /* AppDelegate.swift */; };
 		C7C5D3801F5F2EA0001BCE38 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C5D37F1F5F2EA0001BCE38 /* ViewController.swift */; };
 		C7C5D3831F5F2EA0001BCE38 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7C5D3811F5F2EA0001BCE38 /* Main.storyboard */; };
-		C7C5D3851F5F2EA0001BCE38 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7C5D3841F5F2EA0001BCE38 /* Assets.xcassets */; };
 		C7C5D3881F5F2EA0001BCE38 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7C5D3861F5F2EA0001BCE38 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +41,8 @@
 		B5710CD91F85D5DD000D1E70 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileViewController.swift; path = "EventUp!/Profile/ProfileViewController.swift"; sourceTree = SOURCE_ROOT; };
 		B5710CDB1F85D607000D1E70 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		B8642049167ECB3A8DF5E8AB /* Pods-EventUp!.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventUp!.release.xcconfig"; path = "Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!.release.xcconfig"; sourceTree = "<group>"; };
+		C72B02B61F8692F1005E7B97 /* EventAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAnnotation.swift; sourceTree = "<group>"; };
+		C72B02B81F869B8E005E7B97 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C764020B1F7959DF00AA3F06 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		C764020D1F795AA500AA3F06 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C76402101F7975E700AA3F06 /* Events.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Events.storyboard; sourceTree = "<group>"; };
@@ -52,14 +54,12 @@
 		C76402221F7C45B400AA3F06 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		C76402271F7DB8C500AA3F06 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		C76402291F7DB97B00AA3F06 /* EventUpClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventUpClient.swift; sourceTree = "<group>"; };
-		C764022D1F7DBD4800AA3F06 /* EventAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAnnotation.swift; sourceTree = "<group>"; };
 		C764022F1F7DBF1400AA3F06 /* EventCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCreateViewController.swift; sourceTree = "<group>"; };
 		C7C164631F852AE6007226FA /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C7C5D37A1F5F2EA0001BCE38 /* EventUp!.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EventUp!.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7C5D37D1F5F2EA0001BCE38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7C5D37F1F5F2EA0001BCE38 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C7C5D3821F5F2EA0001BCE38 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C7C5D3841F5F2EA0001BCE38 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7C5D3871F5F2EA0001BCE38 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7C5D3891F5F2EA0001BCE38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,7 +100,6 @@
 			children = (
 				C764020B1F7959DF00AA3F06 /* Map.storyboard */,
 				C764020D1F795AA500AA3F06 /* MapViewController.swift */,
-				C764022D1F7DBD4800AA3F06 /* EventAnnotation.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -134,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				C76402271F7DB8C500AA3F06 /* Event.swift */,
+				C72B02B61F8692F1005E7B97 /* EventAnnotation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -167,6 +167,7 @@
 		C7C5D37C1F5F2EA0001BCE38 /* EventUp! */ = {
 			isa = PBXGroup;
 			children = (
+				C72B02B81F869B8E005E7B97 /* Assets.xcassets */,
 				B5710CD81F85D5AB000D1E70 /* Profile */,
 				C76402311F7F141B00AA3F06 /* Main */,
 				C76402261F7DB8A400AA3F06 /* Models */,
@@ -174,7 +175,6 @@
 				C764020A1F7959CE00AA3F06 /* Map */,
 				C7C5D37D1F5F2EA0001BCE38 /* AppDelegate.swift */,
 				C7C5D37F1F5F2EA0001BCE38 /* ViewController.swift */,
-				C7C5D3841F5F2EA0001BCE38 /* Assets.xcassets */,
 				C7C5D3861F5F2EA0001BCE38 /* LaunchScreen.storyboard */,
 				C7C5D3891F5F2EA0001BCE38 /* Info.plist */,
 				C76402291F7DB97B00AA3F06 /* EventUpClient.swift */,
@@ -246,10 +246,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7C5D3881F5F2EA0001BCE38 /* LaunchScreen.storyboard in Resources */,
-				C7C5D3851F5F2EA0001BCE38 /* Assets.xcassets in Resources */,
 				C7C5D3831F5F2EA0001BCE38 /* Main.storyboard in Resources */,
 				C764020C1F7959DF00AA3F06 /* Map.storyboard in Resources */,
 				C76402111F7975E700AA3F06 /* Events.storyboard in Resources */,
+				C72B02B91F869BD4005E7B97 /* Assets.xcassets in Resources */,
 				B5710CDC1F85D607000D1E70 /* Profile.storyboard in Resources */,
 				C7C164641F852AF6007226FA /* GoogleService-Info.plist in Resources */,
 			);
@@ -360,13 +360,13 @@
 				C76402231F7C45B400AA3F06 /* FilterViewController.swift in Sources */,
 				839240231F85BA07003C0DAF /* RatingViewController.swift in Sources */,
 				C76402281F7DB8C500AA3F06 /* Event.swift in Sources */,
-				C764022E1F7DBD4800AA3F06 /* EventAnnotation.swift in Sources */,
 				C76402171F79782100AA3F06 /* EventCell.swift in Sources */,
 				C764020E1F795AA500AA3F06 /* MapViewController.swift in Sources */,
 				C764021D1F79891300AA3F06 /* EventMapViewController.swift in Sources */,
 				C764021F1F7C34B900AA3F06 /* EventDetailViewController.swift in Sources */,
 				B5710CDA1F85D5DD000D1E70 /* ProfileViewController.swift in Sources */,
 				C764022A1F7DB97B00AA3F06 /* EventUpClient.swift in Sources */,
+				C72B02B71F8692F1005E7B97 /* EventAnnotation.swift in Sources */,
 				C7C5D37E1F5F2EA0001BCE38 /* AppDelegate.swift in Sources */,
 				7C3C6D591F861C2000511686 /* RSVPViewController.swift in Sources */,
 			);
