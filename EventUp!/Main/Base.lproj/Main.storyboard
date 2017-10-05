@@ -16,10 +16,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="5zg-6s-Kcf" kind="relationship" relationship="viewControllers" id="qVu-H1-Uf4"/>
                         <segue destination="PQ7-kR-9q4" kind="relationship" relationship="viewControllers" id="EPN-Vf-5QG"/>
+                        <segue destination="6fI-ZX-f4f" kind="relationship" relationship="viewControllers" id="pjt-4r-FKo"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lJe-5J-UTm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -34,7 +36,17 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0kS-Jh-Gp8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="546" y="4"/>
+            <point key="canvasLocation" x="599" y="4"/>
+        </scene>
+        <!--Profile-->
+        <scene sceneID="T9d-vg-Bql">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Profile" id="6fI-ZX-f4f" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="JyN-ts-lSg"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="14y-cJ-V7d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="600" y="136"/>
         </scene>
         <!--Map-->
         <scene sceneID="Y0Q-Kg-8e5">
@@ -44,7 +56,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fgg-57-6gF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="612" y="315"/>
+            <point key="canvasLocation" x="611" y="264"/>
         </scene>
     </scenes>
 </document>
