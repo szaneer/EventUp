@@ -9,12 +9,11 @@ target 'EventUp!' do
   pod 'Firebase'
   pod 'Firebase/Database'
   pod 'Firebase/Firestore'
-  pod 'Alamofire'
-  pod 'AlamofireImage'
   pod 'FirebaseUI/Auth'
   pod 'FirebaseUI/Google'
   pod 'FirebaseUI/Facebook'
   pod 'FirebaseUI/Twitter'
   pod 'FirebaseUI/Phone'
+  pod 'SVProgressHUD'
 
 end

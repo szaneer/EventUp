@@ -14,17 +14,28 @@ class EventDetailViewController: UIViewController {
     @IBOutlet weak var eventView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
-    @IBOutlet weak var dateLabel: UIDatePicker!
+    @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var tagsLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var attendeesLabel: UILabel!
     @IBOutlet weak var eventMapView: MKMapView!
     
+    var event: Event!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        nameLabel.text = event.name
+        descriptionLabel.text = "sdjfkjlsdbfkjhsdkghkfngkjdfnkghdkfhgkdfjgjdhfkjgnkdjfnbkjdfnkvjndfkjnvkkxhfhjjhkjhkjkjhkjkhjkhjkjkjkjkjkjkkokjhjkhjijhbghjh"
+        descriptionLabel.sizeToFit()
+        let date = Date(timeIntervalSince1970: event.date)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        dateLabel.text = dateFormatter.string(from: date)
+        locationLabel.text = event.location
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D(latitude: Double(event.latitude)!, longitude: Double(event.longitude)!)
     }
 
     override func didReceiveMemoryWarning() {
