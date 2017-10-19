@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import SVProgressHUD
 
 class LoginViewController: UIViewController {
 
@@ -25,7 +26,30 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func onLogin(_ sender: Any) {
+        view.isUserInteractionEnabled = false
+        SVProgressHUD.show()
+        guard let email = emailField.text, !email.isEmpty else {
+            view.isUserInteractionEnabled = true
+            SVProgressHUD.dismiss()
+            return
+        }
         
+        guard let password = passwordField.text, !password.isEmpty else {
+            view.isUserInteractionEnabled = true
+            SVProgressHUD.dismiss()
+            return
+        }
+        
+        let userData = ["email": email, "password": password]
+        EventUpClient.sharedInstance.loginUser(userData: userData, success: { (user) in
+            self.view.isUserInteractionEnabled = true
+            SVProgressHUD.dismiss()
+            self.performSegue(withIdentifier: "loginSegue", sender: nil)
+        }) { (error) in
+            print(error.localizedDescription)
+            self.view.isUserInteractionEnabled = true
+            SVProgressHUD.dismiss()
+        }
     }
     /*
     // MARK: - Navigation

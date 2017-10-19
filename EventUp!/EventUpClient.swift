@@ -212,4 +212,17 @@ class EventUpClient: NSObject {
             }
         }
     }
+    
+    func loginUser(userData: [String: Any], success: @escaping (User) ->(), failure: @escaping (Error) -> ()) {
+        var userData = userData
+        let email = userData["email"] as! String
+        let password = userData["password"] as! String
+        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+            if let error = error {
+                failure(error)
+            } else if let user = user {
+                success(user)
+            }
+        }
+    }
 }

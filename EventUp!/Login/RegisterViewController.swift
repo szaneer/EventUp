@@ -31,30 +31,44 @@ class RegisterViewController: UIViewController, UINavigationControllerDelegate, 
         view.isUserInteractionEnabled = false
         SVProgressHUD.show()
         guard let userImage = userImageView.image else {
+            view.isUserInteractionEnabled = true
+            SVProgressHUD.dismiss()
             return
         }
         
         guard let username = usernameField.text, !username.isEmpty else {
+            view.isUserInteractionEnabled = true
+            SVProgressHUD.dismiss()
             return
         }
         
         guard let email = emailField.text, !email.isEmpty else {
+            view.isUserInteractionEnabled = true
+            SVProgressHUD.dismiss()
             return
         }
         
         guard let password = passwordField.text, !password.isEmpty else {
+            view.isUserInteractionEnabled = true
+            SVProgressHUD.dismiss()
             return
         }
         
         if password.count < 6 {
+            view.isUserInteractionEnabled = true
+            SVProgressHUD.dismiss()
             return
         }
         
         guard let confirmPassword = confirmPasswordField.text, !confirmPassword.isEmpty else {
+            view.isUserInteractionEnabled = true
+            SVProgressHUD.dismiss()
             return
         }
         
         if password != confirmPassword {
+            view.isUserInteractionEnabled = true
+            SVProgressHUD.dismiss()
             return
         }
         
