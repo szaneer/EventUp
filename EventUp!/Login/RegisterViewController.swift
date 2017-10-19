@@ -48,8 +48,8 @@ class RegisterViewController: UIViewController, UINavigationControllerDelegate, 
             return
         }
         
-        guard let email = emailField.text, !email.isEmpty else {
-            let alert = UIAlertController(title: "Error", message: "Input email.", preferredStyle: .alert)
+        guard let email = emailField.text, !email.isEmpty, email.isValidEmail() else {
+            let alert = UIAlertController(title: "Error", message: "Input valid email.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
             view.isUserInteractionEnabled = true
@@ -67,7 +67,7 @@ class RegisterViewController: UIViewController, UINavigationControllerDelegate, 
         }
         
         if password.count < 6 {
-            let alert = UIAlertController(title: "Error", message: "Password must be atleast 5 characters.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Error", message: "Password must be atleast 6 characters.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
             view.isUserInteractionEnabled = true

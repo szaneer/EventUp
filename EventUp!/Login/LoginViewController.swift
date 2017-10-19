@@ -28,8 +28,8 @@ class LoginViewController: UIViewController {
     @IBAction func onLogin(_ sender: Any) {
         view.isUserInteractionEnabled = false
         SVProgressHUD.show()
-        guard let email = emailField.text, !email.isEmpty else {
-            let alert = UIAlertController(title: "Error", message: "Enter email.", preferredStyle: .alert)
+        guard let email = emailField.text, !email.isEmpty, email.isValidEmail() else {
+            let alert = UIAlertController(title: "Error", message: "Enter valid email.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
             view.isUserInteractionEnabled = true
