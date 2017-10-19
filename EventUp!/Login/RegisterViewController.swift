@@ -31,42 +31,63 @@ class RegisterViewController: UIViewController, UINavigationControllerDelegate, 
         view.isUserInteractionEnabled = false
         SVProgressHUD.show()
         guard let userImage = userImageView.image else {
+            let alert = UIAlertController(title: "Error", message: "Select a user image.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             view.isUserInteractionEnabled = true
             SVProgressHUD.dismiss()
             return
         }
         
         guard let username = usernameField.text, !username.isEmpty else {
+            let alert = UIAlertController(title: "Error", message: "Input username.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             view.isUserInteractionEnabled = true
             SVProgressHUD.dismiss()
             return
         }
         
         guard let email = emailField.text, !email.isEmpty else {
+            let alert = UIAlertController(title: "Error", message: "Input email.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             view.isUserInteractionEnabled = true
             SVProgressHUD.dismiss()
             return
         }
         
         guard let password = passwordField.text, !password.isEmpty else {
+            let alert = UIAlertController(title: "Error", message: "Input password.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             view.isUserInteractionEnabled = true
             SVProgressHUD.dismiss()
             return
         }
         
         if password.count < 6 {
+            let alert = UIAlertController(title: "Error", message: "Password must be atleast 5 characters.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             view.isUserInteractionEnabled = true
             SVProgressHUD.dismiss()
             return
         }
         
         guard let confirmPassword = confirmPasswordField.text, !confirmPassword.isEmpty else {
+            let alert = UIAlertController(title: "Error", message: "Passwords must match.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             view.isUserInteractionEnabled = true
             SVProgressHUD.dismiss()
             return
         }
         
         if password != confirmPassword {
+            let alert = UIAlertController(title: "Error", message: "Passwords must match.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             view.isUserInteractionEnabled = true
             SVProgressHUD.dismiss()
             return

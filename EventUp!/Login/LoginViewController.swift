@@ -29,12 +29,18 @@ class LoginViewController: UIViewController {
         view.isUserInteractionEnabled = false
         SVProgressHUD.show()
         guard let email = emailField.text, !email.isEmpty else {
+            let alert = UIAlertController(title: "Error", message: "Enter email.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             view.isUserInteractionEnabled = true
             SVProgressHUD.dismiss()
             return
         }
         
         guard let password = passwordField.text, !password.isEmpty else {
+            let alert = UIAlertController(title: "Error", message: "Enter password.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             view.isUserInteractionEnabled = true
             SVProgressHUD.dismiss()
             return
@@ -46,6 +52,9 @@ class LoginViewController: UIViewController {
             SVProgressHUD.dismiss()
             self.performSegue(withIdentifier: "loginSegue", sender: nil)
         }) { (error) in
+            let alert = UIAlertController(title: "Error", message: "Issue with signing in.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             print(error.localizedDescription)
             self.view.isUserInteractionEnabled = true
             SVProgressHUD.dismiss()
