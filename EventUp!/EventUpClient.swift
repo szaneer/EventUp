@@ -225,4 +225,17 @@ class EventUpClient: NSObject {
             }
         }
     }
+    
+    func getUserInfo(uid: String, success: @escaping (EventUser) -> (), failure: @escaping (Error) -> ()) {
+        let users = db.collection("users").document(uid)
+        users.getDocument { (userSnapshot, error) in
+            if let error = error {
+                failure(error)
+            } else if let userSnapshot = userSnapshot {
+                let user = EventUser(eventData: userSnapshot.data())
+                success(user)
+            }
+        }
+    }
+    
 }

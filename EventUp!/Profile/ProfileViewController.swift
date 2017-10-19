@@ -2,85 +2,58 @@
 //  ProfileViewController.swift
 //  EventUp!
 //
-//  Created by Sammy on 10/4/17.
+//  Created by Siraj Zaneer on 10/18/17.
 //  Copyright © 2017 Siraj Zaneer. All rights reserved.
 //
 
 import UIKit
+import SVProgressHUD
+import Firebase
 
-class ProfileViewController: UITableViewController {
-
+class ProfileViewController: UIViewController {
+    @IBOutlet weak var userImageView: UIImageView!
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var ratingLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        // Do any additional setup after loading the view.
+        
+        setup()
+    }
+    
+    func setup() {
+        view.isUserInteractionEnabled = false
+        SVProgressHUD.show()
+        
+        guard let user = Auth.auth().currentUser else {
+            return
+        }
+        
+        EventUpClient.sharedInstance.getUserInfo(uid: user.uid, success: { (user) in
+            
+            DispatchQueue.main.async {
+                self.nameLabel.text = user.name
+                self.ratingLabel.text = "\(user.rating)"
+                
+                if let image = user.image {
+                    self.userImageView.image = EventUpClient.sharedInstance.base64DecodeImage(image)
+                }
+                self.view.isUserInteractionEnabled = true
+                SVProgressHUD.dismiss()
+            }
+        }) { (error) in
+            self.view.isUserInteractionEnabled = true
+            SVProgressHUD.dismiss()
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
-    }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
+    
 
     /*
     // MARK: - Navigation

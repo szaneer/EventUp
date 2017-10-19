@@ -10,7 +10,6 @@
 		2951DB387623E6DCB57F303B /* Pods_EventUp_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00BEE0174A91D69362D7DEA /* Pods_EventUp_.framework */; };
 		7C3C6D591F861C2000511686 /* RSVPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3C6D581F861C2000511686 /* RSVPViewController.swift */; };
 		839240231F85BA07003C0DAF /* RatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839240221F85BA07003C0DAF /* RatingViewController.swift */; };
-		B5710CDA1F85D5DD000D1E70 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5710CD91F85D5DD000D1E70 /* ProfileViewController.swift */; };
 		B5710CDC1F85D607000D1E70 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5710CDB1F85D607000D1E70 /* Profile.storyboard */; };
 		C72B02B71F8692F1005E7B97 /* EventAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72B02B61F8692F1005E7B97 /* EventAnnotation.swift */; };
 		C72B02B91F869BD4005E7B97 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C72B02B81F869B8E005E7B97 /* Assets.xcassets */; };
@@ -29,6 +28,8 @@
 		C76C148E1F981A6E006B3F5C /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C76C148D1F981A6E006B3F5C /* Login.storyboard */; };
 		C76C14901F981A7C006B3F5C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76C148F1F981A7C006B3F5C /* LoginViewController.swift */; };
 		C76C14921F981FE8006B3F5C /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76C14911F981FE8006B3F5C /* RegisterViewController.swift */; };
+		C76C14941F9827D1006B3F5C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76C14931F9827D1006B3F5C /* ProfileViewController.swift */; };
+		C76C14961F98293A006B3F5C /* EventUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76C14951F98293A006B3F5C /* EventUser.swift */; };
 		C7C164641F852AF6007226FA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C7C164631F852AE6007226FA /* GoogleService-Info.plist */; };
 		C7C5D37E1F5F2EA0001BCE38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C5D37D1F5F2EA0001BCE38 /* AppDelegate.swift */; };
 		C7C5D3801F5F2EA0001BCE38 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C5D37F1F5F2EA0001BCE38 /* ViewController.swift */; };
@@ -41,7 +42,6 @@
 		7C3C6D581F861C2000511686 /* RSVPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSVPViewController.swift; sourceTree = "<group>"; };
 		839240221F85BA07003C0DAF /* RatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingViewController.swift; sourceTree = "<group>"; };
 		A00BEE0174A91D69362D7DEA /* Pods_EventUp_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EventUp_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B5710CD91F85D5DD000D1E70 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileViewController.swift; path = "EventUp!/Profile/ProfileViewController.swift"; sourceTree = SOURCE_ROOT; };
 		B5710CDB1F85D607000D1E70 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		B8642049167ECB3A8DF5E8AB /* Pods-EventUp!.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventUp!.release.xcconfig"; path = "Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!.release.xcconfig"; sourceTree = "<group>"; };
 		C72B02B61F8692F1005E7B97 /* EventAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAnnotation.swift; sourceTree = "<group>"; };
@@ -61,6 +61,8 @@
 		C76C148D1F981A6E006B3F5C /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		C76C148F1F981A7C006B3F5C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C76C14911F981FE8006B3F5C /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		C76C14931F9827D1006B3F5C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		C76C14951F98293A006B3F5C /* EventUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventUser.swift; sourceTree = "<group>"; };
 		C7C164631F852AE6007226FA /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C7C5D37A1F5F2EA0001BCE38 /* EventUp!.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EventUp!.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7C5D37D1F5F2EA0001BCE38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -95,8 +97,8 @@
 		B5710CD81F85D5AB000D1E70 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				B5710CD91F85D5DD000D1E70 /* ProfileViewController.swift */,
 				B5710CDB1F85D607000D1E70 /* Profile.storyboard */,
+				C76C14931F9827D1006B3F5C /* ProfileViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -140,6 +142,7 @@
 			children = (
 				C76402271F7DB8C500AA3F06 /* Event.swift */,
 				C72B02B61F8692F1005E7B97 /* EventAnnotation.swift */,
+				C76C14951F98293A006B3F5C /* EventUser.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -379,13 +382,14 @@
 				839240231F85BA07003C0DAF /* RatingViewController.swift in Sources */,
 				C76402281F7DB8C500AA3F06 /* Event.swift in Sources */,
 				C76402171F79782100AA3F06 /* EventCell.swift in Sources */,
+				C76C14941F9827D1006B3F5C /* ProfileViewController.swift in Sources */,
 				C764020E1F795AA500AA3F06 /* MapViewController.swift in Sources */,
 				C764021D1F79891300AA3F06 /* EventMapViewController.swift in Sources */,
 				C764021F1F7C34B900AA3F06 /* EventDetailViewController.swift in Sources */,
-				B5710CDA1F85D5DD000D1E70 /* ProfileViewController.swift in Sources */,
 				C764022A1F7DB97B00AA3F06 /* EventUpClient.swift in Sources */,
 				C76C14901F981A7C006B3F5C /* LoginViewController.swift in Sources */,
 				C76C14921F981FE8006B3F5C /* RegisterViewController.swift in Sources */,
+				C76C14961F98293A006B3F5C /* EventUser.swift in Sources */,
 				C72B02B71F8692F1005E7B97 /* EventAnnotation.swift in Sources */,
 				C7C5D37E1F5F2EA0001BCE38 /* AppDelegate.swift in Sources */,
 				7C3C6D591F861C2000511686 /* RSVPViewController.swift in Sources */,
