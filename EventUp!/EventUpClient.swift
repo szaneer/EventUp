@@ -184,4 +184,32 @@ class EventUpClient: NSObject {
         
         return UIImage(data: data)!
     }
+    
+    
+    func registerUser(userData: [String: Any], userImage: UIImage?, success: @escaping (User) ->(), failure: @escaping (Error) -> ()) {
+        var userData = userData
+        let email = userData["email"] as! String
+        let password = userData["password"] as! String
+        userData["rating"] = 0.00
+        userData.removeValue(forKey: "password")
+        if let userImage = userImage {
+            let imageString = base64EncodeImage(userImage)
+            userData["image"] = imageString
+        }
+        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
+            if let error = error {
+                failure(error)
+            } else if let user = user {
+                let uid = user.uid
+                let users = self.db.collection("users").document(uid)
+                users.setData(userData) { (error) in
+                    if let error = error {
+                        failure(error)
+                    } else {
+                        success(user)
+                    }
+                }
+            }
+        }
+    }
 }
