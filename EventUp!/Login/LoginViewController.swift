@@ -9,15 +9,21 @@
 import UIKit
 import Firebase
 import SVProgressHUD
+import FBSDKLoginKit
 
-class LoginViewController: UIViewController {
-
+class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        let loginButton = FBSDKLoginButton()
+        loginButton.readPermissions = ["email", "public_profile"]
+        loginButton.delegate = self
+        loginButton.center = self.view.center
+        view.addSubview(loginButton)
     }
 
     override func didReceiveMemoryWarning() {
@@ -70,4 +76,20 @@ class LoginViewController: UIViewController {
     }
     */
 
+}
+
+extension LoginViewController {
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        if let error = error {
+            print(error.localizedDescription)
+            return
+        }
+        
+        let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+        
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        
+    }
 }

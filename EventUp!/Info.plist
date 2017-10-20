@@ -2,6 +2,26 @@
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>fbapi</string>
+        <string>fb-messenger-api</string>
+        <string>fbauth2</string>
+        <string>fbshareextension</string>
+    </array>
+    <key>CFBundleURLTypes</key>
+    <array>
+        ***REMOVED***
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>fb429777670758043</string>
+            </array>
+        ***REMOVED***
+    </array>
+    <key>FacebookAppID</key>
+    <string>429777670758043</string>
+    <key>FacebookDisplayName</key>
+    <string>EventUp!</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

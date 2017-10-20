@@ -68,6 +68,8 @@ class EventCreateViewController: UIViewController, UINavigationControllerDelegat
         eventInfo["longitude"] = longField.text!
         eventInfo["location"] = locationField.text!
         eventInfo["info"] = infoView.text
+        eventInfo["owner"] = Auth.auth().currentUser!.uid
+        eventInfo["rsvpList"] = [Auth.auth().currentUser!.uid]
         guard let editEvent = editEvent else {
             EventUpClient.sharedInstance.createEvent(eventData: eventInfo, eventImage: eventView.image, success: { (event) in
                 let alert = UIAlertController(title: "Success!", message: "The event was created successfully", preferredStyle: UIAlertControllerStyle.alert)

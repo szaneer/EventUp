@@ -35,6 +35,10 @@
 		C7C5D3801F5F2EA0001BCE38 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C5D37F1F5F2EA0001BCE38 /* ViewController.swift */; };
 		C7C5D3831F5F2EA0001BCE38 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7C5D3811F5F2EA0001BCE38 /* Main.storyboard */; };
 		C7C5D3881F5F2EA0001BCE38 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7C5D3861F5F2EA0001BCE38 /* LaunchScreen.storyboard */; };
+		C7D710971F9913DB0010EAC8 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D710961F9913DB0010EAC8 /* ChatViewController.swift */; };
+		C7D710991F9916210010EAC8 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D710981F9916210010EAC8 /* Message.swift */; };
+		C7D7109C1F9983520010EAC8 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D7109A1F9983510010EAC8 /* FBSDKCoreKit.framework */; };
+		C7D7109D1F9983520010EAC8 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D7109B1F9983520010EAC8 /* FBSDKLoginKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +74,10 @@
 		C7C5D3821F5F2EA0001BCE38 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C7C5D3871F5F2EA0001BCE38 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7C5D3891F5F2EA0001BCE38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C7D710961F9913DB0010EAC8 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		C7D710981F9916210010EAC8 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		C7D7109A1F9983510010EAC8 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		C7D7109B1F9983520010EAC8 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +86,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C764021A1F797E6300AA3F06 /* MapKit.framework in Frameworks */,
+				C7D7109C1F9983520010EAC8 /* FBSDKCoreKit.framework in Frameworks */,
+				C7D7109D1F9983520010EAC8 /* FBSDKLoginKit.framework in Frameworks */,
 				2951DB387623E6DCB57F303B /* Pods_EventUp_.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -124,6 +134,7 @@
 				C764022F1F7DBF1400AA3F06 /* EventCreateViewController.swift */,
 				839240221F85BA07003C0DAF /* RatingViewController.swift */,
 				7C3C6D581F861C2000511686 /* RSVPViewController.swift */,
+				C7D710961F9913DB0010EAC8 /* ChatViewController.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -131,6 +142,8 @@
 		C76402181F797E6300AA3F06 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C7D7109A1F9983510010EAC8 /* FBSDKCoreKit.framework */,
+				C7D7109B1F9983520010EAC8 /* FBSDKLoginKit.framework */,
 				C76402191F797E6300AA3F06 /* MapKit.framework */,
 				A00BEE0174A91D69362D7DEA /* Pods_EventUp_.framework */,
 			);
@@ -143,6 +156,7 @@
 				C76402271F7DB8C500AA3F06 /* Event.swift */,
 				C72B02B61F8692F1005E7B97 /* EventAnnotation.swift */,
 				C76C14951F98293A006B3F5C /* EventUser.swift */,
+				C7D710981F9916210010EAC8 /* Message.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -386,11 +400,13 @@
 				C764020E1F795AA500AA3F06 /* MapViewController.swift in Sources */,
 				C764021D1F79891300AA3F06 /* EventMapViewController.swift in Sources */,
 				C764021F1F7C34B900AA3F06 /* EventDetailViewController.swift in Sources */,
+				C7D710971F9913DB0010EAC8 /* ChatViewController.swift in Sources */,
 				C764022A1F7DB97B00AA3F06 /* EventUpClient.swift in Sources */,
 				C76C14901F981A7C006B3F5C /* LoginViewController.swift in Sources */,
 				C76C14921F981FE8006B3F5C /* RegisterViewController.swift in Sources */,
 				C76C14961F98293A006B3F5C /* EventUser.swift in Sources */,
 				C72B02B71F8692F1005E7B97 /* EventAnnotation.swift in Sources */,
+				C7D710991F9916210010EAC8 /* Message.swift in Sources */,
 				C7C5D37E1F5F2EA0001BCE38 /* AppDelegate.swift in Sources */,
 				7C3C6D591F861C2000511686 /* RSVPViewController.swift in Sources */,
 			);
@@ -532,6 +548,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3YC9K4952Y;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"~/Documents/FacebookSDK/**",
+				);
 				INFOPLIST_FILE = "EventUp!/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.307.EventUp;
@@ -548,6 +569,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3YC9K4952Y;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"~/Documents/FacebookSDK/**",
+				);
 				INFOPLIST_FILE = "EventUp!/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.307.EventUp;

@@ -12,6 +12,7 @@ import Firebase
 class EventUpClient: NSObject {
     static let sharedInstance = EventUpClient()
     let db = Firestore.firestore()
+    let mdb = Database.database().reference().child("messages")
     
     
     func getEvents(success: @escaping ([Event]) -> (), failure: @escaping (Error) -> ()) {
@@ -75,6 +76,8 @@ class EventUpClient: NSObject {
                 success(Event(eventData: eventData))
             }
         }
+        let userEvents = db.collection("users").document(eventData["owner"] as! String).collection("events")
+        userEvents.setValue(eventData["uid"] as! String, forKey: eventData["uid"] as! String)
     }
     
     func rateEvent(rating: Double, uid: String, success: @escaping (Double) ->(), failure: @escaping (Error) -> ()) {
@@ -238,6 +241,36 @@ class EventUpClient: NSObject {
         }
     }
     
+    func getEventMessages(uid: String, success: @escaping ([Message]) -> (), failure: @escaping (Error) -> ()) {
+        let messages = mdb.child(uid)
+        messages.observe(.value, with: { (messagesSnapshot) in
+            var messageResult: [Message] = []
+            guard var eventMessageData = messagesSnapshot.value as? [String: [String: Any]] else {
+                success(messageResult)
+                return
+            }
+            let eventMessages = eventMessageData["messages"]
+            for (_, message) in eventMessages! {
+                messageResult.append(Message(messageData: message as! [String: Any]))
+            }
+            
+            success(messageResult)
+            
+        }) { (error) in
+            failure(error)
+        }
+    }
+    
+    func sendEventMessage(uid: String, messageData: [String: Any], success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+        let messages = mdb.child(uid)
+        messages.setValue(messageData) { (error, _) in
+            if let error = error {
+                failure(error)
+            } else {
+                success()
+            }
+        }
+    }
 }
 
 extension String {
