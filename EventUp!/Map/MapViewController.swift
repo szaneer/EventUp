@@ -65,6 +65,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     
     func loadEvents() {
+        SVProgressHUD.show()
+        view.isUserInteractionEnabled = false
         EventUpClient.sharedInstance.getEvents(success: { (events) in
             self.events = events
             for event in events {
