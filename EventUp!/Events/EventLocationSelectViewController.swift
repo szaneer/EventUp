@@ -33,8 +33,14 @@ class EventLocationSelectViewController: ViewController {
     }
     
     @IBAction func onSelect(_ sender: Any) {
-        delegate.setLocation(coordinate: eventLocationView.centerCoordinate)
-        self.dismiss(animated: true, completion: nil)
+        let alert = UIAlertController(title: "Confirm", message: "Are you sure this is the location?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+            self.delegate.setLocation(coordinate: self.eventLocationView.centerCoordinate)
+            self.dismiss(animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     /*
