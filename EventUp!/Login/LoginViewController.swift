@@ -16,7 +16,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var passwordField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        FBSDKLoginManager().logOut()
         // Do any additional setup after loading the view.
         
         let loginButton = FBSDKLoginButton()
@@ -66,15 +66,27 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             SVProgressHUD.dismiss()
         }
     }
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        guard let identifier = segue.identifier else {
+            return
+        }
+        
+        switch identifier {
+        case "facebookRegisterSegue":
+            let destination = segue.destination as! RegisterViewController
+            destination.userInfo = sender as! [String: Any]
+        default:
+            return
+        }
     }
-    */
+ 
 
 }
 
@@ -84,9 +96,23 @@ extension LoginViewController {
             print(error.localizedDescription)
             return
         }
+        if (result.isCancelled) {
+            return
+        }
         
+        print(result.description)
         let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-        
+    
+        EventUpClient.sharedInstance.loginOrRegisterWithFacebook(credential: credential, success: { (user, userInfo, exists) -> () in
+            print(exists)
+            if exists {
+                self.performSegue(withIdentifier: "loginSegue", sender: nil)
+            } else {
+                self.performSegue(withIdentifier: "facebookSegue", sender: userInfo)
+            }
+        }) { (error) in
+            print(error.localizedDescription)
+        }
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {

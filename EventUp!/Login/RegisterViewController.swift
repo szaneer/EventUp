@@ -16,12 +16,50 @@ class RegisterViewController: UIViewController, UINavigationControllerDelegate, 
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var confirmPasswordField: UITextField!
     
+    @IBOutlet weak var passwordLabel: UILabel!
+    @IBOutlet weak var confirmPasswordLabel: UILabel!
+    var userInfo: [String: Any]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        if userInfo != nil {
+            setupFacebook()
+        }
     }
 
+    func setupFacebook() {
+        view.isUserInteractionEnabled = false
+        SVProgressHUD.show()
+        passwordField.isHidden = true
+        confirmPasswordField.isHidden = true
+        passwordLabel.isHidden = true
+        confirmPasswordLabel.isHidden = true
+        
+        usernameField.text = userInfo!["name"] as! String
+        emailField.text = userInfo!["email"] as! String
+        let picture = userInfo!["picture"] as! [String: Any]
+        let data = picture["data"] as! [String: Any]
+        let pictureURL = URL(string: data["url"] as! String)!
+        let pictureSession = URLSession(configuration: .default)
+        pictureSession.dataTask(with: pictureURL) { (data, response, error) in
+            if let error = error {
+                print(error.localizedDescription)
+                self.view.isUserInteractionEnabled = true
+                SVProgressHUD.dismiss()
+            } else if let data = data {
+                let image = UIImage(data: data)!
+                DispatchQueue.main.async {
+                    self.userImageView.image = image
+                    self.view.isUserInteractionEnabled = true
+                    SVProgressHUD.dismiss()
+                }
+            }
+            
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

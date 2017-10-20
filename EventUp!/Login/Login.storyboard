@@ -44,7 +44,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Register"/>
                                 <connections>
-                                    <segue destination="r9L-aU-6b1" kind="presentation" id="1Ya-6z-Qmh"/>
+                                    <segue destination="r9L-aU-6b1" kind="presentation" identifier="" id="1Ya-6z-Qmh"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="srE-DA-Sbr">
@@ -69,6 +69,7 @@
                         <outlet property="emailField" destination="lNP-nY-9MK" id="1QH-fa-AQx"/>
                         <outlet property="passwordField" destination="HO1-sJ-lya" id="e74-Tq-0NF"/>
                         <segue destination="IF2-eD-qYr" kind="presentation" identifier="loginSegue" id="uUA-KT-tWa"/>
+                        <segue destination="r9L-aU-6b1" kind="presentation" identifier="facebookSegue" id="Joq-JJ-pqj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v7n-h5-dHV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -170,8 +171,10 @@
                     </view>
                     <connections>
                         <outlet property="confirmPasswordField" destination="SBs-Ks-UgS" id="Vba-1X-t8M"/>
+                        <outlet property="confirmPasswordLabel" destination="3Kk-p1-nFQ" id="Q19-hT-WlE"/>
                         <outlet property="emailField" destination="XJA-bF-mRz" id="LFO-0y-CjP"/>
                         <outlet property="passwordField" destination="BEz-B3-O71" id="eDU-U9-YM7"/>
+                        <outlet property="passwordLabel" destination="pbA-0o-fxM" id="dgy-N9-43I"/>
                         <outlet property="userImageView" destination="eeC-xh-qj0" id="BU3-8X-Lkl"/>
                         <outlet property="usernameField" destination="GoO-JX-cQo" id="w7r-4n-4pM"/>
                         <segue destination="IF2-eD-qYr" kind="presentation" identifier="registerSegue" id="YOa-Ip-hxg"/>
@@ -179,7 +182,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gwJ-FW-ue4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-446" y="961"/>
+            <point key="canvasLocation" x="-1055" y="695"/>
         </scene>
         <!--Main-->
         <scene sceneID="jbu-AX-zUx">
@@ -192,5 +195,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="YOa-Ip-hxg"/>
+        <segue reference="Joq-JJ-pqj"/>
     </inferredMetricsTieBreakers>
 </document>
