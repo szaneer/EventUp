@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 import SVProgressHUD
 
 class RegisterViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
@@ -22,7 +23,7 @@ class RegisterViewController: UIViewController, UINavigationControllerDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print(userInfo)
         // Do any additional setup after loading the view.
         if userInfo != nil {
             setupFacebook()
@@ -57,7 +58,7 @@ class RegisterViewController: UIViewController, UINavigationControllerDelegate, 
                 }
             }
             
-        }
+        }.resume()
     }
     
     override func didReceiveMemoryWarning() {
@@ -95,52 +96,66 @@ class RegisterViewController: UIViewController, UINavigationControllerDelegate, 
             return
         }
         
-        guard let password = passwordField.text, !password.isEmpty else {
-            let alert = UIAlertController(title: "Error", message: "Input password.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-            view.isUserInteractionEnabled = true
-            SVProgressHUD.dismiss()
-            return
+        if userInfo == nil {
+            guard let password = passwordField.text, !password.isEmpty else {
+                let alert = UIAlertController(title: "Error", message: "Input password.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                view.isUserInteractionEnabled = true
+                SVProgressHUD.dismiss()
+                return
+            }
+            
+            if password.count < 6 {
+                let alert = UIAlertController(title: "Error", message: "Password must be atleast 6 characters.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                view.isUserInteractionEnabled = true
+                SVProgressHUD.dismiss()
+                return
+            }
+            guard let confirmPassword = confirmPasswordField.text, !confirmPassword.isEmpty else {
+                let alert = UIAlertController(title: "Error", message: "Passwords must match.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                view.isUserInteractionEnabled = true
+                SVProgressHUD.dismiss()
+                return
+            }
+            
+            if password != confirmPassword {
+                let alert = UIAlertController(title: "Error", message: "Passwords must match.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                view.isUserInteractionEnabled = true
+                SVProgressHUD.dismiss()
+                return
+            }
+            let userData = ["username": username, "email": email, "password": password]
+            EventUpClient.sharedInstance.registerUser(userData: userData, userImage: userImage, success: { (user) in
+                self.view.isUserInteractionEnabled = true
+                SVProgressHUD.dismiss()
+                self.performSegue(withIdentifier: "registerSegue", sender: nil)
+            }) { (error) in
+                self.view.isUserInteractionEnabled = true
+                SVProgressHUD.dismiss()
+                print(error.localizedDescription)
+            }
+            
+        } else {
+            let userData = ["username": username, "email": email]
+            EventUpClient.sharedInstance.registerFacebookUser(uid: Auth.auth().currentUser!.uid,userData: userData, userImage: userImage, success: { () in
+                self.view.isUserInteractionEnabled = true
+                SVProgressHUD.dismiss()
+                self.performSegue(withIdentifier: "registerSegue", sender: nil)
+            }) { (error) in
+                self.view.isUserInteractionEnabled = true
+                SVProgressHUD.dismiss()
+                print(error.localizedDescription)
+            }
         }
         
-        if password.count < 6 {
-            let alert = UIAlertController(title: "Error", message: "Password must be atleast 6 characters.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-            view.isUserInteractionEnabled = true
-            SVProgressHUD.dismiss()
-            return
-        }
         
-        guard let confirmPassword = confirmPasswordField.text, !confirmPassword.isEmpty else {
-            let alert = UIAlertController(title: "Error", message: "Passwords must match.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-            view.isUserInteractionEnabled = true
-            SVProgressHUD.dismiss()
-            return
-        }
-        
-        if password != confirmPassword {
-            let alert = UIAlertController(title: "Error", message: "Passwords must match.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-            view.isUserInteractionEnabled = true
-            SVProgressHUD.dismiss()
-            return
-        }
-        
-        let userData = ["username": username, "email": email, "password": password]
-        EventUpClient.sharedInstance.registerUser(userData: userData, userImage: userImage, success: { (user) in
-            self.view.isUserInteractionEnabled = true
-            SVProgressHUD.dismiss()
-            self.performSegue(withIdentifier: "registerSegue", sender: nil)
-        }) { (error) in
-            self.view.isUserInteractionEnabled = true
-            SVProgressHUD.dismiss()
-            print(error.localizedDescription)
-        }
     }
     
     @IBAction func onPhoto(_ sender: Any) {

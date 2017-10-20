@@ -301,6 +301,23 @@ class EventUpClient: NSObject {
         }
         
     }
+    
+    func registerFacebookUser(uid: String, userData: [String: Any], userImage: UIImage?, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
+        var userData = userData
+        let email = userData["email"] as! String
+        userData["rating"] = 0.00
+        if let userImage = userImage {
+            let imageString = base64EncodeImage(userImage)
+            userData["image"] = imageString
+        }
+        let users = db.collection("users")
+        users.document(uid).setData(userData) { (error) in
+            if let error = error {
+                failure(error)
+            }
+            success()
+        }
+    }
 }
 
 extension String {

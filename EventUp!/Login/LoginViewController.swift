@@ -79,9 +79,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         }
         
         switch identifier {
-        case "facebookRegisterSegue":
+        case "facebookSegue":
             let destination = segue.destination as! RegisterViewController
-            destination.userInfo = sender as! [String: Any]
+            destination.userInfo = sender as? [String: Any]
         default:
             return
         }
@@ -104,7 +104,6 @@ extension LoginViewController {
         let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
     
         EventUpClient.sharedInstance.loginOrRegisterWithFacebook(credential: credential, success: { (user, userInfo, exists) -> () in
-            print(exists)
             if exists {
                 self.performSegue(withIdentifier: "loginSegue", sender: nil)
             } else {
