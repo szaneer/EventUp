@@ -55,6 +55,9 @@
                                 <rect key="frame" x="313" y="7" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="onRefresh:" destination="4BE-AJ-lDP" eventType="touchUpInside" id="5Al-S7-baB"/>
+                                </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>

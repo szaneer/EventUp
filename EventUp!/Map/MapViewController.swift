@@ -69,6 +69,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         view.isUserInteractionEnabled = false
         EventUpClient.sharedInstance.getEvents(success: { (events) in
             self.events = events
+            var annotations = self.eventMapView.annotations
+            
+            self.eventMapView.removeAnnotations(annotations)
             for event in events {
                 self.addEventToMap(event: event)
             }
@@ -81,6 +84,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     
+    @IBAction func onRefresh(_ sender: Any) {
+    }
     func addEventToMap(event: Event) {
         let annotation = EventAnnotation()
         annotation.coordinate = CLLocationCoordinate2D(latitude: Double(event.latitude)!, longitude: Double(event.longitude)!)
