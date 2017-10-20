@@ -49,7 +49,7 @@ class EventDetailViewController: UIViewController, FilterDelegate {
         eventMapView.removeAnnotations(eventMapView.annotations)
         eventMapView.addAnnotation(eventMapView.userLocation)
         let annotation = MKPointAnnotation()
-        annotation.coordinate = CLLocationCoordinate2D(latitude: Double(event.latitude)!, longitude: Double(event.longitude)!)
+        annotation.coordinate = CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude)
         annotation.title = event.name
         let region = MKCoordinateRegion(center: annotation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
         eventMapView.setRegion(region, animated: true)

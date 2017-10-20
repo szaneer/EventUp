@@ -113,7 +113,7 @@ class EventsViewController: UITableViewController, CLLocationManagerDelegate, Fi
         }
         if let userLocation = locationManager.location?.coordinate {
             let coordinateMe = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
-            let coordinateE = CLLocation(latitude: Double(event.latitude)!, longitude: Double(event.longitude)!)
+            let coordinateE = CLLocation(latitude: event.latitude, longitude: event.longitude)
             
             let distance = Int(coordinateE.distance(from: coordinateMe) / 1609.0)
             cell.distanceLabel.text = "\(distance)mi"
@@ -135,8 +135,8 @@ class EventsViewController: UITableViewController, CLLocationManagerDelegate, Fi
             events.sort(by: { (first, second) -> Bool in
                 if let userLocation = locationManager.location?.coordinate {
                     let coordinateMe = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
-                    let coordinateFirst = CLLocation(latitude: Double(first.latitude)!, longitude: Double(first.longitude)!)
-                    let coordinateSecond = CLLocation(latitude: Double(second.latitude)!, longitude: Double(second.longitude)!)
+                    let coordinateFirst = CLLocation(latitude: first.latitude, longitude: first.longitude)
+                    let coordinateSecond = CLLocation(latitude: second.latitude, longitude: second.longitude)
                     let distanceFirst = Int(coordinateFirst.distance(from: coordinateMe) / 1609.0)
                     let distanceSecond = Int(coordinateSecond.distance(from: coordinateMe) / 1609.0)
                     if distanceFirst > distanceSecond {

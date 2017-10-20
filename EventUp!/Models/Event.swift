@@ -12,8 +12,8 @@ class Event: NSObject {
 
     var name: String!
     var date: Double!
-    var longitude: String!
-    var latitude: String!
+    var longitude: Double!
+    var latitude: Double!
     var tags: String!
     var peopleCount: Int!
     var rating: Double!
@@ -28,8 +28,8 @@ class Event: NSObject {
     init(eventData: [String: Any]) {
         name = eventData["name"] as! String
         date = eventData["date"] as! Double
-        longitude = eventData["longitude"] as! String
-        latitude = eventData["latitude"] as! String
+        longitude = eventData["longitude"] as! Double
+        latitude = eventData["latitude"] as! Double
         tags = eventData["tags"] as! String
         peopleCount = eventData["peopleCount"] as! Int
         rating = eventData["rating"] as! Double

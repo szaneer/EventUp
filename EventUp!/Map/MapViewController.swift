@@ -88,7 +88,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     func addEventToMap(event: Event) {
         let annotation = EventAnnotation()
-        annotation.coordinate = CLLocationCoordinate2D(latitude: Double(event.latitude)!, longitude: Double(event.longitude)!)
+        annotation.coordinate = CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude)
         annotation.event = event
         annotation.title = event.name
         let heatCircle = MKCircle(center: annotation.coordinate, radius: CLLocationDistance(event.peopleCount * 100))
@@ -113,7 +113,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             goToDetail(event: eventAnnotation.event)
         } else if control == view.leftCalloutAccessoryView {
             let eventAnnotation = view.annotation as! EventAnnotation
-            let coordinate = CLLocationCoordinate2D(latitude: Double(eventAnnotation.event.latitude)!, longitude: Double(eventAnnotation.event.longitude)!)
+            let coordinate = CLLocationCoordinate2D(latitude: eventAnnotation.event.latitude, longitude: eventAnnotation.event.longitude)
             let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))
             mapItem.name = eventAnnotation.event.name
             mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])

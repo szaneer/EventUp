@@ -39,6 +39,7 @@
 		C7D710991F9916210010EAC8 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D710981F9916210010EAC8 /* Message.swift */; };
 		C7D7109C1F9983520010EAC8 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D7109A1F9983510010EAC8 /* FBSDKCoreKit.framework */; };
 		C7D7109D1F9983520010EAC8 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D7109B1F9983520010EAC8 /* FBSDKLoginKit.framework */; };
+		C7D7109F1F99A4060010EAC8 /* EventLocationSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D7109E1F99A4060010EAC8 /* EventLocationSelectViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +79,7 @@
 		C7D710981F9916210010EAC8 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		C7D7109A1F9983510010EAC8 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		C7D7109B1F9983520010EAC8 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		C7D7109E1F99A4060010EAC8 /* EventLocationSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLocationSelectViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 				839240221F85BA07003C0DAF /* RatingViewController.swift */,
 				7C3C6D581F861C2000511686 /* RSVPViewController.swift */,
 				C7D710961F9913DB0010EAC8 /* ChatViewController.swift */,
+				C7D7109E1F99A4060010EAC8 /* EventLocationSelectViewController.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				C76402151F79776900AA3F06 /* EventsViewController.swift in Sources */,
 				C76402231F7C45B400AA3F06 /* FilterViewController.swift in Sources */,
 				839240231F85BA07003C0DAF /* RatingViewController.swift in Sources */,
+				C7D7109F1F99A4060010EAC8 /* EventLocationSelectViewController.swift in Sources */,
 				C76402281F7DB8C500AA3F06 /* Event.swift in Sources */,
 				C76402171F79782100AA3F06 /* EventCell.swift in Sources */,
 				C76C14941F9827D1006B3F5C /* ProfileViewController.swift in Sources */,

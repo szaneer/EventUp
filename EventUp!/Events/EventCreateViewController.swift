@@ -9,22 +9,25 @@
 import UIKit
 import Firebase
 import AVFoundation
+import MapKit
 
-class EventCreateViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class EventCreateViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, EventLocationSelectViewControllerDelegate {
+    
 
     @IBOutlet weak var eventView: UIImageView!
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var locationField: UITextField!
     @IBOutlet weak var dateField: UIDatePicker!
     @IBOutlet weak var tagsField: UITextField!
-    @IBOutlet weak var latField: UITextField!
-    @IBOutlet weak var longField: UITextField!
     @IBOutlet weak var infoView: UITextView!
     
     @IBOutlet weak var submitButton: UIButton!
+    
+    @IBOutlet weak var plusButton: UIButton!
+    
     var editEvent: Event?
     var delegate: FilterDelegate!
-    @IBOutlet weak var plusButton: UIButton!
+    var coordinate: CLLocationCoordinate2D?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +43,8 @@ class EventCreateViewController: UIViewController, UINavigationControllerDelegat
         //eventInfo["Location"] = locationField.text
         tagsField.text = editEvent!.tags
         dateField.date = Date(timeIntervalSince1970: editEvent!.date)
-        latField.text = editEvent!.latitude
-        longField.text = editEvent!.longitude
+        let coordinate = CLLocationCoordinate2D(latitude: editEvent!.latitude, longitude: editEvent!.longitude)
+        self.coordinate = coordinate
         locationField.text = editEvent!.location
         infoView.text = editEvent!.info
         if let image = editEvent!.image {
@@ -64,8 +67,11 @@ class EventCreateViewController: UIViewController, UINavigationControllerDelegat
         eventInfo["tags"] = tagsField.text!
         let date = Double(dateField.date.timeIntervalSince1970)
         eventInfo["date"] = date
-        eventInfo["latitude"] = latField.text!
-        eventInfo["longitude"] = longField.text!
+        if coordinate == nil {
+            return
+        }
+        eventInfo["latitude"] = coordinate!.latitude
+        eventInfo["longitude"] = coordinate!.longitude
         eventInfo["location"] = locationField.text!
         eventInfo["info"] = infoView.text
         eventInfo["owner"] = Auth.auth().currentUser!.uid
@@ -133,14 +139,31 @@ class EventCreateViewController: UIViewController, UINavigationControllerDelegat
     @IBAction func onTouchScreen(_ sender: Any) {
         resignFirstResponder()
     }
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        guard let identifier = segue.identifier else {
+            return
+        }
+        
+        switch identifier {
+        case "locationSelectSegue":
+            let destination = segue.destination as! EventLocationSelectViewController
+            destination.delegate = self
+        default:
+            return
+        }
     }
-    */
+}
 
+extension EventCreateViewController {
+    func setLocation(coordinate: CLLocationCoordinate2D) {
+        self.coordinate = coordinate
+    }
+    
 }

@@ -78,7 +78,7 @@ class EventUpClient: NSObject {
             }
         }
         let userEvents = db.collection("users").document(eventData["owner"] as! String).collection("events")
-        userEvents.setValue(eventData["uid"] as! String, forKey: eventData["uid"] as! String)
+        //userEvents.setValue(eventData["uid"] as! String, forKey: eventData["uid"] as! String)
     }
     
     func rateEvent(rating: Double, uid: String, success: @escaping (Double) ->(), failure: @escaping (Error) -> ()) {
