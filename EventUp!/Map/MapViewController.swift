@@ -84,7 +84,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     @IBAction func onRefresh(_ sender: Any) {
+        loadEvents()
     }
+    
+    
     func addEventToMap(event: Event) {
         let annotation = EventAnnotation()
         annotation.coordinate = CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude)
@@ -129,8 +132,27 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         annotationView.leftCalloutAccessoryView = navButton
         annotationView.canShowCallout = true
         annotationView.isEnabled = true
-        let annotationImage = UIImage(named: "EventAnnotation")
-        annotationView.image = annotationImage
+        
+        let date = Date(timeIntervalSinceReferenceDate: eventAnnotation.event.date)
+        let currDate = Date(timeIntervalSinceReferenceDate: Date.timeIntervalSinceReferenceDate)
+        
+        let calendar = Calendar.current
+        
+        let currDay = calendar.ordinality(of: .day, in: .year, for: currDate)!
+        let toDay = calendar.ordinality(of: .day, in: .year, for: date)!
+        
+        if currDay == toDay {
+            let annotationImage = UIImage(named: "EventAnnotation")
+            annotationView.image = annotationImage
+        } else if currDay > toDay {
+            let annotationImage = UIImage(named: "EventAnnotation_green")
+            annotationView.image = annotationImage
+        } else {
+            let annotationImage = UIImage(named: "EventAnnotation_red")
+            annotationView.image = annotationImage
+        }
+        
+        
         return annotationView
     }
     

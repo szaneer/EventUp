@@ -2,23 +2,23 @@
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
-  <key>CFBundleDevelopmentRegion</key>
-  <string>en</string>
-  <key>CFBundleIdentifier</key>
-  <string>${PRODUCT_BUNDLE_IDENTIFIER}</string>
-  <key>CFBundleInfoDictionaryVersion</key>
-  <string>6.0</string>
-  <key>CFBundleName</key>
-  <string>${PRODUCT_NAME}</string>
-  <key>CFBundlePackageType</key>
-  <string>BNDL</string>
-  <key>CFBundleShortVersionString</key>
-  <string>4.5.0</string>
-  <key>CFBundleSignature</key>
-  <string>????</string>
-  <key>CFBundleVersion</key>
-  <string>1</string>
-  <key>NSPrincipalClass</key>
-  <string></string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>${PRODUCT_NAME}</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>4.5.0</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+***REMOVED***
+	<key>NSPrincipalClass</key>
+	<string></string>
 ***REMOVED***
 ***REMOVED***

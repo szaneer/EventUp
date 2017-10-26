@@ -63,7 +63,6 @@ class EventsViewController: UITableViewController, CLLocationManagerDelegate, Fi
             self.view.isUserInteractionEnabled = true
             self.refreshControl?.endRefreshing()
             guard let filter = self.currFilter else {
-                print("hello")
                 return
             }
             self.filter(type: filter)

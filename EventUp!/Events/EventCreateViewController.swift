@@ -65,7 +65,7 @@ class EventCreateViewController: UIViewController, UINavigationControllerDelegat
         eventInfo["name"] = nameField.text!
         //eventInfo["Location"] = locationField.text
         eventInfo["tags"] = tagsField.text!
-        let date = Double(dateField.date.timeIntervalSince1970)
+        let date = Double(dateField.date.timeIntervalSinceReferenceDate)
         eventInfo["date"] = date
         if coordinate == nil {
             return
