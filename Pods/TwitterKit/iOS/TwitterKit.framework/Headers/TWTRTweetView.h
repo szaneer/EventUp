@@ -65,6 +65,7 @@ typedef NS_ENUM(NSUInteger, TWTRTweetViewTheme) {
    - When the share button is tapped.
    - When the share action completes.
    - When the favorite action completes.
+   - When the video (if available) is paused or started to play.
 
  ## Usage in UITableView
 
@@ -120,6 +121,12 @@ typedef NS_ENUM(NSUInteger, TWTRTweetViewTheme) {
  *  Defaults to YES.
  */
 @property (nonatomic) BOOL showBorder UI_APPEARANCE_SELECTOR;
+
+/**
+ * Set whether or not videos playing inline should be muted.
+ * Defaults to NO.
+ */
+@property (nonatomic) BOOL shouldPlayVideoMuted;
 
 /**
  *  Set whether the action buttons (Favorite, Share) should be shown. When toggled,
@@ -196,6 +203,20 @@ typedef NS_ENUM(NSUInteger, TWTRTweetViewTheme) {
  *  @param tweet The Tweet to display.
  */
 - (void)configureWithTweet:(nullable TWTRTweet *)tweet;
+
+/**
+ * If the tweet contains playable media, calling this function will play the media. The media will also play if
+ * the user taps on the play button for the media.
+ */
+- (void)playVideo;
+
+/**
+ * If the tweet contains media that is currently playing, this function will pause the current video.
+ *
+ * If a TWTRTweetVideo is being added to a UICollectionView, implement the delegate collectionView:didEndDisplayingCell:forItemAtIndexPath: 
+ * and call pauseVideo here so videos stop playing when the user scrolls off the screen.
+ */
+- (void)pauseVideo;
 
 @end
 

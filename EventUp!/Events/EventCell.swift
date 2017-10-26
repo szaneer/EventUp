@@ -31,8 +31,8 @@ class EventCell: UITableViewCell {
     }
     
     override func draw(_ rect: CGRect) {
-        var bubbleSpace = CGRect(x: 20.0, y: self.bounds.origin.y, width: self.bounds.width - 20, height: self.bounds.height)
-        let bubblePath1 = UIBezierPath(roundedRect: bubbleSpace, byRoundingCorners: .bottomRight, cornerRadii: CGSize(width: 20.0, height: 20.0))
+        let bubbleSpace = CGRect(x: 20.0, y: self.bounds.origin.y, width: self.bounds.width - 20, height: self.bounds.height)
+        _ = UIBezierPath(roundedRect: bubbleSpace, byRoundingCorners: .bottomRight, cornerRadii: CGSize(width: 20.0, height: 20.0))
         
         let bubblePath = UIBezierPath(roundedRect: bubbleSpace, cornerRadius: 20.0)
         

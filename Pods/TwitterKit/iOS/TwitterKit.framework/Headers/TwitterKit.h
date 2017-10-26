@@ -43,6 +43,7 @@
 #import "TWTRTweetUserMentionEntity.h"
 #import "TWTRTweetView.h"
 #import "TWTRTweetViewDelegate.h"
+#import "TWTRVideoPlaybackState.h"
 #import "TWTRUser.h"
 #import "TWTRUserTimelineDataSource.h"
 #import "TWTRVideoMetaData.h"

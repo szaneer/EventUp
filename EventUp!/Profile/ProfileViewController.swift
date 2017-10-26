@@ -30,9 +30,9 @@ class ProfileViewController: UIViewController {
         guard let user = Auth.auth().currentUser else {
             return
         }
-        
+        print("hello")
         EventUpClient.sharedInstance.getUserInfo(uid: user.uid, success: { (user) in
-            
+            print("hello")
             DispatchQueue.main.async {
                 self.nameLabel.text = user.name
                 self.ratingLabel.text = "\(user.rating)"
@@ -43,7 +43,9 @@ class ProfileViewController: UIViewController {
                 self.view.isUserInteractionEnabled = true
                 SVProgressHUD.dismiss()
             }
+            print("hello")
         }) { (error) in
+            print("hello")
             self.view.isUserInteractionEnabled = true
             SVProgressHUD.dismiss()
         }

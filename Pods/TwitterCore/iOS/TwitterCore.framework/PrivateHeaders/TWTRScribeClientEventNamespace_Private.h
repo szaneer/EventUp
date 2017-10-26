@@ -21,3 +21,4 @@ FOUNDATION_EXPORT NSString *const TWTRScribeClientEventNamespaceImpressionAction
 FOUNDATION_EXPORT NSString *const TWTRScribeClientEventNamespaceShowAction;
 FOUNDATION_EXPORT NSString *const TWTRScribeClientEventNamespaceNavigateAction;
 FOUNDATION_EXPORT NSString *const TWTRScribeClientEventNamespaceDismissAction;
+FOUNDATION_EXPORT NSString *const TWTRScribeClientEventNamespacePlayerValue;

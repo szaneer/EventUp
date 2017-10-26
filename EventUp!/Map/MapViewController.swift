@@ -69,10 +69,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         view.isUserInteractionEnabled = false
         EventUpClient.sharedInstance.getEvents(success: { (events) in
             self.events = events
-            var annotations = self.eventMapView.annotations
             
-            self.eventMapView.removeAnnotations(annotations)
-            for event in events {
+            self.eventMapView.removeAnnotations(self.eventMapView.annotations)
+            for event in self.events {
                 self.addEventToMap(event: event)
             }
             self.view.isUserInteractionEnabled = true

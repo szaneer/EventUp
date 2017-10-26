@@ -25,6 +25,7 @@ class EventUpClient: NSObject {
     }
     
     func getEvents(filters: [String: Any]?, success: @escaping ([Event]) -> (), failure: @escaping (Error) -> ()) {
+        print("hello")
         let events = db.collection("events")
         if let filters = filters {
 //            if filters.count <= 1 {

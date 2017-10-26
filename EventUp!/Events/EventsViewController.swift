@@ -63,6 +63,7 @@ class EventsViewController: UITableViewController, CLLocationManagerDelegate, Fi
             self.view.isUserInteractionEnabled = true
             self.refreshControl?.endRefreshing()
             guard let filter = self.currFilter else {
+                print("hello")
                 return
             }
             self.filter(type: filter)
@@ -108,7 +109,6 @@ class EventsViewController: UITableViewController, CLLocationManagerDelegate, Fi
         cell.locationLabel.text = event.location
         cell.ratingLabel.text = "\(event.rating!)"
         if let image = event.image {
-            print(image)
             cell.eventView.image = EventUpClient.sharedInstance.base64DecodeImage(image)
         }
         if let userLocation = locationManager.location?.coordinate {
