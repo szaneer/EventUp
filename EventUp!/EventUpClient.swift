@@ -78,9 +78,20 @@ class EventUpClient: NSObject {
             }
         }
         let userEvents = db.collection("users").document(eventData["owner"] as! String).collection("events")
-        //userEvents.setValue(eventData["uid"] as! String, forKey: eventData["uid"] as! String)
+        let newUserEvent = userEvents.document(uid)
+        newUserEvent.setData(["uid": uid])
     }
     
+    func deleteEvent(event: Event, eventImage: UIImage?, success: @escaping (Event) ->(), failure: @escaping (Error) -> ()) {
+        let eventDoc = db.collection("events").document(event.uid)
+        eventDoc.delete { (error) in
+            if let error = error {
+                failure(error)
+            }
+        }
+        let userEvents = db.collection("users").document(event.owner).collection("events")
+        userEvents.document(event.uid).delete()
+    }
     func rateEvent(rating: Double, uid: String, success: @escaping (Double) ->(), failure: @escaping (Error) -> ()) {
         let event = db.collection("events").document(uid)
         event.getDocument { (eventSnapshot, error) in
