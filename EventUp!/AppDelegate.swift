@@ -22,7 +22,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
-    
+        if Auth.auth().currentUser != nil {
+            let mainViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UITabBarController
+            
+            window?.rootViewController = mainViewController
+        }
         return true
     }
 

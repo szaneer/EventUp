@@ -349,3 +349,9 @@ protocol EventLocationSelectViewControllerDelegate {
 protocol EventTagSelectViewControllerDelegate {
     func setTag(tag: String, index: Int)
 }
+
+
+protocol FilterDelegate {
+    func filter(type: String)
+    func refresh(event: Event?)
+}
