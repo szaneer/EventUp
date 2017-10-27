@@ -14,7 +14,7 @@ class Event: NSObject {
     var date: Double!
     var longitude: Double!
     var latitude: Double!
-    var tags: String!
+    var tags: [String]?
     var peopleCount: Int!
     var rating: Double!
     var ratingCount: Int!
@@ -28,9 +28,14 @@ class Event: NSObject {
     init(eventData: [String: Any]) {
         name = eventData["name"] as! String
         date = eventData["date"] as! Double
+        
         longitude = eventData["longitude"] as! Double
         latitude = eventData["latitude"] as! Double
-        tags = eventData["tags"] as! String
+        
+        if let tags = eventData["tags"] as? [String] {
+            self.tags = tags
+        }
+        
         peopleCount = eventData["peopleCount"] as! Int
         rating = eventData["rating"] as! Double
         ratingCount = eventData["ratingCount"] as! Int

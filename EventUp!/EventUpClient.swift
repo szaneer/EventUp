@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 import Firebase
 import FBSDKLoginKit
 
@@ -338,4 +339,13 @@ extension String {
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: self)
     }
+}
+
+
+protocol EventLocationSelectViewControllerDelegate {
+    func setLocation(coordinate: CLLocationCoordinate2D)
+}
+
+protocol EventTagSelectViewControllerDelegate {
+    func setTag(tag: String, index: Int)
 }

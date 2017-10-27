@@ -40,7 +40,7 @@ class EventDetailViewController: UIViewController, FilterDelegate {
         dateFormatter.dateFormat = "MM/dd/yyyy"
         dateLabel.text = dateFormatter.string(from: date)
         locationLabel.text = event.location
-        tagsLabel.text = event.tags
+        //tagsLabel.text = event.tags
         if let image = event.image {
             eventView.image = EventUpClient.sharedInstance.base64DecodeImage(image)
         }
