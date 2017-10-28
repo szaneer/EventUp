@@ -12,7 +12,7 @@ import AVFoundation
 import MapKit
 import SVProgressHUD
 
-class EventCreateViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, EventLocationSelectViewControllerDelegate, EventTagSelectViewControllerDelegate {
+class EventCreateViewController: UIViewController {
     
 
     @IBOutlet weak var eventView: UIImageView!
@@ -36,7 +36,6 @@ class EventCreateViewController: UIViewController, UINavigationControllerDelegat
         // Do any additional setup after loading the view.
         if editEvent != nil {
             setupEdit()
-            
             setupTags()
         }
     }
@@ -83,6 +82,7 @@ class EventCreateViewController: UIViewController, UINavigationControllerDelegat
         if (!validateInput()) {
             return
         }
+        
         var eventInfo = [String: Any]()
         var tags: [String] = []
         
@@ -113,10 +113,12 @@ class EventCreateViewController: UIViewController, UINavigationControllerDelegat
         
         guard let editEvent = editEvent else {
             EventUpClient.sharedInstance.createEvent(eventData: eventInfo, eventImage: eventView.image, success: { (event) in
+                
                 let alert = UIAlertController(title: "Success!", message: "The event was created successfully", preferredStyle: UIAlertControllerStyle.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in self.onSuccessfulEventCreation()}))
                 self.present(alert, animated: true, completion: nil)
-                
+                self.view.isUserInteractionEnabled = true
+                SVProgressHUD.dismiss()
             }) { (error) in
                 print(error)
             }
@@ -127,7 +129,8 @@ class EventCreateViewController: UIViewController, UINavigationControllerDelegat
             let alert = UIAlertController(title: "Success!", message: "The event was edited successfully", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in self.onSuccessfulEventCreation()}))
             self.present(alert, animated: true, completion: nil)
-            
+            self.view.isUserInteractionEnabled = true
+            SVProgressHUD.dismiss()
         }) { (error) in
             print(error)
         }
@@ -182,26 +185,8 @@ class EventCreateViewController: UIViewController, UINavigationControllerDelegat
         return true
     }
     
-    @IBAction func onImage(_ sender: Any) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.allowsEditing = true
-        imagePicker.sourceType = .photoLibrary
-        present(imagePicker, animated: true, completion: nil)
-    }
+   
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        guard let image = info[UIImagePickerControllerEditedImage] as? UIImage else {
-            picker.dismiss(animated: true, completion: nil)
-            return
-        }
-        
-        plusButton.setTitle("", for: .normal)
-        plusButton.setTitle("", for: .highlighted)
-        eventView.image = image
-        picker.dismiss(animated: true, completion: nil)
-        
-    }
     @IBAction func onTouchScreen(_ sender: Any) {
         view.endEditing(true)
     }
@@ -211,9 +196,6 @@ class EventCreateViewController: UIViewController, UINavigationControllerDelegat
         performSegue(withIdentifier: "tagSelectSegue", sender: sender.tag)
     }
     
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
@@ -246,5 +228,37 @@ extension EventCreateViewController {
     func setTag(tag: String, index: Int) {
         tagButtons[index].setTitle(tag, for: .normal)
     }
+    
+}
+
+extension EventCreateViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    @IBAction func onImage(_ sender: Any) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        guard let image = info[UIImagePickerControllerEditedImage] as? UIImage else {
+            picker.dismiss(animated: true, completion: nil)
+            return
+        }
+        
+        plusButton.setTitle("", for: .normal)
+        plusButton.setTitle("", for: .highlighted)
+        eventView.image = image
+        picker.dismiss(animated: true, completion: nil)
+        
+    }
+}
+
+extension EventCreateViewController: EventLocationSelectViewControllerDelegate {
+    
+}
+
+extension EventCreateViewController: EventTagSelectViewControllerDelegate {
     
 }
