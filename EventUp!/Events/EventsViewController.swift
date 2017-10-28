@@ -14,7 +14,8 @@ import MapKit
 
 class EventsViewController: UITableViewController {
 
-    var events: [Event] = []
+    var events = [Event]()
+    var filteredEvents = [Event]()
     var currFilter: String?
     let locationManager = CLLocationManager()
     let searchController = UISearchController(searchResultsController: nil)
@@ -31,6 +32,9 @@ class EventsViewController: UITableViewController {
         super.viewDidLoad()
         
         searchController.searchResultsUpdater = self
+        searchController.searchBar.placeholder = "Search Candies"
+        searchController.obscuresBackgroundDuringPresentation = false
+        definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
         
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -72,6 +76,10 @@ class EventsViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
+        if isFiltering() {
+            return filteredEvents.count
+        }
+        
         return events.count
     }
 
@@ -81,7 +89,14 @@ class EventsViewController: UITableViewController {
 
         // Configure the cell...
 
-        let event = events[indexPath.row]
+        let event: Event
+        
+        if isFiltering() {
+            event = filteredEvents[indexPath.row]
+        } else {
+            event = events[indexPath.row]
+        }
+        
         let date = Date(timeIntervalSince1970: event.date)
         cell.nameLabel.text = event.name
         let dateFormatter = DateFormatter()
@@ -125,7 +140,12 @@ class EventsViewController: UITableViewController {
             let destination = segue.destination as! EventDetailViewController
             let cell = sender as! EventCell
             let indexPath = tableView.indexPath(for: cell)!
-            let event = events[indexPath.row]
+            let event: Event
+            if isFiltering() {
+                event = filteredEvents[indexPath.row]
+            } else {
+                event = events[indexPath.row]
+            }
             destination.event = event
             destination.delegate = self
         case "filterSegue":
@@ -205,6 +225,31 @@ extension EventsViewController: FilterDelegate {
 
 extension EventsViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        print("hi")
+        searchEvents(searchController.searchBar.text!)
+    }
+    
+    func searchBarIsEmpty() -> Bool {
+        // Returns true if the text is empty or nil
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    func searchEvents(_ searchText: String, scope: String = "All") {
+        filteredEvents = events.filter({ (event) -> Bool in
+            var tagMatch = false
+            if let tags = event.tags {
+                for tag in tags {
+                    if tag.lowercased().contains(searchText.lowercased()) {
+                        tagMatch = true
+                    }
+                }
+            }
+            return event.name.lowercased().contains(searchText.lowercased()) || tagMatch
+        })
+        
+        tableView.reloadData()
+    }
+    
+    func isFiltering() -> Bool {
+        return searchController.isActive && !searchBarIsEmpty()
     }
 }
