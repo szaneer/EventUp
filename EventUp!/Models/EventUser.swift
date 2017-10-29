@@ -12,13 +12,16 @@ class EventUser: NSObject {
     
     var name: String!
     var rating: Double!
+    var ratingCount: Double!
     var email: String!
     var image: String?
+    var events: [String]?
     
     init(eventData: [String: Any]) {
         name = eventData["username"] as! String
         email = eventData["email"] as! String
         rating = eventData["rating"] as! Double
+        ratingCount = eventData["ratingCount"] as! Double
         image = eventData["image"] as? String
     }
 }

@@ -108,8 +108,37 @@ class EventUpClient: NSObject {
         userEvents.document(event.uid).delete()
     }
     
-    func rateEvent(rating: Double, event: Event, success: @escaping (Double) ->(), failure: @escaping (Error) -> ()) {
+    func rateEvent(rating: Double, event: Event, uid: String, success: @escaping (Double) ->(), failure: @escaping (Error) -> ()) {
         let event = db.collection("events").document(event.uid)
+        event.getDocument { (eventSnapshot, error) in
+            if let error = error {
+                failure(error)
+            } else {
+                var eventData = eventSnapshot!.data()
+                let currRating = eventData["rating"] as! Double
+                let ratingCount = eventData["ratingCount"] as! Double
+                
+                let newRatingCount = ratingCount + 1
+                let newRating = (currRating * ratingCount + rating) / newRatingCount
+                
+                event.updateData(["rating": newRating, "ratingCount": ratingCount], completion: { (error) in
+                    if let error = error {
+                        failure(error)
+                    } else {
+                        
+                        self.rateUser(rating: rating, uid: uid, success: { (_) in
+                            success(newRating)
+                        }, failure: { (error) in
+                            failure(error)
+                        })
+                    }
+                })
+            }
+        }
+    }
+    
+    func rateUser(rating: Double, uid: String, success: @escaping (Double) ->(), failure: @escaping (Error) -> ()) {
+        let event = db.collection("users").document(uid)
         event.getDocument { (eventSnapshot, error) in
             if let error = error {
                 failure(error)
@@ -343,8 +372,6 @@ class EventUpClient: NSObject {
             }
         }
     }
-    
-    
 }
 
 extension String {

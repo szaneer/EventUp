@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RatingViewController: UIViewController {
 
@@ -55,7 +56,7 @@ class RatingViewController: UIViewController {
     
     
     func rate(value :Double) {
-        EventUpClient.sharedInstance.rateEvent(rating: value, event: event, success: { (newRating) in
+        EventUpClient.sharedInstance.rateEvent(rating: value, event: event, uid: Auth.auth().currentUser!.uid, success: { (newRating) in
             self.event.ratingCount = self.event.ratingCount + 1
             self.event.rating = newRating
             
