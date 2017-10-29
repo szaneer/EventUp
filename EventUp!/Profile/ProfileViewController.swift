@@ -15,6 +15,8 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var ratingLabel: UILabel!
+    
+    var user: EventUser!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,14 +34,15 @@ class ProfileViewController: UIViewController {
         }
         EventUpClient.sharedInstance.getUserInfo(user: user, success: { (user) in
             DispatchQueue.main.async {
+                self.user = user
                 self.nameLabel.text = user.name
                 self.ratingLabel.text = "\(user.rating)"
                 
                 if let image = user.image {
                     self.userImageView.image = EventUpClient.sharedInstance.base64DecodeImage(image)
                 }
-                self.view.isUserInteractionEnabled = true
-                SVProgressHUD.dismiss()
+                self.setupEvents()
+                
             }
         }) { (error) in
             self.view.isUserInteractionEnabled = true
@@ -47,6 +50,15 @@ class ProfileViewController: UIViewController {
         }
     }
 
+    func setupEvents() {
+        EventUpClient.sharedInstance.getEvents(success: { (events) in
+            for event in events {
+                print(event.rating)
+            }
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
