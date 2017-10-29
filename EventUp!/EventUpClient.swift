@@ -72,6 +72,8 @@ class EventUpClient: NSObject {
         let userEvents = db.collection("users").document(eventData["owner"] as! String).collection("events")
         let newUserEvent = userEvents.document(uid)
         newUserEvent.setData(["uid": uid])
+        let eventMessages = cdb.child(uid).child("messages")
+        eventMessages.setValue(eventData["name"], forKey: "name")
     }
     
     func editEvent(event: Event, eventData: [String: Any], eventImage: UIImage?, success: @escaping (Event) ->(), failure: @escaping (Error) -> ()) {
