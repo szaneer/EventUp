@@ -137,6 +137,10 @@ class EventCreateViewController: UIViewController {
         
     }
     
+    @IBAction func onCancel(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     func onSuccessfulEventCreation() {
         delegate.refresh(event: nil)
         self.navigationController?.popViewController(animated: true)

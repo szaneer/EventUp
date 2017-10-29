@@ -16,26 +16,23 @@ class EventsViewController: UITableViewController {
 
     var events = [Event]()
     var filteredEvents = [Event]()
+    var filterButton: UIBarButtonItem!
+    var createButton: UIBarButtonItem!
     var currFilter: String?
     let locationManager = CLLocationManager()
     let searchController = UISearchController(searchResultsController: nil)
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        var contentOffset = tableView.contentOffset
-        contentOffset.y += (tableView.tableHeaderView?.frame.height)!
-        tableView.contentOffset = contentOffset
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         searchController.searchResultsUpdater = self
-        searchController.searchBar.placeholder = "Search Candies"
+        searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = "Search Events"
         searchController.obscuresBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
         definesPresentationContext = true
-        tableView.tableHeaderView = searchController.searchBar
+        navigationItem.titleView = searchController.searchBar
+        
         
         tableView.rowHeight = UITableViewAutomaticDimension
         SVProgressHUD.show()
@@ -102,7 +99,7 @@ class EventsViewController: UITableViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
         cell.dateLabel.text = dateFormatter.string(from: date)
-        cell.attendeesLabel.text = "Attendees: \(event.peopleCount!)"
+        cell.attendeesLabel.text = "Attendees: \(event.rsvpCount!)"
         cell.locationLabel.text = event.location
         cell.ratingLabel.text = "\(event.rating!)"
         if let image = event.image {
@@ -223,7 +220,7 @@ extension EventsViewController: FilterDelegate {
     }
 }
 
-extension EventsViewController: UISearchResultsUpdating {
+extension EventsViewController: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
         searchEvents(searchController.searchBar.text!)
     }
@@ -251,5 +248,17 @@ extension EventsViewController: UISearchResultsUpdating {
     
     func isFiltering() -> Bool {
         return searchController.isActive && !searchBarIsEmpty()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        filterButton = navigationItem.rightBarButtonItem
+        navigationItem.rightBarButtonItem = nil
+        createButton = navigationItem.leftBarButtonItem
+        navigationItem.leftBarButtonItem = nil
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        navigationItem.rightBarButtonItem = filterButton
+        navigationItem.leftBarButtonItem = createButton
     }
 }

@@ -9,6 +9,7 @@
 
 import UIKit
 import MapKit
+import Firebase
 
 class EventDetailViewController: UIViewController, FilterDelegate {
     @IBOutlet weak var eventView: UIImageView!
@@ -32,6 +33,13 @@ class EventDetailViewController: UIViewController, FilterDelegate {
     }
     
     func setup() {
+        
+        EventUpClient.sharedInstance.getUserInfo(uid: event.owner, success: { (user) in
+            print(user.rating)
+        }) { (error) in
+            print(error.localizedDescription)
+            
+        }
         nameLabel.text = event.name
         descriptionLabel.text = event.info
         descriptionLabel.sizeToFit()
@@ -39,26 +47,27 @@ class EventDetailViewController: UIViewController, FilterDelegate {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
         dateLabel.text = dateFormatter.string(from: date)
-        locationLabel.text = event.location
+        //locationLabel.text = event.location
         //tagsLabel.text = event.tags
         if let image = event.image {
             eventView.image = EventUpClient.sharedInstance.base64DecodeImage(image)
         }
         // Display the number of people that RSVP'd to the event
-        attendeesLabel.text = "Attendees: \(event.peopleCount!)"
+        attendeesLabel.text = "Attendees: \(event.rsvpCount!)"
         eventMapView.removeAnnotations(eventMapView.annotations)
         eventMapView.addAnnotation(eventMapView.userLocation)
         let annotation = MKPointAnnotation()
         annotation.coordinate = CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude)
         annotation.title = event.name
         let region = MKCoordinateRegion(center: annotation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
+        eventMapView.removeAnnotations(eventMapView.annotations)
         eventMapView.setRegion(region, animated: true)
         eventMapView.addAnnotation(annotation)
     }
     @IBAction func deleteEvent(_ sender: Any) {
         let alert = UIAlertController(title: "Delete " + event.name, message: "Are you sure you want to delete this event?", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in
-            EventUpClient.sharedInstance.deleteEvent(uid: self.event.uid, success: {
+            EventUpClient.sharedInstance.deleteEvent(event: self.event, success: {_ in 
                 self.onSuccessful()
             }) { (error) in
                 print(error)
@@ -77,9 +86,9 @@ class EventDetailViewController: UIViewController, FilterDelegate {
     }
     
     @IBAction func rsvpUser(_ sender: Any) {
-        
-        EventUpClient.sharedInstance.checkInEvent(uid: event.uid, success: {
-            self.attendeesLabel.text = String(self.event.peopleCount + 1)
+        EventUpClient.sharedInstance.rsvpEvent(event: event, user: Auth.auth().currentUser!.uid, success: {(event) in
+            self.event = event
+            self.setup()
             let alert = UIAlertController(title: "Success!", message: "You RSVP'd to the event", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in self.onSuccessful()}))
             self.present(alert, animated: true, completion: nil)

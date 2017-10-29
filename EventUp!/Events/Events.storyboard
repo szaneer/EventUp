@@ -210,6 +210,9 @@
                                 <state key="normal" title="Cancel">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="onCancel:" destination="8dI-5P-fZe" eventType="touchUpInside" id="Rj2-Bo-eAS"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -445,14 +448,6 @@
                                 </connections>
                             </button>
                         </barButtonItem>
-                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Pcy-18-VAH">
-                            <rect key="frame" x="155" y="7" width="65" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Curr/Past"/>
-                            <connections>
-                                <action selector="onTimeSwitch:" destination="gP4-rh-N2L" eventType="touchUpInside" id="Aqp-W7-nvx"/>
-                            </connections>
-                        </button>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="Foq-4l-NrG">
                             <connections>
                                 <segue destination="8dI-5P-fZe" kind="presentation" identifier="createSegue" id="wIQ-b5-hbW"/>
@@ -606,12 +601,6 @@
                                     <constraint firstAttribute="height" constant="125" id="f7b-rE-3fl"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bf5-RY-icH">
-                                <rect key="frame" x="141" y="72" width="48" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cjd-IE-Tsl">
                                 <rect key="frame" x="141" y="122" width="36" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -637,12 +626,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="zCD-NK-XtP" firstAttribute="trailing" secondItem="v3T-ZD-39T" secondAttribute="trailing" id="6Va-Sh-QxY"/>
-                            <constraint firstItem="bf5-RY-icH" firstAttribute="top" secondItem="v3T-ZD-39T" secondAttribute="top" constant="8" id="8Z9-Pe-WTx"/>
                             <constraint firstItem="BXx-5E-cRJ" firstAttribute="top" secondItem="Qbp-K9-eOu" secondAttribute="bottom" constant="4" id="9Cb-Nc-uFd"/>
                             <constraint firstItem="rFJ-bq-1tf" firstAttribute="top" secondItem="bLf-8B-Rah" secondAttribute="bottom" constant="8" id="GCa-EA-eyf"/>
                             <constraint firstItem="bLf-8B-Rah" firstAttribute="leading" secondItem="v3T-ZD-39T" secondAttribute="leading" constant="8" id="GsS-Ad-bLs"/>
                             <constraint firstItem="bLf-8B-Rah" firstAttribute="top" secondItem="v3T-ZD-39T" secondAttribute="top" constant="8" id="MyM-yK-LOT"/>
-                            <constraint firstItem="bf5-RY-icH" firstAttribute="top" secondItem="bLf-8B-Rah" secondAttribute="top" id="NNb-S8-Rmm"/>
                             <constraint firstItem="v3T-ZD-39T" firstAttribute="trailing" secondItem="BXx-5E-cRJ" secondAttribute="trailing" constant="4" id="PNf-Dr-4Pe"/>
                             <constraint firstItem="zCD-NK-XtP" firstAttribute="top" secondItem="rFJ-bq-1tf" secondAttribute="bottom" constant="8" id="Vpr-Hp-yK6"/>
                             <constraint firstItem="zCD-NK-XtP" firstAttribute="bottom" secondItem="v3T-ZD-39T" secondAttribute="bottom" id="XVG-WW-0dH"/>
@@ -650,24 +637,12 @@
                             <constraint firstItem="v3T-ZD-39T" firstAttribute="trailing" secondItem="Qbp-K9-eOu" secondAttribute="trailing" constant="4" id="hTm-De-Com"/>
                             <constraint firstItem="zCD-NK-XtP" firstAttribute="leading" secondItem="v3T-ZD-39T" secondAttribute="leading" id="mpt-3o-mMx"/>
                             <constraint firstItem="rFJ-bq-1tf" firstAttribute="leading" secondItem="v3T-ZD-39T" secondAttribute="leading" constant="8" id="n90-EA-sCO"/>
-                            <constraint firstItem="bf5-RY-icH" firstAttribute="leading" secondItem="bLf-8B-Rah" secondAttribute="trailing" constant="8" id="nXx-Nc-yl1"/>
                             <constraint firstItem="v3T-ZD-39T" firstAttribute="trailing" secondItem="rFJ-bq-1tf" secondAttribute="trailing" constant="8" id="omY-gm-n42"/>
                             <constraint firstItem="cjd-IE-Tsl" firstAttribute="leading" secondItem="bLf-8B-Rah" secondAttribute="trailing" constant="8" id="uEe-6L-am3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="v3T-ZD-39T"/>
                     </view>
-                    <toolbarItems>
-                        <barButtonItem style="plain" id="cvs-Lf-iXf">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="j27-hh-xVF">
-                                <rect key="frame" x="16" y="7" width="343" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="RSVP"/>
-                                <connections>
-                                    <action selector="rsvpUser:" destination="Bsj-OG-3Y9" eventType="touchUpInside" id="hUY-xf-qM9"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Title" id="pjd-A4-NMs"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -677,7 +652,6 @@
                         <outlet property="distanceLabel" destination="Qbp-K9-eOu" id="z99-uO-U5T"/>
                         <outlet property="eventMapView" destination="zCD-NK-XtP" id="SgI-bM-ifa"/>
                         <outlet property="eventView" destination="bLf-8B-Rah" id="pYB-rI-zw6"/>
-                        <outlet property="nameLabel" destination="bf5-RY-icH" id="TJA-38-9Wc"/>
                         <segue destination="9dM-dv-TGP" kind="show" id="nKg-qi-DyJ"/>
                     </connections>
                 </viewController>
@@ -848,7 +822,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wob-Wz-2DZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1706" y="-360"/>
+            <point key="canvasLocation" x="2217" y="-1262"/>
         </scene>
         <!--Event Map View Controller-->
         <scene sceneID="kwT-Pg-pry">

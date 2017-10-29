@@ -93,7 +93,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         annotation.coordinate = CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude)
         annotation.event = event
         annotation.title = event.name
-        let heatCircle = MKCircle(center: annotation.coordinate, radius: CLLocationDistance(event.peopleCount * 100))
+        let heatCircle = MKCircle(center: annotation.coordinate, radius: CLLocationDistance(event.rsvpCount * 100))
         eventMapView.addAnnotation(annotation)
         eventMapView.add(heatCircle)
     }

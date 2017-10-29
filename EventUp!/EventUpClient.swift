@@ -16,7 +16,7 @@ class EventUpClient: NSObject {
     let db = Firestore.firestore()
     let mdb = Database.database().reference().child("messages")
     
-    
+    //Events
     func getEvents(success: @escaping ([Event]) -> (), failure: @escaping (Error) -> ()) {
         getEvents(filters: nil, success: { (events) in
             success(events)
@@ -28,16 +28,6 @@ class EventUpClient: NSObject {
     func getEvents(filters: [String: Any]?, success: @escaping ([Event]) -> (), failure: @escaping (Error) -> ()) {
         let events = db.collection("events")
         if let filters = filters {
-//            if filters.count <= 1 {
-//                Error.
-//                failure()
-//                return
-//            }
-//            for (type, value) in filters {
-//                if (type == "startDate") {
-//                    eventsQuery = eventsQuery.whereField("date", isGreaterThanOrEqualTo: value)
-//                }
-//            }
         } else {
             events.getDocuments { (eventsSnapshot, error) in
                 if let error = error {
@@ -83,7 +73,31 @@ class EventUpClient: NSObject {
         newUserEvent.setData(["uid": uid])
     }
     
-    func deleteEvent(event: Event, eventImage: UIImage?, success: @escaping (Event) ->(), failure: @escaping (Error) -> ()) {
+    func editEvent(event: Event, eventData: [String: Any], eventImage: UIImage?, success: @escaping (Event) ->(), failure: @escaping (Error) -> ()) {
+        var eventData = eventData
+        let uid = event.uid!
+        
+        eventData["rsvpCount"] = event.rsvpCount
+        eventData["checkedInCount"] = event.checkedInCount
+        
+        eventData["rating"] = event.rating
+        eventData["ratingCount"] = event.ratingCount
+        eventData["uid"] = uid
+        if let eventImage = eventImage {
+            let imageString = base64EncodeImage(eventImage)
+            eventData["image"] = imageString
+        }
+        let currEvent = db.collection("events").document(uid)
+        currEvent.setData(eventData) { (error) in
+            if let error = error {
+                failure(error)
+            } else {
+                success(Event(eventData: eventData))
+            }
+        }
+    }
+    
+    func deleteEvent(event: Event, success: @escaping (Event) ->(), failure: @escaping (Error) -> ()) {
         let eventDoc = db.collection("events").document(event.uid)
         eventDoc.delete { (error) in
             if let error = error {
@@ -93,8 +107,9 @@ class EventUpClient: NSObject {
         let userEvents = db.collection("users").document(event.owner).collection("events")
         userEvents.document(event.uid).delete()
     }
-    func rateEvent(rating: Double, uid: String, success: @escaping (Double) ->(), failure: @escaping (Error) -> ()) {
-        let event = db.collection("events").document(uid)
+    
+    func rateEvent(rating: Double, event: Event, success: @escaping (Double) ->(), failure: @escaping (Error) -> ()) {
+        let event = db.collection("events").document(event.uid)
         event.getDocument { (eventSnapshot, error) in
             if let error = error {
                 failure(error)
@@ -117,91 +132,7 @@ class EventUpClient: NSObject {
         }
     }
     
-    
-    func checkInEvent(uid: String, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
-        let event = db.collection("events").document(uid)
-        event.getDocument { (eventSnapshot, error) in
-            if let error = error {
-                failure(error)
-            } else {
-                var eventData = eventSnapshot!.data()
-                var currPeopleCount = eventData["peopleCount"] as! Int
-                currPeopleCount += 1
-                print(currPeopleCount)
-                event.updateData(["peopleCount": currPeopleCount], completion: { (error) in
-                    if let error = error {
-                        failure(error)
-                    } else {
-                        success()
-                    }
-                })
-            }
-        }
-    }
-    
-    func deleteEvent(uid: String, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
-        let event = db.collection("events").document(uid)
-        event.delete { (error) in
-            if let error = error {
-                failure(error)
-                return
-            }
-            success()
-        }
-    }
-    
-    func editEvent(event: Event, eventData: [String: Any], eventImage: UIImage?, success: @escaping (Event) ->(), failure: @escaping (Error) -> ()) {
-        var eventData = eventData
-        let uid = event.uid!
-        eventData["peopleCount"] = event.peopleCount
-        eventData["rating"] = event.rating
-        eventData["ratingCount"] = event.ratingCount
-        eventData["uid"] = uid
-        if let eventImage = eventImage {
-            let imageString = base64EncodeImage(eventImage)
-            eventData["image"] = imageString
-        }
-        let currEvent = db.collection("events").document(uid)
-        currEvent.setData(eventData) { (error) in
-            if let error = error {
-                failure(error)
-            } else {
-                success(Event(eventData: eventData))
-            }
-        }
-    }
-    
-    // Resize a given image using a given GCSize
-    func resizeImage(_ imageSize: CGSize, image: UIImage) -> Data {
-        UIGraphicsBeginImageContext(imageSize)
-        image.draw(in: CGRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        let resizedImage = UIImagePNGRepresentation(newImage!)
-        UIGraphicsEndImageContext()
-        return resizedImage!
-    }
-    
-    // Encode image to string
-    func base64EncodeImage(_ image: UIImage) -> String {
-        var imagedata = UIImagePNGRepresentation(image)
-        
-        // Resize the image if it exceeds the 2MB API limit
-        if ((imagedata?.count)! > 1048487) {
-            let oldSize: CGSize = image.size
-            let newSize: CGSize = CGSize(width: 400, height: oldSize.height / oldSize.width * 400)
-            imagedata = resizeImage(newSize, image: image)
-        }
-        
-        return imagedata!.base64EncodedString(options: .endLineWithCarriageReturn)
-    }
-    
-    func base64DecodeImage(_ data: String) -> UIImage {
-        let data = Data(base64Encoded: data, options: .ignoreUnknownCharacters)!
-        
-        return UIImage(data: data)!
-    }
-    
-    
+    // Users
     func registerUser(userData: [String: Any], userImage: UIImage?, success: @escaping (User) ->(), failure: @escaping (Error) -> ()) {
         var userData = userData
         let email = userData["email"] as! String
@@ -238,49 +169,6 @@ class EventUpClient: NSObject {
                 failure(error)
             } else if let user = user {
                 success(user)
-            }
-        }
-    }
-    
-    func getUserInfo(uid: String, success: @escaping (EventUser) -> (), failure: @escaping (Error) -> ()) {
-        let users = db.collection("users").document(uid)
-        users.getDocument { (userSnapshot, error) in
-            if let error = error {
-                failure(error)
-            } else if let userSnapshot = userSnapshot {
-                let user = EventUser(eventData: userSnapshot.data())
-                success(user)
-            }
-        }
-    }
-    
-    func getEventMessages(uid: String, success: @escaping ([Message]) -> (), failure: @escaping (Error) -> ()) {
-        let messages = mdb.child(uid)
-        messages.observe(.value, with: { (messagesSnapshot) in
-            var messageResult: [Message] = []
-            guard var eventMessageData = messagesSnapshot.value as? [String: [String: Any]] else {
-                success(messageResult)
-                return
-            }
-            let eventMessages = eventMessageData["messages"]
-            for (_, message) in eventMessages! {
-                messageResult.append(Message(messageData: message as! [String: Any]))
-            }
-            
-            success(messageResult)
-            
-        }) { (error) in
-            failure(error)
-        }
-    }
-    
-    func sendEventMessage(uid: String, messageData: [String: Any], success: @escaping () -> (), failure: @escaping (Error) -> ()) {
-        let messages = mdb.child(uid)
-        messages.setValue(messageData) { (error, _) in
-            if let error = error {
-                failure(error)
-            } else {
-                success()
             }
         }
     }
@@ -330,6 +218,133 @@ class EventUpClient: NSObject {
             success()
         }
     }
+    
+    func getUserInfo(user: User, success: @escaping (EventUser) -> (), failure: @escaping (Error) -> ()) {
+        let users = db.collection("users").document(user.uid)
+        users.getDocument { (userSnapshot, error) in
+            if let error = error {
+                failure(error)
+            } else if let userSnapshot = userSnapshot {
+                let user = EventUser(eventData: userSnapshot.data())
+                success(user)
+            }
+        }
+    }
+    
+    func getUserInfo(uid: String, success: @escaping (EventUser) -> (), failure: @escaping (Error) -> ()) {
+        let users = db.collection("users").document(uid)
+        users.getDocument { (userSnapshot, error) in
+            if let error = error {
+                failure(error)
+            } else if let userSnapshot = userSnapshot {
+                let user = EventUser(eventData: userSnapshot.data())
+                success(user)
+            }
+        }
+    }
+    func rsvpEvent(event: Event, user: String, success: @escaping (Event) ->(), failure: @escaping (Error) -> ()) {
+        let event = db.collection("events").document(event.uid)
+        event.getDocument { (eventSnapshot, error) in
+            if let error = error {
+                failure(error)
+            } else {
+                var eventData = eventSnapshot!.data()
+                var currRsvpCount = eventData["rsvpCount"] as! Int
+                currRsvpCount += 1
+                event.updateData(["rsvpCount": currRsvpCount], completion: { (error) in
+                    if let error = error {
+                        failure(error)
+                    } else {
+                        success(Event(eventData: eventData))
+                    }
+                })
+            }
+        }
+    }
+    
+    func checkInEvent(event: Event, user: String, success: @escaping (Event) ->(), failure: @escaping (Error) -> ()) {
+        let event = db.collection("events").document(event.uid)
+        event.getDocument { (eventSnapshot, error) in
+            if let error = error {
+                failure(error)
+            } else {
+                var eventData = eventSnapshot!.data()
+                var currCheckedInCount = eventData["checkedInCount"] as! Int
+                currCheckedInCount += 1
+                event.updateData(["checkedInCount": currCheckedInCount], completion: { (error) in
+                    if let error = error {
+                        failure(error)
+                    } else {
+                        success(Event(eventData: eventData))
+                    }
+                })
+            }
+        }
+    }
+    
+    // Other
+    // Resize a given image using a given GCSize
+    func resizeImage(_ imageSize: CGSize, image: UIImage) -> Data {
+        UIGraphicsBeginImageContext(imageSize)
+        image.draw(in: CGRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        let resizedImage = UIImagePNGRepresentation(newImage!)
+        UIGraphicsEndImageContext()
+        return resizedImage!
+    }
+    
+    // Encode image to string
+    func base64EncodeImage(_ image: UIImage) -> String {
+        var imagedata = UIImagePNGRepresentation(image)
+        
+        // Resize the image if it exceeds the 2MB API limit
+        if ((imagedata?.count)! > 1048487) {
+            let oldSize: CGSize = image.size
+            let newSize: CGSize = CGSize(width: 400, height: oldSize.height / oldSize.width * 400)
+            imagedata = resizeImage(newSize, image: image)
+        }
+        
+        return imagedata!.base64EncodedString(options: .endLineWithCarriageReturn)
+    }
+    
+    func base64DecodeImage(_ data: String) -> UIImage {
+        let data = Data(base64Encoded: data, options: .ignoreUnknownCharacters)!
+        
+        return UIImage(data: data)!
+    }
+    
+    func getEventMessages(uid: String, success: @escaping ([Message]) -> (), failure: @escaping (Error) -> ()) {
+        let messages = mdb.child(uid)
+        messages.observe(.value, with: { (messagesSnapshot) in
+            var messageResult: [Message] = []
+            guard var eventMessageData = messagesSnapshot.value as? [String: [String: Any]] else {
+                success(messageResult)
+                return
+            }
+            let eventMessages = eventMessageData["messages"]
+            for (_, message) in eventMessages! {
+                messageResult.append(Message(messageData: message as! [String: Any]))
+            }
+            
+            success(messageResult)
+            
+        }) { (error) in
+            failure(error)
+        }
+    }
+    
+    func sendEventMessage(uid: String, messageData: [String: Any], success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+        let messages = mdb.child(uid)
+        messages.setValue(messageData) { (error, _) in
+            if let error = error {
+                failure(error)
+            } else {
+                success()
+            }
+        }
+    }
+    
+    
 }
 
 extension String {

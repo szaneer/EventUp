@@ -30,7 +30,7 @@ class ProfileViewController: UIViewController {
         guard let user = Auth.auth().currentUser else {
             return
         }
-        EventUpClient.sharedInstance.getUserInfo(uid: user.uid, success: { (user) in
+        EventUpClient.sharedInstance.getUserInfo(user: user, success: { (user) in
             DispatchQueue.main.async {
                 self.nameLabel.text = user.name
                 self.ratingLabel.text = "\(user.rating)"
