@@ -12,6 +12,7 @@
 		839240231F85BA07003C0DAF /* RatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839240221F85BA07003C0DAF /* RatingViewController.swift */; };
 		B5710CDC1F85D607000D1E70 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5710CDB1F85D607000D1E70 /* Profile.storyboard */; };
 		C72B02B71F8692F1005E7B97 /* EventAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72B02B61F8692F1005E7B97 /* EventAnnotation.swift */; };
+		C72C8E271FA6864300B16561 /* EventChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72C8E261FA6864300B16561 /* EventChatViewController.swift */; };
 		C764020C1F7959DF00AA3F06 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C764020B1F7959DF00AA3F06 /* Map.storyboard */; };
 		C764020E1F795AA500AA3F06 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C764020D1F795AA500AA3F06 /* MapViewController.swift */; };
 		C76402111F7975E700AA3F06 /* Events.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C76402101F7975E700AA3F06 /* Events.storyboard */; };
@@ -36,7 +37,6 @@
 		C7C5D3801F5F2EA0001BCE38 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C5D37F1F5F2EA0001BCE38 /* ViewController.swift */; };
 		C7C5D3831F5F2EA0001BCE38 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7C5D3811F5F2EA0001BCE38 /* Main.storyboard */; };
 		C7C5D3881F5F2EA0001BCE38 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7C5D3861F5F2EA0001BCE38 /* LaunchScreen.storyboard */; };
-		C7D710971F9913DB0010EAC8 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D710961F9913DB0010EAC8 /* ChatViewController.swift */; };
 		C7D710991F9916210010EAC8 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D710981F9916210010EAC8 /* Message.swift */; };
 		C7D7109C1F9983520010EAC8 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D7109A1F9983510010EAC8 /* FBSDKCoreKit.framework */; };
 		C7D7109D1F9983520010EAC8 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D7109B1F9983520010EAC8 /* FBSDKLoginKit.framework */; };
@@ -51,6 +51,8 @@
 		B5710CDB1F85D607000D1E70 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		B8642049167ECB3A8DF5E8AB /* Pods-EventUp!.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventUp!.release.xcconfig"; path = "Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!.release.xcconfig"; sourceTree = "<group>"; };
 		C72B02B61F8692F1005E7B97 /* EventAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAnnotation.swift; sourceTree = "<group>"; };
+		C72C8E251FA5C8B000B16561 /* EventUp!.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "EventUp!.entitlements"; sourceTree = "<group>"; };
+		C72C8E261FA6864300B16561 /* EventChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventChatViewController.swift; sourceTree = "<group>"; };
 		C764020B1F7959DF00AA3F06 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		C764020D1F795AA500AA3F06 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C76402101F7975E700AA3F06 /* Events.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Events.storyboard; sourceTree = "<group>"; };
@@ -77,7 +79,6 @@
 		C7C5D3821F5F2EA0001BCE38 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C7C5D3871F5F2EA0001BCE38 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7C5D3891F5F2EA0001BCE38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C7D710961F9913DB0010EAC8 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		C7D710981F9916210010EAC8 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		C7D7109A1F9983510010EAC8 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		C7D7109B1F9983520010EAC8 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
@@ -139,8 +140,8 @@
 				C76402221F7C45B400AA3F06 /* FilterViewController.swift */,
 				839240221F85BA07003C0DAF /* RatingViewController.swift */,
 				7C3C6D581F861C2000511686 /* RSVPViewController.swift */,
-				C7D710961F9913DB0010EAC8 /* ChatViewController.swift */,
 				C79D17F11FA2A37400D25C4B /* EventTagSelectViewController.swift */,
+				C72C8E261FA6864300B16561 /* EventChatViewController.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -206,6 +207,7 @@
 		C7C5D37C1F5F2EA0001BCE38 /* EventUp! */ = {
 			isa = PBXGroup;
 			children = (
+				C72C8E251FA5C8B000B16561 /* EventUp!.entitlements */,
 				C7A3F92F1F9F9014007D1AB5 /* Assets.xcassets */,
 				B5710CD81F85D5AB000D1E70 /* Profile */,
 				C76402311F7F141B00AA3F06 /* Main */,
@@ -259,6 +261,11 @@
 					C7C5D3791F5F2E9F001BCE38 = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -331,6 +338,8 @@
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/JSQMessagesViewController/JSQMessagesViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
@@ -349,6 +358,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQMessagesViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQSystemSoundPlayer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
@@ -398,6 +409,7 @@
 				C7C5D3801F5F2EA0001BCE38 /* ViewController.swift in Sources */,
 				C76402301F7DBF1400AA3F06 /* EventCreateViewController.swift in Sources */,
 				C76402151F79776900AA3F06 /* EventsViewController.swift in Sources */,
+				C72C8E271FA6864300B16561 /* EventChatViewController.swift in Sources */,
 				C76402231F7C45B400AA3F06 /* FilterViewController.swift in Sources */,
 				839240231F85BA07003C0DAF /* RatingViewController.swift in Sources */,
 				C7D7109F1F99A4060010EAC8 /* EventLocationSelectViewController.swift in Sources */,
@@ -408,7 +420,6 @@
 				C764020E1F795AA500AA3F06 /* MapViewController.swift in Sources */,
 				C764021D1F79891300AA3F06 /* EventMapViewController.swift in Sources */,
 				C764021F1F7C34B900AA3F06 /* EventDetailViewController.swift in Sources */,
-				C7D710971F9913DB0010EAC8 /* ChatViewController.swift in Sources */,
 				C764022A1F7DB97B00AA3F06 /* EventUpClient.swift in Sources */,
 				C76C14901F981A7C006B3F5C /* LoginViewController.swift in Sources */,
 				C76C14921F981FE8006B3F5C /* RegisterViewController.swift in Sources */,
@@ -554,6 +565,7 @@
 			baseConfigurationReference = 0ECBAAF3044ED4B96DC08B27 /* Pods-EventUp!.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "EventUp!/EventUp!.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3YC9K4952Y;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -575,6 +587,7 @@
 			baseConfigurationReference = B8642049167ECB3A8DF5E8AB /* Pods-EventUp!.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "EventUp!/EventUp!.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3YC9K4952Y;
 				FRAMEWORK_SEARCH_PATHS = (

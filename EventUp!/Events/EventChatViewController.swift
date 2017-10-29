@@ -1,21 +1,15 @@
 //
-//  ChatViewController.swift
+//  EventChatViewController.swift
 //  EventUp!
 //
-//  Created by Siraj Zaneer on 10/19/17.
+//  Created by Siraj Zaneer on 10/29/17.
 //  Copyright © 2017 Siraj Zaneer. All rights reserved.
 //
 
 import UIKit
 
-class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class EventChatViewController: JSQMessagesViewController {
 
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var inputField: UITextField!
-    @IBOutlet weak var sendButton: UIButton!
-    
-    var event: Event!
-    var messages: [Message] = []
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,14 +22,6 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
-    }
-    
     /*
     // MARK: - Navigation
 

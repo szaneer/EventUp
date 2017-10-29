@@ -15,5 +15,6 @@ target 'EventUp!' do
   pod 'FirebaseUI/Twitter'
   pod 'FirebaseUI/Phone'
   pod 'SVProgressHUD'
+  pod 'JSQMessagesViewController'
 
 end
