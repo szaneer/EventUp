@@ -44,6 +44,7 @@ class EventTagSelectViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         delegate.setTag(tag: cell!.textLabel!.text!, index: index)
+        self.dismiss(animated: true, completion: nil)
     }
 
     /*

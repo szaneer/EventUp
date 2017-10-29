@@ -14,7 +14,7 @@ import FBSDKLoginKit
 class EventUpClient: NSObject {
     static let sharedInstance = EventUpClient()
     let db = Firestore.firestore()
-    let mdb = Database.database().reference().child("messages")
+    let cdb = Database.database().reference().child("chats")
     
     //Events
     func getEvents(success: @escaping ([Event]) -> (), failure: @escaping (Error) -> ()) {
@@ -52,7 +52,8 @@ class EventUpClient: NSObject {
     func createEvent(eventData: [String: Any], eventImage: UIImage?, success: @escaping (Event) ->(), failure: @escaping (Error) -> ()) {
         var eventData = eventData
         let uid = UUID.init().uuidString
-        eventData["peopleCount"] = 0;
+        eventData["rsvpCount"] = 0
+        eventData["checkedInCount"] = 0
         eventData["rating"] = 0.00
         eventData["ratingCount"] = 0
         eventData["uid"] = uid
@@ -233,8 +234,8 @@ class EventUpClient: NSObject {
     
     func registerFacebookUser(uid: String, userData: [String: Any], userImage: UIImage?, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
         var userData = userData
-        let email = userData["email"] as! String
         userData["rating"] = 0.00
+        userData["ratingCount"] = 0
         if let userImage = userImage {
             let imageString = base64EncodeImage(userImage)
             userData["image"] = imageString
@@ -311,6 +312,29 @@ class EventUpClient: NSObject {
         }
     }
     
+    // Chat
+    func sendMessage(event: Event, message: [String: Any], success: @escaping () ->(), failure: @escaping (Error) -> ()) {
+        let eventMessages = cdb.child(event.uid).child("messages")
+        let newMessage = eventMessages.childByAutoId()
+        newMessage.setValue(message) { (error, ref) in
+            if let error = error {
+                failure(error)
+            } else {
+                print(ref)
+                success()
+            }
+        }
+    }
+    
+    func getMessages(event: Event, success: @escaping ([String: Any]) ->(), failure: @escaping (Error) -> ()) {
+        let eventMessages = cdb.child(event.uid).child("messages")
+        let messageQuery = eventMessages.queryLimited(toLast:25)
+        
+        messageQuery.observe(.childAdded, with: { (snapshot) -> Void in
+            let messageData = snapshot.value as! [String: Any]
+            success(messageData)
+        })
+    }
     // Other
     // Resize a given image using a given GCSize
     func resizeImage(_ imageSize: CGSize, image: UIImage) -> Data {
@@ -340,37 +364,6 @@ class EventUpClient: NSObject {
         let data = Data(base64Encoded: data, options: .ignoreUnknownCharacters)!
         
         return UIImage(data: data)!
-    }
-    
-    func getEventMessages(uid: String, success: @escaping ([Message]) -> (), failure: @escaping (Error) -> ()) {
-        let messages = mdb.child(uid)
-        messages.observe(.value, with: { (messagesSnapshot) in
-            var messageResult: [Message] = []
-            guard var eventMessageData = messagesSnapshot.value as? [String: [String: Any]] else {
-                success(messageResult)
-                return
-            }
-            let eventMessages = eventMessageData["messages"]
-            for (_, message) in eventMessages! {
-                messageResult.append(Message(messageData: message as! [String: Any]))
-            }
-            
-            success(messageResult)
-            
-        }) { (error) in
-            failure(error)
-        }
-    }
-    
-    func sendEventMessage(uid: String, messageData: [String: Any], success: @escaping () -> (), failure: @escaping (Error) -> ()) {
-        let messages = mdb.child(uid)
-        messages.setValue(messageData) { (error, _) in
-            if let error = error {
-                failure(error)
-            } else {
-                success()
-            }
-        }
     }
 }
 

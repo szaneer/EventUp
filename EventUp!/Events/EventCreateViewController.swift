@@ -119,6 +119,8 @@ class EventCreateViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
                 self.view.isUserInteractionEnabled = true
                 SVProgressHUD.dismiss()
+                
+                self.dismiss(animated: true, completion: nil)
             }) { (error) in
                 print(error)
             }
@@ -131,6 +133,7 @@ class EventCreateViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
             self.view.isUserInteractionEnabled = true
             SVProgressHUD.dismiss()
+            self.dismiss(animated: true, completion: nil)
         }) { (error) in
             print(error)
         }

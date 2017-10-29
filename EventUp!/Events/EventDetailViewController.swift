@@ -40,7 +40,7 @@ class EventDetailViewController: UIViewController, FilterDelegate {
             print(error.localizedDescription)
             
         }
-        nameLabel.text = event.name
+        //nameLabel.text = event.name
         descriptionLabel.text = event.info
         descriptionLabel.sizeToFit()
         let date = Date(timeIntervalSince1970: event.date)
@@ -136,6 +136,10 @@ class EventDetailViewController: UIViewController, FilterDelegate {
             let destination = segue.destination as! RatingViewController
             destination.event = event
             destination.delegate = self
+        case "chatSegue":
+            let destination = segue.destination as! EventChatViewController
+            destination.event = self.event
+            
         default:
             return
         }

@@ -13,6 +13,7 @@
 		B5710CDC1F85D607000D1E70 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5710CDB1F85D607000D1E70 /* Profile.storyboard */; };
 		C72B02B71F8692F1005E7B97 /* EventAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72B02B61F8692F1005E7B97 /* EventAnnotation.swift */; };
 		C72C8E271FA6864300B16561 /* EventChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72C8E261FA6864300B16561 /* EventChatViewController.swift */; };
+		C72C8E291FA68B4B00B16561 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72C8E281FA68B4B00B16561 /* SettingsViewController.swift */; };
 		C764020C1F7959DF00AA3F06 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C764020B1F7959DF00AA3F06 /* Map.storyboard */; };
 		C764020E1F795AA500AA3F06 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C764020D1F795AA500AA3F06 /* MapViewController.swift */; };
 		C76402111F7975E700AA3F06 /* Events.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C76402101F7975E700AA3F06 /* Events.storyboard */; };
@@ -53,6 +54,7 @@
 		C72B02B61F8692F1005E7B97 /* EventAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAnnotation.swift; sourceTree = "<group>"; };
 		C72C8E251FA5C8B000B16561 /* EventUp!.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "EventUp!.entitlements"; sourceTree = "<group>"; };
 		C72C8E261FA6864300B16561 /* EventChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventChatViewController.swift; sourceTree = "<group>"; };
+		C72C8E281FA68B4B00B16561 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C764020B1F7959DF00AA3F06 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		C764020D1F795AA500AA3F06 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C76402101F7975E700AA3F06 /* Events.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Events.storyboard; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 			children = (
 				B5710CDB1F85D607000D1E70 /* Profile.storyboard */,
 				C76C14931F9827D1006B3F5C /* ProfileViewController.swift */,
+				C72C8E281FA68B4B00B16561 /* SettingsViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 				C764021D1F79891300AA3F06 /* EventMapViewController.swift in Sources */,
 				C764021F1F7C34B900AA3F06 /* EventDetailViewController.swift in Sources */,
 				C764022A1F7DB97B00AA3F06 /* EventUpClient.swift in Sources */,
+				C72C8E291FA68B4B00B16561 /* SettingsViewController.swift in Sources */,
 				C76C14901F981A7C006B3F5C /* LoginViewController.swift in Sources */,
 				C76C14921F981FE8006B3F5C /* RegisterViewController.swift in Sources */,
 				C76C14961F98293A006B3F5C /* EventUser.swift in Sources */,

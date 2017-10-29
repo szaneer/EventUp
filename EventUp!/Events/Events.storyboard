@@ -643,7 +643,18 @@
                         <viewLayoutGuide key="safeArea" id="v3T-ZD-39T"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Title" id="pjd-A4-NMs"/>
+                    <navigationItem key="navigationItem" title="Title" id="pjd-A4-NMs">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="zI1-D7-IgR">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="CRK-w8-6jP">
+                                <rect key="frame" x="313" y="7" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <segue destination="wPV-2E-odV" kind="show" identifier="chatSegue" id="yqh-h8-Asz"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="attendeesLabel" destination="BXx-5E-cRJ" id="sC1-Dh-eYH"/>
@@ -652,7 +663,7 @@
                         <outlet property="distanceLabel" destination="Qbp-K9-eOu" id="z99-uO-U5T"/>
                         <outlet property="eventMapView" destination="zCD-NK-XtP" id="SgI-bM-ifa"/>
                         <outlet property="eventView" destination="bLf-8B-Rah" id="pYB-rI-zw6"/>
-                        <segue destination="wPV-2E-odV" kind="show" identifier="chatSegue" id="tJJ-cM-ZYH"/>
+                        <segue destination="wPV-2E-odV" kind="show" identifier="" id="tJJ-cM-ZYH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dgJ-ge-dPj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -662,7 +673,7 @@
         <!--Event Chat View Controller-->
         <scene sceneID="Or1-3K-6uo">
             <objects>
-                <viewController id="wPV-2E-odV" customClass="EventChatViewController" customModule="EventUp_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="wPV-2E-odV" customClass="EventChatViewController" customModule="EventUp_" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AyJ-xl-A9t">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -672,7 +683,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Un-iq-qjM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1233" y="-1353"/>
+            <point key="canvasLocation" x="1300" y="-1388"/>
         </scene>
         <!--Rating View Controller-->
         <scene sceneID="Or2-Vj-N8I">
@@ -808,6 +819,7 @@
         <image name="EventAnnotation" width="58" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="tJJ-cM-ZYH"/>
         <segue reference="Pl2-jY-X1v"/>
     </inferredMetricsTieBreakers>
 </document>
