@@ -12,8 +12,8 @@ class FilterViewController: UITableViewController, UINavigationBarDelegate {
 
     var delegate: FilterDelegate!
     
-    override func viewWillAppear(_ animated: Bool) {
-    }
+    var filter: [String: Any]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,6 +22,42 @@ class FilterViewController: UITableViewController, UINavigationBarDelegate {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        for (key, value) in filter {
+            let valBool = value as! Bool
+            switch key {
+            case "name":
+                if (valBool) {
+                    let indexPath = IndexPath(row: 0, section: 0)
+                    tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+                } else {
+                    let indexPath = IndexPath(row: 0, section: 1)
+                    tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+                }
+            case "distance":
+                if (valBool) {
+                    let indexPath = IndexPath(row: 1, section: 0)
+                    tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+                } else {
+                    let indexPath = IndexPath(row: 1, section: 1)
+                    tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+                }
+            case "date":
+                if (valBool) {
+                    let indexPath = IndexPath(row: 2, section: 0)
+                    tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+                } else {
+                    let indexPath = IndexPath(row: 2, section: 1)
+                    tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+                }
+            case "past":
+                if (valBool) {
+                    let indexPath = IndexPath(row: 3, section: 0)
+                    tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+                }
+            default:
+                    break
+            }
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -32,16 +68,33 @@ class FilterViewController: UITableViewController, UINavigationBarDelegate {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 3
+        return 4
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
+        if (section == 3) {
+            return 1
+        }
         return 2
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)!
+        tableView.deselectRow(at: indexPath, animated: true)
+        if (indexPath.section == 3) {
+            if (cell.accessoryType == .checkmark) {
+                cell.accessoryType = .none
+                
+                delegate.filter(type: "past", order: false)
+            } else {
+                cell.accessoryType = .checkmark
+                
+                delegate.filter(type: "past", order: true)
+            }
+            return
+        }
+        
         let row = indexPath.row
         let otherPath: IndexPath!
         if row == 0 {
@@ -53,7 +106,7 @@ class FilterViewController: UITableViewController, UINavigationBarDelegate {
         otherCell.accessoryType = UITableViewCellAccessoryType.none
         cell.accessoryType = UITableViewCellAccessoryType.checkmark
         
-        tableView.deselectRow(at: indexPath, animated: true)
+        
         
         switch indexPath.section {
         case 0:

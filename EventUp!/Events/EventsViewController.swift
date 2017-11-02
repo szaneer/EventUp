@@ -147,6 +147,7 @@ class EventsViewController: UITableViewController {
         case "filterSegue":
             let destination = segue.destination as! FilterViewController
             destination.delegate = self
+            destination.filter = currFilter
         case "createSegue":
             let destination = segue.destination as! EventCreateViewController
             destination.delegate = self

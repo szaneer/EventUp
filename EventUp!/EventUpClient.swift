@@ -31,29 +31,62 @@ class EventUpClient: NSObject {
         if filters.count > 0 {
             var query: Query? = nil
             for (key, value) in filters {
+                if (key == "past") {
+                    if !(value as! Bool) {
+                        continue
+                    }
+                    let currDate = Date.timeIntervalSinceReferenceDate.magnitude
+                    if query == nil {
+                        query = events.whereField("date", isLessThan: currDate)
+                    } else {
+                        query = query!.whereField("date", isLessThan: currDate)
+                    }
+                    continue
+                }
                 if query == nil {
                     query = events.order(by: key, descending: value as! Bool)
                 } else {
                     query = query!.order(by: key, descending: value as! Bool)
                 }
             }
-            query!.getDocuments { (eventsSnapshot, error) in
-                if let error = error {
-                    failure(error)
-                } else {
-                    var eventResult: [Event] = []
-                    guard let events = eventsSnapshot?.documents else {
+            if let query = query {
+                query.getDocuments { (eventsSnapshot, error) in
+                    if let error = error {
+                        failure(error)
+                    } else {
+                        var eventResult: [Event] = []
+                        guard let events = eventsSnapshot?.documents else {
+                            success(eventResult)
+                            return
+                        }
+                        
+                        for event in events {
+                            eventResult.append(Event(eventData: event.data()))
+                        }
+                        
                         success(eventResult)
-                        return
                     }
-                    
-                    for event in events {
-                        eventResult.append(Event(eventData: event.data()))
+                }
+            } else {
+                events.getDocuments { (eventsSnapshot, error) in
+                    if let error = error {
+                        failure(error)
+                    } else {
+                        var eventResult: [Event] = []
+                        guard let events = eventsSnapshot?.documents else {
+                            success(eventResult)
+                            return
+                        }
+                        
+                        for event in events {
+                            eventResult.append(Event(eventData: event.data()))
+                        }
+                        
+                        success(eventResult)
                     }
-                    
-                    success(eventResult)
                 }
             }
+            
         } else {
             events.getDocuments { (eventsSnapshot, error) in
                 if let error = error {
@@ -77,7 +110,6 @@ class EventUpClient: NSObject {
     
     func getPastUserEvents(uid: String, success: @escaping ([Event]) -> (), failure: @escaping (Error) -> ()) {
         let currDate = Date.timeIntervalSinceReferenceDate.magnitude
-        print(Date.timeIntervalSinceReferenceDate.magnitude)
         let userEvents = db.collection("events").whereField("owner", isEqualTo: uid).whereField("date", isLessThan: currDate)
         userEvents.getDocuments { (eventsSnapshot, error) in
             if let error = error {
