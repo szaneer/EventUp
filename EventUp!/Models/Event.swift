@@ -23,8 +23,6 @@ class Event: NSObject {
     var info: String!
     var uid: String!
     var owner: String!
-    var rsvpList: [String]?
-    var checkedInList: [String]?
     var tags: [String]?
     var image: String?
     
@@ -45,9 +43,7 @@ class Event: NSObject {
         }
         
         rsvpCount = eventData["rsvpCount"] as! Int
-        rsvpList = eventData["rsvpList"] as? [String]
         checkedInCount = eventData["checkedInCount"] as! Int
-        checkedInList = eventData["checkedInList"] as? [String]
         
         rating = eventData["rating"] as! Double
         ratingCount = eventData["ratingCount"] as! Int

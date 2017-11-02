@@ -21,13 +21,16 @@ class EventDetailViewController: UIViewController, FilterDelegate {
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var attendeesLabel: UILabel!
     @IBOutlet weak var eventMapView: MKMapView!
+    @IBOutlet weak var editButton: UIButton!
     
     var event: Event!
     var delegate: FilterDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        if event.owner == Auth.auth().currentUser!.uid {
+            editButton.isHidden = false
+        }
         // Do any additional setup after loading the view.
         setup()
     }
@@ -86,12 +89,19 @@ class EventDetailViewController: UIViewController, FilterDelegate {
     }
     
     @IBAction func rsvpUser(_ sender: Any) {
-        EventUpClient.sharedInstance.rsvpEvent(event: event, user: Auth.auth().currentUser!.uid, success: {(event) in
-            self.event = event
-            self.setup()
-            let alert = UIAlertController(title: "Success!", message: "You RSVP'd to the event", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in self.onSuccessful()}))
-            self.present(alert, animated: true, completion: nil)
+        EventUpClient.sharedInstance.rsvpEvent(event: event, uid: Auth.auth().currentUser!.uid, success: {(already) in
+            if (already) {
+                let alert = UIAlertController(title: "Error!", message: "You already have RSVP'd to the event", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in self.onSuccessful()}))
+                self.present(alert, animated: true, completion: nil)
+            } else {
+                self.event.rsvpCount = self.event.rsvpCount + 1
+                self.setup()
+                let alert = UIAlertController(title: "Success!", message: "You RSVP'd to the event", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in self.onSuccessful()}))
+                self.present(alert, animated: true, completion: nil)
+            }
+            
         }) { (error) in
             print(error.localizedDescription)
         }

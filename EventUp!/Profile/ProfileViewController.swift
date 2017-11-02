@@ -45,6 +45,12 @@ class ProfileViewController: UIViewController {
         
         EventUpClient.sharedInstance.getUserInfo(user: user, success: { (user) in
             DispatchQueue.main.async {
+                guard let user = user else {
+                    try! Auth.auth().signOut()
+                    SVProgressHUD.dismiss()
+                    self.view.isUserInteractionEnabled = true
+                    return
+                }
                 self.user = user
                 self.nameLabel.text = user.name
                 self.ratingLabel.text = "\(user.rating)"

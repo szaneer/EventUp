@@ -1,0 +1,9 @@
+{
+  "name": "NotifcationFunctions",
+  "dependencies": {
+    "apn": "^2.1.5",
+    "firebase-admin": "~5.4.2",
+    "firebase-functions": "^0.7.1"
+  },
+  "private": true
+}

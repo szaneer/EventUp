@@ -120,7 +120,7 @@ class EventCreateViewController: UIViewController {
                 self.view.isUserInteractionEnabled = true
                 SVProgressHUD.dismiss()
                 
-                self.dismiss(animated: true, completion: nil)
+                
             }) { (error) in
                 print(error)
             }
@@ -133,7 +133,6 @@ class EventCreateViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
             self.view.isUserInteractionEnabled = true
             SVProgressHUD.dismiss()
-            self.dismiss(animated: true, completion: nil)
         }) { (error) in
             print(error)
         }
@@ -146,7 +145,7 @@ class EventCreateViewController: UIViewController {
     
     func onSuccessfulEventCreation() {
         delegate.refresh(event: nil)
-        self.navigationController?.popViewController(animated: true)
+         self.dismiss(animated: true, completion: nil)
     }
     
     func validateInput() -> Bool {

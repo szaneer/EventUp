@@ -94,6 +94,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
             let token = tokenParts.joined()
+            if let user = Auth.auth().currentUser {
+                EventUpClient.sharedInstance.setNotificationToken(uid: user.uid, token: token, success: {
+                    print("Set token in database")
+                }, failure: { (error) in
+                    print(error.localizedDescription)
+                })
+            }
             print("Device Token: \(token)")
         }
         

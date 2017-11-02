@@ -616,7 +616,7 @@
             </objects>
             <point key="canvasLocation" x="-724" y="-627"/>
         </scene>
-        <!--Title-->
+        <!--Event Detail View Controller-->
         <scene sceneID="0ON-wd-ROh">
             <objects>
                 <viewController storyboardIdentifier="EventDetail" id="Bsj-OG-3Y9" customClass="EventDetailViewController" customModule="EventUp_" customModuleProvider="target" sceneMemberID="viewController">
@@ -658,6 +658,30 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="zCD-NK-XtP">
                                 <rect key="frame" x="0.0" y="234" width="375" height="340"/>
                             </mapView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aJD-bD-IcH">
+                                <rect key="frame" x="292" y="167" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Edit"/>
+                                <connections>
+                                    <segue destination="8dI-5P-fZe" kind="presentation" identifier="editSegue" id="QVB-XO-GNv"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AZx-nt-p9c">
+                                <rect key="frame" x="216" y="167" width="32" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Rate"/>
+                                <connections>
+                                    <segue destination="hHX-S0-wp1" kind="show" identifier="ratingSegue" id="fyr-62-AP1"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NZF-dm-V9F">
+                                <rect key="frame" x="233" y="122" width="38" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="RSVP"/>
+                                <connections>
+                                    <action selector="rsvpUser:" destination="Bsj-OG-3Y9" eventType="touchUpInside" id="2h8-4N-hV2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -679,12 +703,12 @@
                         <viewLayoutGuide key="safeArea" id="v3T-ZD-39T"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Title" id="pjd-A4-NMs">
+                    <navigationItem key="navigationItem" id="pjd-A4-NMs">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="zI1-D7-IgR">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="CRK-w8-6jP">
                                 <rect key="frame" x="313" y="7" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Chat"/>
                                 <connections>
                                     <segue destination="wPV-2E-odV" kind="show" identifier="chatSegue" id="yqh-h8-Asz"/>
                                 </connections>
@@ -697,6 +721,7 @@
                         <outlet property="dateLabel" destination="cjd-IE-Tsl" id="vIF-e6-SY1"/>
                         <outlet property="descriptionLabel" destination="rFJ-bq-1tf" id="P3l-5p-du7"/>
                         <outlet property="distanceLabel" destination="Qbp-K9-eOu" id="z99-uO-U5T"/>
+                        <outlet property="editButton" destination="aJD-bD-IcH" id="Wo1-1E-iYP"/>
                         <outlet property="eventMapView" destination="zCD-NK-XtP" id="SgI-bM-ifa"/>
                         <outlet property="eventView" destination="bLf-8B-Rah" id="pYB-rI-zw6"/>
                         <segue destination="wPV-2E-odV" kind="show" identifier="" id="tJJ-cM-ZYH"/>
@@ -704,7 +729,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dgJ-ge-dPj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="217" y="-1360"/>
+            <point key="canvasLocation" x="354" y="-1260"/>
         </scene>
         <!--Event Chat View Controller-->
         <scene sceneID="Or1-3K-6uo">
@@ -719,7 +744,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Un-iq-qjM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1300" y="-1388"/>
+            <point key="canvasLocation" x="1930" y="-1284"/>
         </scene>
         <!--Rating View Controller-->
         <scene sceneID="Or2-Vj-N8I">
@@ -793,7 +818,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4q0-dq-3Vf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1041" y="492"/>
+            <point key="canvasLocation" x="1089" y="-608"/>
         </scene>
         <!--Event Map View Controller-->
         <scene sceneID="kwT-Pg-pry">
@@ -857,5 +882,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="tJJ-cM-ZYH"/>
         <segue reference="Pl2-jY-X1v"/>
+        <segue reference="QVB-XO-GNv"/>
     </inferredMetricsTieBreakers>
 </document>

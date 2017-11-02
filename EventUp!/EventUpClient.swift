@@ -27,7 +27,6 @@ class EventUpClient: NSObject {
     
     func getEvents(filters: [String: Any], success: @escaping ([Event]) -> (), failure: @escaping (Error) -> ()) {
         let events = db.collection("events")
-        print("hasds")
         if filters.count > 0 {
             var query: Query? = nil
             for (key, value) in filters {
@@ -108,6 +107,17 @@ class EventUpClient: NSObject {
         }
     }
     
+    func getEvent(uid: String, success: @escaping (Event) -> (), failure: @escaping (Error) -> ()) {
+        let event = db.collection("events").document(uid)
+        event.getDocument { (snapshot, error) in
+            if let error = error {
+                failure(error)
+            } else if let snapshot = snapshot {
+                success(Event(eventData: snapshot.data()))
+            }
+        }
+    }
+    
     func getPastUserEvents(uid: String, success: @escaping ([Event]) -> (), failure: @escaping (Error) -> ()) {
         let currDate = Date.timeIntervalSinceReferenceDate.magnitude
         let userEvents = db.collection("events").whereField("owner", isEqualTo: uid).whereField("date", isLessThan: currDate)
@@ -151,27 +161,24 @@ class EventUpClient: NSObject {
                 success(Event(eventData: eventData))
             }
         }
-        let userEvents = db.collection("users").document(eventData["owner"] as! String).collection("events")
-        let newUserEvent = userEvents.document(uid)
-        newUserEvent.setData(["uid": uid])
     }
     
     func editEvent(event: Event, eventData: [String: Any], eventImage: UIImage?, success: @escaping (Event) ->(), failure: @escaping (Error) -> ()) {
         var eventData = eventData
+        var eventNew = eventData
         let uid = event.uid!
-        
         eventData["rsvpCount"] = event.rsvpCount
         eventData["checkedInCount"] = event.checkedInCount
-        
         eventData["rating"] = event.rating
         eventData["ratingCount"] = event.ratingCount
         eventData["uid"] = uid
         if let eventImage = eventImage {
             let imageString = base64EncodeImage(eventImage)
             eventData["image"] = imageString
+            eventNew["image"] = imageString
         }
         let currEvent = db.collection("events").document(uid)
-        currEvent.setData(eventData) { (error) in
+        currEvent.updateData(eventNew) { (error) in
             if let error = error {
                 failure(error)
             } else {
@@ -187,35 +194,30 @@ class EventUpClient: NSObject {
                 failure(error)
             }
         }
-        let userEvents = db.collection("users").document(event.owner).collection("events")
-        userEvents.document(event.uid).delete()
     }
     
     func rateEvent(rating: Double, event: Event, uid: String, success: @escaping (Double) ->(), failure: @escaping (Error) -> ()) {
-        let event = db.collection("events").document(event.uid)
-        event.getDocument { (eventSnapshot, error) in
+        let rated = db.collection("events").document(event.uid).collection("rated").document(uid)
+        
+        rated.getDocument { (eventSnapshot, error) in
             if let error = error {
                 failure(error)
-            } else {
-                var eventData = eventSnapshot!.data()
-                let currRating = eventData["rating"] as! Double
-                let ratingCount = eventData["ratingCount"] as! Double
-                
-                let newRatingCount = ratingCount + 1
-                let newRating = (currRating * ratingCount + rating) / newRatingCount
-                
-                event.updateData(["rating": newRating, "ratingCount": ratingCount], completion: { (error) in
-                    if let error = error {
-                        failure(error)
-                    } else {
-                        
-                        self.rateUser(rating: rating, uid: uid, success: { (_) in
-                            success(newRating)
-                        }, failure: { (error) in
+            } else if let eventSnapshot = eventSnapshot {
+                if (eventSnapshot.exists) {
+                    rated.updateData(["rating": rating], completion: { (error) in
+                        if let error = error {
                             failure(error)
-                        })
-                    }
-                })
+                        }
+                        success(rating)
+                    })
+                } else {
+                    rated.setData(["rating": rating], completion: { (error) in
+                        if let error = error {
+                            failure(error)
+                        }
+                        success(rating)
+                    })
+                }
             }
         }
     }
@@ -334,15 +336,20 @@ class EventUpClient: NSObject {
     func saveUserPushNotificationToken(uid: String, token: String, success: @escaping (EventUser) -> (), failure: @escaping (Error) -> ()) {
         
     }
-                                       
-    func getUserInfo(user: User, success: @escaping (EventUser) -> (), failure: @escaping (Error) -> ()) {
+    
+    func getUserInfo(user: User, success: @escaping (EventUser?) -> (), failure: @escaping (Error) -> ()) {
         let users = db.collection("users").document(user.uid)
         users.getDocument { (userSnapshot, error) in
             if let error = error {
                 failure(error)
             } else if let userSnapshot = userSnapshot {
-                let user = EventUser(eventData: userSnapshot.data())
-                success(user)
+                if userSnapshot.exists {
+                    
+                    let user = EventUser(eventData: userSnapshot.data())
+                    success(user)
+                } else {
+                    success(nil)
+                }
             }
         }
     }
@@ -358,42 +365,62 @@ class EventUpClient: NSObject {
             }
         }
     }
-    func rsvpEvent(event: Event, user: String, success: @escaping (Event) ->(), failure: @escaping (Error) -> ()) {
-        let event = db.collection("events").document(event.uid)
-        event.getDocument { (eventSnapshot, error) in
+    func rsvpEvent(event: Event, uid: String, success: @escaping (Bool) ->(), failure: @escaping (Error) -> ()) {
+        let event = db.collection("events").document(event.uid).collection("rsvpList").document(uid)
+        event.getDocument(completion: { (snapshot, error) in
             if let error = error {
                 failure(error)
-            } else {
-                var eventData = eventSnapshot!.data()
-                var currRsvpCount = eventData["rsvpCount"] as! Int
-                currRsvpCount += 1
-                event.updateData(["rsvpCount": currRsvpCount], completion: { (error) in
-                    if let error = error {
-                        failure(error)
-                    } else {
-                        success(Event(eventData: eventData))
+            } else if let snapshot = snapshot {
+                if (snapshot.exists) {
+                    success(true)
+                } else {
+                    
+                    event.setData(["uid": uid]) { (error) in
+                        if let error = error {
+                            failure(error)
+                        }
+                        success(false)
                     }
-                })
+                    
+                }
             }
+        })
+        
+    }
+    
+    func checkInEvent(event: Event, uid: String, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
+        let event = db.collection("events").document(event.uid).collection("checkinList").document(uid)
+        event.setData(["uid": uid]) { (error) in
+            if let error = error {
+                failure(error)
+            }
+            success()
         }
     }
     
-    func checkInEvent(event: Event, user: String, success: @escaping (Event) ->(), failure: @escaping (Error) -> ()) {
-        let event = db.collection("events").document(event.uid)
-        event.getDocument { (eventSnapshot, error) in
+    func setNotificationToken(uid: String, token: String, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
+        let eventDoc = db.collection("users").document(uid)
+        eventDoc.updateData(["token": token], completion: { (error) in
+            if let error = error {
+                failure(error)
+            }
+            success()
+        })
+    }
+    
+    func notifyUser(email: String, token: String, success: @escaping (EventUser?) ->(), failure: @escaping (Error) -> ()) {
+        let user = db.collection("users").whereField("email", isEqualTo: email)
+        user.getDocuments { (snapshot, error) in
             if let error = error {
                 failure(error)
             } else {
-                var eventData = eventSnapshot!.data()
-                var currCheckedInCount = eventData["checkedInCount"] as! Int
-                currCheckedInCount += 1
-                event.updateData(["checkedInCount": currCheckedInCount], completion: { (error) in
-                    if let error = error {
-                        failure(error)
-                    } else {
-                        success(Event(eventData: eventData))
-                    }
-                })
+                guard let users = snapshot?.documents, users.count > 0 else {
+                    success(nil)
+                    return
+                }
+                let user = EventUser(eventData: users[0].data())
+                
+                success(user)
             }
         }
     }
