@@ -18,7 +18,7 @@ class EventsViewController: UITableViewController {
     var filteredEvents = [Event]()
     var filterButton: UIBarButtonItem!
     var createButton: UIBarButtonItem!
-    var currFilter: String?
+    var currFilter: [String: Any]()
     let locationManager = CLLocationManager()
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -41,23 +41,19 @@ class EventsViewController: UITableViewController {
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(self.loadEvents), for: .valueChanged)
         
-        
+        setupLocation()
         view.isUserInteractionEnabled = false
         SVProgressHUD.show()
         loadEvents()
     }
     
     @objc func loadEvents() {
-        EventUpClient.sharedInstance.getEvents(success: { (events) in
+        EventUpClient.sharedInstance.getEvents(filters: currFilter, success: { (events) in
             self.events = events
             self.tableView.reloadData()
             SVProgressHUD.dismiss()
             self.view.isUserInteractionEnabled = true
             self.refreshControl?.endRefreshing()
-            guard let filter = self.currFilter else {
-                return
-            }
-            self.filter(type: filter)
         }) { (error) in
             print(error.localizedDescription)
             SVProgressHUD.dismiss()
@@ -94,7 +90,7 @@ class EventsViewController: UITableViewController {
             event = events[indexPath.row]
         }
         
-        let date = Date(timeIntervalSince1970: event.date)
+        let date = Date(timeIntervalSinceReferenceDate: event.date)
         cell.nameLabel.text = event.name
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"

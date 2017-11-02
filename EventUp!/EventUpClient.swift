@@ -49,6 +49,30 @@ class EventUpClient: NSObject {
         }
     }
     
+    func getPastUserEvents(uid: String, success: @escaping ([Event]) -> (), failure: @escaping (Error) -> ()) {
+        let currDate = Date.timeIntervalSinceReferenceDate.magnitude
+        print(Date.timeIntervalSinceReferenceDate.magnitude)
+        let userEvents = db.collection("events").whereField("owner", isEqualTo: uid).whereField("date", isLessThan: currDate)
+        userEvents.getDocuments { (eventsSnapshot, error) in
+            if let error = error {
+                failure(error)
+            } else {
+                var eventResult: [Event] = []
+                guard let events = eventsSnapshot?.documents else {
+                    success(eventResult)
+                    return
+                }
+                
+                for event in events {
+                    eventResult.append(Event(eventData: event.data()))
+                }
+                
+                success(eventResult)
+            }
+        }
+        
+    }
+    
     func createEvent(eventData: [String: Any], eventImage: UIImage?, success: @escaping (Event) ->(), failure: @escaping (Error) -> ()) {
         var eventData = eventData
         let uid = UUID.init().uuidString
@@ -72,8 +96,6 @@ class EventUpClient: NSObject {
         let userEvents = db.collection("users").document(eventData["owner"] as! String).collection("events")
         let newUserEvent = userEvents.document(uid)
         newUserEvent.setData(["uid": uid])
-        let eventMessages = cdb.child(uid).child("messages")
-        eventMessages.setValue(eventData["name"], forKey: "name")
     }
     
     func editEvent(event: Event, eventData: [String: Any], eventImage: UIImage?, success: @escaping (Event) ->(), failure: @escaping (Error) -> ()) {
