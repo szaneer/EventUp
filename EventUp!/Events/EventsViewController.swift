@@ -24,7 +24,9 @@ class EventsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        if (UserDefaults.standard.object(forKey: "notifyUID") != nil) {
+            performSegue(withIdentifier: "notifySegue", sender: nil)
+        }
         searchController.searchBar.scopeButtonTitles = ["All", "Social", "Learning", "Other"]
         
         searchController.searchResultsUpdater = self
@@ -148,6 +150,9 @@ class EventsViewController: UITableViewController {
             let destination = segue.destination as! FilterViewController
             destination.delegate = self
             destination.filter = currFilter
+        case "notifySegue":
+            let destination = segue.destination as! EventDetailViewController
+            destination.delegate = self
         case "createSegue":
             let destination = segue.destination as! EventCreateViewController
             destination.delegate = self

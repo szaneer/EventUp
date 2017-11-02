@@ -408,7 +408,7 @@ class EventUpClient: NSObject {
         })
     }
     
-    func notifyUser(email: String, token: String, success: @escaping (EventUser?) ->(), failure: @escaping (Error) -> ()) {
+    func notifyUser(email: String, event: Event, success: @escaping (EventUser?) ->(), failure: @escaping (Error) -> ()) {
         let user = db.collection("users").whereField("email", isEqualTo: email)
         user.getDocuments { (snapshot, error) in
             if let error = error {
@@ -419,9 +419,9 @@ class EventUpClient: NSObject {
                     return
                 }
                 let user = EventUser(eventData: users[0].data())
-                
-                success(user)
-            }
+                let uid = users[0].documentID
+                let notifications = self.db.collection("notifications").document(users[0].documentID)
+                notifications.setData(["uid": event.uid, "type": "user"])            }
         }
     }
     

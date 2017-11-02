@@ -455,6 +455,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="Bsj-OG-3Y9" kind="show" identifier="notifySegue" id="hpf-e6-IQk"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hXV-OE-L5w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -682,6 +685,14 @@
                                     <action selector="rsvpUser:" destination="Bsj-OG-3Y9" eventType="touchUpInside" id="2h8-4N-hV2"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CI6-xy-wKS">
+                                <rect key="frame" x="143" y="167" width="42" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Notify"/>
+                                <connections>
+                                    <action selector="onNotify:" destination="Bsj-OG-3Y9" eventType="touchUpInside" id="7Uq-XC-7sm"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -881,7 +892,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="tJJ-cM-ZYH"/>
-        <segue reference="Pl2-jY-X1v"/>
+        <segue reference="hpf-e6-IQk"/>
         <segue reference="QVB-XO-GNv"/>
     </inferredMetricsTieBreakers>
 </document>

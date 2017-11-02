@@ -28,11 +28,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             if let notification = launchOptions?[.remoteNotification] as? [String: AnyObject] {
                 // 2
-                let aps = notification["aps"] as! [String: AnyObject]
-                print(aps)
-                
+                let payload = notification["payload"] as! [String: String]
+                UserDefaults.standard.set(payload["uid"], forKey: "notifyUID");
+                UserDefaults.standard.synchronize()
             }
-            
             window?.rootViewController = mainViewController
         }
         registerForPushNotifications()

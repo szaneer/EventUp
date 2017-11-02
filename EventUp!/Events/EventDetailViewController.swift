@@ -28,13 +28,25 @@ class EventDetailViewController: UIViewController, FilterDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if event.owner == Auth.auth().currentUser!.uid {
-            editButton.isHidden = false
+        
+        if (UserDefaults.standard.object(forKey: "notifyUID") != nil) {
+            setupFromNotify()
+        } else {
+            setup()
         }
-        // Do any additional setup after loading the view.
-        setup()
     }
     
+    func setupFromNotify() {
+        
+        print(UserDefaults.standard.object(forKey: "notifyUID"))
+        EventUpClient.sharedInstance.getEvent(uid: UserDefaults.standard.object(forKey: "notifyUID") as! String, success: { (event) in
+            self.event = event
+            UserDefaults.standard.removeObject(forKey: "notifyUID")
+            self.setup()
+        }, failure: { (error) in
+            print(error.localizedDescription)
+        })
+    }
     func setup() {
         
         EventUpClient.sharedInstance.getUserInfo(uid: event.owner, success: { (user) in
@@ -75,17 +87,20 @@ class EventDetailViewController: UIViewController, FilterDelegate {
             }) { (error) in
                 print(error)
             }
-        
+            
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
-            
+        
         self.present(alert, animated: true, completion: nil)
         
     }
     func onSuccessful() {
         self.delegate.refresh(event: nil)
         self.navigationController?.popViewController(animated: true)
+    }
+    @IBAction func onNotify(_ sender: Any) {
+    
     }
     
     @IBAction func rsvpUser(_ sender: Any) {
@@ -123,10 +138,10 @@ class EventDetailViewController: UIViewController, FilterDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
@@ -155,5 +170,5 @@ class EventDetailViewController: UIViewController, FilterDelegate {
         }
     }
     
-
+    
 }

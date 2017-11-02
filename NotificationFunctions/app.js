@@ -50,13 +50,13 @@ var observer = query.onSnapshot(querySnapshot => {
                             note.expiry = Math.floor(Date.now() / 1000) + 3600; // Expires 1 hour from now.
                             note.badge = 3;
                             note.sound = "ping.aiff";
-                            note.alert = "An event has just been updated!";
+                            note.alert = "An event you RSVP'd to has just been updated!";
                             note.payload = {'uid': uid};
                             note.topic = "com.307.EventUp";
 
                             provider.send(note, deviceToken).then( (result) => {
                               // see documentation for an explanation of result
-                              console.log("Sent");
+                              console.log(note);
                             });
                           }
                         });
