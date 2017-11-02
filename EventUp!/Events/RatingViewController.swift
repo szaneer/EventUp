@@ -60,7 +60,7 @@ class RatingViewController: UIViewController {
             self.event.ratingCount = self.event.ratingCount + 1
             self.event.rating = newRating
             
-            self.delegate.refresh(event: self.event)
+            self.delegate.refresh(event: nil)
             self.navigationController?.popViewController(animated: true)
         }) { (error) in
             print(error.localizedDescription)

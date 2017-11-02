@@ -97,7 +97,7 @@ class EventDetailViewController: UIViewController, FilterDelegate {
         }
     }
     
-    func filter(type: String) {
+    func filter(type: String, order: Bool) {
         return
     }
     

@@ -217,7 +217,6 @@ class EventCreateViewController: UIViewController {
             destination.delegate = self
         case "tagSelectSegue":
             let destination = segue.destination as! EventTagSelectViewController
-            
             destination.delegate = self
             destination.index = sender as! Int
         default:

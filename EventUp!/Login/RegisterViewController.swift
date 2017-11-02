@@ -23,8 +23,7 @@ class RegisterViewController: UIViewController, UINavigationControllerDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(userInfo)
-        // Do any additional setup after loading the view.
+        
         if userInfo != nil {
             setupFacebook()
         }
@@ -38,8 +37,8 @@ class RegisterViewController: UIViewController, UINavigationControllerDelegate, 
         passwordLabel.isHidden = true
         confirmPasswordLabel.isHidden = true
         
-        usernameField.text = userInfo!["name"] as! String
-        emailField.text = userInfo!["email"] as! String
+        usernameField.text = userInfo!["name"] as? String
+        emailField.text = userInfo!["email"] as? String
         let picture = userInfo!["picture"] as! [String: Any]
         let data = picture["data"] as! [String: Any]
         let pictureURL = URL(string: data["url"] as! String)!

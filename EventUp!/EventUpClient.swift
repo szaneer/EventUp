@@ -18,16 +18,42 @@ class EventUpClient: NSObject {
     
     //Events
     func getEvents(success: @escaping ([Event]) -> (), failure: @escaping (Error) -> ()) {
-        getEvents(filters: nil, success: { (events) in
+        getEvents(filters: [:], success: { (events) in
             success(events)
         }) { (error) in
             failure(error)
         }
     }
     
-    func getEvents(filters: [String: Any]?, success: @escaping ([Event]) -> (), failure: @escaping (Error) -> ()) {
+    func getEvents(filters: [String: Any], success: @escaping ([Event]) -> (), failure: @escaping (Error) -> ()) {
         let events = db.collection("events")
-        if let filters = filters {
+        print("hasds")
+        if filters.count > 0 {
+            var query: Query? = nil
+            for (key, value) in filters {
+                if query == nil {
+                    query = events.order(by: key, descending: value as! Bool)
+                } else {
+                    query = query!.order(by: key, descending: value as! Bool)
+                }
+            }
+            query!.getDocuments { (eventsSnapshot, error) in
+                if let error = error {
+                    failure(error)
+                } else {
+                    var eventResult: [Event] = []
+                    guard let events = eventsSnapshot?.documents else {
+                        success(eventResult)
+                        return
+                    }
+                    
+                    for event in events {
+                        eventResult.append(Event(eventData: event.data()))
+                    }
+                    
+                    success(eventResult)
+                }
+            }
         } else {
             events.getDocuments { (eventsSnapshot, error) in
                 if let error = error {
@@ -411,6 +437,8 @@ protocol EventTagSelectViewControllerDelegate {
 
 
 protocol FilterDelegate {
-    func filter(type: String)
+    func filter(type: String, order: Bool)
     func refresh(event: Event?)
 }
+
+

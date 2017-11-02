@@ -54,7 +54,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         
     }
     
-    func filter(type: String) {
+    func filter(type: String, order: Bool) {
         return
     }
     

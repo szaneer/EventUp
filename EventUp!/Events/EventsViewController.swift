@@ -18,20 +18,23 @@ class EventsViewController: UITableViewController {
     var filteredEvents = [Event]()
     var filterButton: UIBarButtonItem!
     var createButton: UIBarButtonItem!
-    var currFilter: [String: Any]()
+    var currFilter = [String: Any]()
     let locationManager = CLLocationManager()
     let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        searchController.searchBar.scopeButtonTitles = ["All", "Social", "Learning", "Other"]
+        
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.searchBar.placeholder = "Search Events"
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = true
+        
         definesPresentationContext = true
-        navigationItem.titleView = searchController.searchBar
+        navigationItem.searchController = searchController
         
         
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -171,54 +174,21 @@ extension EventsViewController: CLLocationManagerDelegate {
 }
 
 extension EventsViewController: FilterDelegate {
-    
-    
     func refresh(event: Event?) {
         SVProgressHUD.show()
         loadEvents()
     }
     
     
-    func filter(type: String) {
-        currFilter = type
-        switch type {
-        case "name":
-            events.sort(by: { (first, second) -> Bool in
-                first.name.lowercased() < second.name.lowercased()
-            })
-            break
-        case "distance":
-            events.sort(by: { (first, second) -> Bool in
-                if let userLocation = locationManager.location?.coordinate {
-                    let coordinateMe = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
-                    let coordinateFirst = CLLocation(latitude: first.latitude, longitude: first.longitude)
-                    let coordinateSecond = CLLocation(latitude: second.latitude, longitude: second.longitude)
-                    let distanceFirst = Int(coordinateFirst.distance(from: coordinateMe) / 1609.0)
-                    let distanceSecond = Int(coordinateSecond.distance(from: coordinateMe) / 1609.0)
-                    if distanceFirst > distanceSecond {
-                        return true
-                    }
-                    return false
-                }
-                return false
-            })
-            break
-        case "time":
-            events.sort(by: { (first, second) -> Bool in
-                first.date < second.date
-            })
-            break
-        default:
-            return
-        }
-        
-        tableView.reloadData()
+    func filter(type: String, order: Bool) {
+        currFilter[type] = true && order
     }
 }
 
 extension EventsViewController: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
-        searchEvents(searchController.searchBar.text!)
+        //let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
+        searchEvents(searchController.searchBar.text!, scope: "All")
     }
     
     func searchBarIsEmpty() -> Bool {
@@ -228,22 +198,31 @@ extension EventsViewController: UISearchResultsUpdating, UISearchBarDelegate {
     
     func searchEvents(_ searchText: String, scope: String = "All") {
         filteredEvents = events.filter({ (event) -> Bool in
-            var tagMatch = false
+            var doesCategoryMatch = (scope == "All")
             if let tags = event.tags {
                 for tag in tags {
-                    if tag.lowercased().contains(searchText.lowercased()) {
-                        tagMatch = true
+                    if tag.lowercased() == scope.lowercased() {
+                        doesCategoryMatch = true
                     }
                 }
             }
-            return event.name.lowercased().contains(searchText.lowercased()) || tagMatch
+            if searchBarIsEmpty() {
+                return doesCategoryMatch
+            } else {
+                return doesCategoryMatch && event.name.lowercased().contains(searchText.lowercased())
+            }
         })
         
         tableView.reloadData()
     }
     
     func isFiltering() -> Bool {
-        return searchController.isActive && !searchBarIsEmpty()
+        let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
+        return searchController.isActive && (!searchBarIsEmpty() || searchBarScopeIsFiltering)
+    }
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        return true
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -251,10 +230,19 @@ extension EventsViewController: UISearchResultsUpdating, UISearchBarDelegate {
         navigationItem.rightBarButtonItem = nil
         createButton = navigationItem.leftBarButtonItem
         navigationItem.leftBarButtonItem = nil
+        
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        //searchController.searchBar.showsScopeBar = false
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         navigationItem.rightBarButtonItem = filterButton
         navigationItem.leftBarButtonItem = createButton
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        searchEvents(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
     }
 }

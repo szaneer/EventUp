@@ -52,8 +52,7 @@ class EventLocationSelectViewController: ViewController {
         
         switch identifier {
         case "tagSelectSegue":
-            let destination = segue.destination as! EventTagSelectViewController
-            
+            print("hsads")
         default:
             return
         }
