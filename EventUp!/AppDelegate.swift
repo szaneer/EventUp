@@ -28,8 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             if let notification = launchOptions?[.remoteNotification] as? [String: AnyObject] {
                 // 2
-                let payload = notification["payload"] as! [String: String]
-                UserDefaults.standard.set(payload["uid"], forKey: "notifyUID");
+                print(notification)
+                UserDefaults.standard.set(notification["uid"], forKey: "notifyUID");
                 UserDefaults.standard.synchronize()
             }
             window?.rootViewController = mainViewController

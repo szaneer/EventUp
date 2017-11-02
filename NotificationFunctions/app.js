@@ -56,7 +56,7 @@ var observer = query.onSnapshot(querySnapshot => {
 
                             provider.send(note, deviceToken).then( (result) => {
                               // see documentation for an explanation of result
-                              console.log(note);
+                              console.log(result);
                             });
                           }
                         });
@@ -65,6 +65,29 @@ var observer = query.onSnapshot(querySnapshot => {
                   });
 
                   query.doc(uid).delete();
+                } else if (type == "user") {
+                  db.collection("users").doc(change.doc.id).get().then(function(userInfo) {
+                      let data = userInfo.data();
+
+                      let deviceToken = data.token;
+                      if (deviceToken !== undefined) {
+
+                      var note = new apn.Notification();
+
+                      note.expiry = Math.floor(Date.now() / 1000) + 3600; // Expires 1 hour from now.
+                      note.badge = 3;
+                      note.sound = "ping.aiff";
+                      note.alert = "Check out this event shared by a friend!";
+                      note.payload = {"uid": uid};
+                      provider.send(note, deviceToken).then( (result) => {
+                        // see documentation for an explanation of result
+                        console.log(result);
+                      });
+                    }
+
+                  });
+
+                  query.doc(change.doc.id).delete();
                 }
             }
         });

@@ -26,12 +26,16 @@ class EventDetailViewController: UIViewController, FilterDelegate {
     var event: Event!
     var delegate: FilterDelegate!
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if (UserDefaults.standard.object(forKey: "notifyUID") != nil) {
             setupFromNotify()
         } else {
+            if (Auth.auth().currentUser!.uid == event.owner) {
+                self.editButton.isHidden = false
+            }
             setup()
         }
     }
@@ -42,6 +46,9 @@ class EventDetailViewController: UIViewController, FilterDelegate {
         EventUpClient.sharedInstance.getEvent(uid: UserDefaults.standard.object(forKey: "notifyUID") as! String, success: { (event) in
             self.event = event
             UserDefaults.standard.removeObject(forKey: "notifyUID")
+            if (Auth.auth().currentUser!.uid == event.owner) {
+                self.editButton.isHidden = false
+            }
             self.setup()
         }, failure: { (error) in
             print(error.localizedDescription)
@@ -100,7 +107,22 @@ class EventDetailViewController: UIViewController, FilterDelegate {
         self.navigationController?.popViewController(animated: true)
     }
     @IBAction func onNotify(_ sender: Any) {
-    
+        let alertController = UIAlertController(title: "Notify User", message: "Enter in email address of user to notify.", preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addTextField { (textField : UITextField) -> Void in
+            textField.placeholder = "email"
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (result : UIAlertAction) -> Void in
+        }
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+            EventUpClient.sharedInstance.notifyUser(email: alertController.textFields![0].text!, event: self.event, success: { (user) in
+                print("yay")
+            }, failure: { (error) in
+                print(error.localizedDescription)
+            })
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     @IBAction func rsvpUser(_ sender: Any) {

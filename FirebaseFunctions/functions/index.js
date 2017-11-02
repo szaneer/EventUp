@@ -59,7 +59,7 @@ exports.updateEvent = functions.firestore
     var newValue = event.data.data();
     var uid = newValue.uid;
     db.collection("notifications").doc(uid).set({
-        type: "edit",
+        "type": "edit",
         "uid": uid
     })
 });

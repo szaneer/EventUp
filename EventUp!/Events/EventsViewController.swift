@@ -26,6 +26,7 @@ class EventsViewController: UITableViewController {
         super.viewDidLoad()
         if (UserDefaults.standard.object(forKey: "notifyUID") != nil) {
             performSegue(withIdentifier: "notifySegue", sender: nil)
+            return
         }
         searchController.searchBar.scopeButtonTitles = ["All", "Social", "Learning", "Other"]
         
