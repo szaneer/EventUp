@@ -331,6 +331,10 @@ class EventUpClient: NSObject {
         }
     }
     
+    func saveUserPushNotificationToken(uid: String, token: String, success: @escaping (EventUser) -> (), failure: @escaping (Error) -> ()) {
+        
+    }
+                                       
     func getUserInfo(user: User, success: @escaping (EventUser) -> (), failure: @escaping (Error) -> ()) {
         let users = db.collection("users").document(user.uid)
         users.getDocument { (userSnapshot, error) in

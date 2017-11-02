@@ -14,14 +14,7 @@ class FilterViewController: UITableViewController, UINavigationBarDelegate {
     
     var filter: [String: Any]!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    override func viewDidAppear(_ animated: Bool) {
         for (key, value) in filter {
             let valBool = value as! Bool
             switch key {
@@ -30,12 +23,12 @@ class FilterViewController: UITableViewController, UINavigationBarDelegate {
                     let indexPath = IndexPath(row: 0, section: 0)
                     tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
                 } else {
-                    let indexPath = IndexPath(row: 0, section: 1)
+                    let indexPath = IndexPath(row: 1, section: 0)
                     tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
                 }
             case "distance":
                 if (valBool) {
-                    let indexPath = IndexPath(row: 1, section: 0)
+                    let indexPath = IndexPath(row: 0, section: 1)
                     tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
                 } else {
                     let indexPath = IndexPath(row: 1, section: 1)
@@ -43,21 +36,31 @@ class FilterViewController: UITableViewController, UINavigationBarDelegate {
                 }
             case "date":
                 if (valBool) {
-                    let indexPath = IndexPath(row: 2, section: 0)
+                    let indexPath = IndexPath(row: 0, section: 2)
                     tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
                 } else {
-                    let indexPath = IndexPath(row: 2, section: 1)
+                    let indexPath = IndexPath(row: 1, section: 2)
                     tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
                 }
             case "past":
                 if (valBool) {
-                    let indexPath = IndexPath(row: 3, section: 0)
+                    let indexPath = IndexPath(row: 0, section: 3)
                     tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
                 }
             default:
-                    break
+                break
             }
         }
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
