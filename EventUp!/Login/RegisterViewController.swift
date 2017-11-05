@@ -9,21 +9,36 @@
 import UIKit
 import Firebase
 import SVProgressHUD
+import TextFieldEffects
 
 class RegisterViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var userImageView: UIImageView!
-    @IBOutlet weak var usernameField: UITextField!
-    @IBOutlet weak var emailField: UITextField!
-    @IBOutlet weak var passwordField: UITextField!
-    @IBOutlet weak var confirmPasswordField: UITextField!
-    
-    @IBOutlet weak var passwordLabel: UILabel!
-    @IBOutlet weak var confirmPasswordLabel: UILabel!
+    @IBOutlet weak var usernameField: HoshiTextField!
+    @IBOutlet weak var emailField: HoshiTextField!
+    @IBOutlet weak var passwordField: HoshiTextField!
+    @IBOutlet weak var confirmPasswordField: HoshiTextField!
     var userInfo: [String: Any]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        userImageView.layer.cornerRadius = 5
+        userImageView.clipsToBounds = true
+        passwordField.isSecureTextEntry = true
+        confirmPasswordField.isSecureTextEntry = true
+        registerButton.layer.cornerRadius = 5
+        usernameField.tag = 0
+        emailField.tag = 1
+        passwordField.tag = 2
+        confirmPasswordField.tag = 3
+        usernameField.delegate = self
+        emailField.delegate = self
+        passwordField.delegate = self
+        confirmPasswordField.delegate = self
+        usernameField.returnKeyType = .next
+        emailField.returnKeyType = .next
+        passwordField.returnKeyType = .next
+        confirmPasswordField.returnKeyType = .next
         if userInfo != nil {
             setupFacebook()
         }
@@ -34,8 +49,6 @@ class RegisterViewController: UIViewController, UINavigationControllerDelegate, 
         SVProgressHUD.show()
         passwordField.isHidden = true
         confirmPasswordField.isHidden = true
-        passwordLabel.isHidden = true
-        confirmPasswordLabel.isHidden = true
         
         usernameField.text = userInfo!["name"] as? String
         emailField.text = userInfo!["email"] as? String
@@ -176,6 +189,9 @@ class RegisterViewController: UIViewController, UINavigationControllerDelegate, 
         picker.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func onCancel(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 
@@ -186,4 +202,20 @@ class RegisterViewController: UIViewController, UINavigationControllerDelegate, 
     }
     */
 
+}
+
+extension RegisterViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
+    {
+        // Try to find next responder
+        if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? HoshiTextField {
+            nextField.becomeFirstResponder()
+        } else {
+            // Not found, so remove keyboard.
+            textField.resignFirstResponder()
+            onRegister(registerButton)
+        }
+        // Do not add a line break
+        return false
+    }
 }

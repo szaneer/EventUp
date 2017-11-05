@@ -20,7 +20,8 @@ class EventUser: NSObject {
     init(eventData: [String: Any]) {
         name = eventData["username"] as! String
         email = eventData["email"] as! String
-        rating = eventData["rating"] as! Double
+        rating = eventData["rating"] as!CV #imageLiteral(resourceName: "icn_vine_badge.png")]
+        \\]Double
         ratingCount = eventData["ratingCount"] as! Double
         image = eventData["image"] as? String
     }

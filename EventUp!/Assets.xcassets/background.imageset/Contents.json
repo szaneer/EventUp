@@ -2,15 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "1.jpg",
+      "filename" : "Crevisio-190-RnOwyS0xt.jpg",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "Crevisio-190-RnOwyS0xt-1.jpg",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "Crevisio-190-RnOwyS0xt-2.jpg",
       "scale" : "3x"
     }
   ],

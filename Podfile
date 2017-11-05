@@ -16,5 +16,5 @@ target 'EventUp!' do
   pod 'FirebaseUI/Phone'
   pod 'SVProgressHUD'
   pod 'JSQMessagesViewController'
-
+  pod 'TextFieldEffects'
 end

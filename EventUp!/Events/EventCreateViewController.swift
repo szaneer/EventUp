@@ -11,13 +11,15 @@ import Firebase
 import AVFoundation
 import MapKit
 import SVProgressHUD
+import TextFieldEffects
 
 class EventCreateViewController: UIViewController {
     
 
     @IBOutlet weak var eventView: UIImageView!
-    @IBOutlet weak var nameField: UITextField!
-    @IBOutlet weak var locationField: UITextField!
+    @IBOutlet weak var nameField: HoshiTextField!
+    @IBOutlet weak var locationField: HoshiTextField!
+    @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var dateField: UIDatePicker!
     @IBOutlet weak var infoView: UITextView!
     
@@ -26,13 +28,16 @@ class EventCreateViewController: UIViewController {
     @IBOutlet weak var plusButton: UIButton!
     @IBOutlet var tagButtons: [UIButton]!
     
+    @IBOutlet weak var cancelButton: UIButton!
     var editEvent: Event?
     var delegate: FilterDelegate!
     var coordinate: CLLocationCoordinate2D?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        locationButton.layer.cornerRadius = 5
+        submitButton.layer.cornerRadius = 5
+        cancelButton.layer.cornerRadius = 5
         // Do any additional setup after loading the view.
         if editEvent != nil {
             setupEdit()

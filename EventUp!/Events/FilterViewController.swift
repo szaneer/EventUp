@@ -14,6 +14,7 @@ class FilterViewController: UITableViewController, UINavigationBarDelegate {
     
     var filter: [String: Any]!
     
+    var isSugg = false
     override func viewDidAppear(_ animated: Bool) {
         for (key, value) in filter {
             let valBool = value as! Bool
@@ -64,19 +65,22 @@ class FilterViewController: UITableViewController, UINavigationBarDelegate {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        delegate.refresh(event: nil)
+        if (!isSugg) {
+            
+            delegate.refresh(event: nil)
+        }
     }
     
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 4
+        return 5
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if (section == 3) {
+        if (section == 3 || section == 4) {
             return 1
         }
         return 2
@@ -88,12 +92,25 @@ class FilterViewController: UITableViewController, UINavigationBarDelegate {
         if (indexPath.section == 3) {
             if (cell.accessoryType == .checkmark) {
                 cell.accessoryType = .none
-                
+                isSugg = false
                 delegate.filter(type: "past", order: false)
             } else {
                 cell.accessoryType = .checkmark
-                
+                isSugg = true
                 delegate.filter(type: "past", order: true)
+            }
+            return
+        }
+        
+        if (indexPath.section == 4) {
+            if (cell.accessoryType == .checkmark) {
+                cell.accessoryType = .none
+                
+                delegate.filter(type: "sugg", order: false)
+            } else {
+                cell.accessoryType = .checkmark
+                
+                delegate.filter(type: "sugg", order: true)
             }
             return
         }

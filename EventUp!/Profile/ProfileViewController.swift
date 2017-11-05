@@ -17,6 +17,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var emailField: UILabel!
     
     var user: EventUser!
     
@@ -27,6 +28,10 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let image = UIImage(named: "background")!
+        let backgroundView = UIImageView(image: image)
+        view.addSubview(backgroundView)
+        view.sendSubview(toBack: backgroundView)
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
@@ -53,11 +58,14 @@ class ProfileViewController: UIViewController {
                 }
                 self.user = user
                 self.nameLabel.text = user.name
-                self.ratingLabel.text = "\(user.rating)"
-                
+                self.ratingLabel.text = String(format: "%.2f", user.rating)
+                self.emailField.text = user.email
                 if let image = user.image {
                     self.userImageView.image = EventUpClient.sharedInstance.base64DecodeImage(image)
+
                 }
+                self.userImageView.layer.cornerRadius = 5
+                self.userImageView.clipsToBounds = true
                 self.setupEvents()
                 
             }
@@ -101,18 +109,33 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         // Configure the cell...
         
         let event: Event
+            event = events[indexPath.row]
         
-        event = events[indexPath.row]
-        let date = Date(timeIntervalSince1970: event.date)
+        
+        let date = Date(timeIntervalSinceReferenceDate: event.date)
         cell.nameLabel.text = event.name
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
         cell.dateLabel.text = dateFormatter.string(from: date)
         cell.attendeesLabel.text = "Attendees: \(event.rsvpCount!)"
         cell.locationLabel.text = event.location
-        cell.ratingLabel.text = "\(event.rating!)"
+        cell.ratingLabel.text = String(format: "%.2f", event.rating)
+        if let tags = event.tags {
+            var first = true
+            for tag in tags {
+                if first {
+                    
+                    cell.tagLabel.text = tag
+                    first = false
+                } else {
+                    cell.tagLabel.text = cell.tagLabel.text! + ", " + tag
+                }
+            }
+        }
         if let image = event.image {
             cell.eventView.image = EventUpClient.sharedInstance.base64DecodeImage(image)
+            cell.eventView.layer.cornerRadius = 5
+            cell.eventView.clipsToBounds = true
         }
         if let userLocation = locationManager.location?.coordinate {
             let coordinateMe = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)

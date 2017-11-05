@@ -15,12 +15,14 @@ import MapKit
 class EventsViewController: UITableViewController {
 
     var events = [Event]()
+    var tempEvents = [Event]()
     var filteredEvents = [Event]()
     var filterButton: UIBarButtonItem!
     var createButton: UIBarButtonItem!
     var currFilter = [String: Any]()
     let locationManager = CLLocationManager()
     let searchController = UISearchController(searchResultsController: nil)
+    var isSugg = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +30,9 @@ class EventsViewController: UITableViewController {
             performSegue(withIdentifier: "notifySegue", sender: nil)
             return
         }
+        let image = UIImage(named: "background")!
+        tableView.backgroundView = UIImageView(image: image)
+        tableView.backgroundColor = .clear
         searchController.searchBar.scopeButtonTitles = ["All", "Social", "Learning", "Other"]
         
         searchController.searchResultsUpdater = self
@@ -54,6 +59,12 @@ class EventsViewController: UITableViewController {
     }
     
     @objc func loadEvents() {
+        print("hello")
+        if isSugg {
+            SVProgressHUD.dismiss()
+            self.view.isUserInteractionEnabled = true
+            return
+        }
         EventUpClient.sharedInstance.getEvents(filters: currFilter, success: { (events) in
             self.events = events
             self.tableView.reloadData()
@@ -87,7 +98,7 @@ class EventsViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell", for: indexPath) as! EventCell
 
         // Configure the cell...
-
+        //cell.backgroundColor = .clear
         let event: Event
         
         if isFiltering() {
@@ -103,9 +114,23 @@ class EventsViewController: UITableViewController {
         cell.dateLabel.text = dateFormatter.string(from: date)
         cell.attendeesLabel.text = "Attendees: \(event.rsvpCount!)"
         cell.locationLabel.text = event.location
-        cell.ratingLabel.text = "\(event.rating!)"
+        cell.ratingLabel.text = String(format: "%.2f", event.rating)
+        if let tags = event.tags {
+            var first = true
+            for tag in tags {
+                if first {
+                    
+                    cell.tagLabel.text = tag
+                    first = false
+                } else {
+                    cell.tagLabel.text = cell.tagLabel.text! + ", " + tag
+                }
+            }
+        }
         if let image = event.image {
             cell.eventView.image = EventUpClient.sharedInstance.base64DecodeImage(image)
+            cell.eventView.layer.cornerRadius = 5
+            cell.eventView.clipsToBounds = true
         }
         if let userLocation = locationManager.location?.coordinate {
             let coordinateMe = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
@@ -188,6 +213,28 @@ extension EventsViewController: FilterDelegate {
     
     
     func filter(type: String, order: Bool) {
+        if type == "sugg" && order {
+            isSugg = true
+            tempEvents = events
+            events = events.filter({ (event) -> Bool in
+                if let tags = event.tags {
+                    for tag in tags {
+                        if tag.lowercased() == "social" {
+                            return true
+                        }
+                    }
+                }
+                return false
+            })
+            
+            tableView.reloadData()
+            return
+        } else if type == "sugg" {
+            isSugg = false
+            events = tempEvents
+            tableView.reloadData()
+            return
+        }
         currFilter[type] = true && order
     }
 }

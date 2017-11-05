@@ -22,14 +22,19 @@ class EventDetailViewController: UIViewController, FilterDelegate {
     @IBOutlet weak var attendeesLabel: UILabel!
     @IBOutlet weak var eventMapView: MKMapView!
     @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var ratingLabel: UILabel!
     
+    @IBOutlet weak var userRatingLabel: UILabel!
     var event: Event!
     var delegate: FilterDelegate!
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let image = UIImage(named: "background")!
+        let backgroundView = UIImageView(image: image)
+        view.addSubview(backgroundView)
+        view.sendSubview(toBack: backgroundView)
         if (UserDefaults.standard.object(forKey: "notifyUID") != nil) {
             setupFromNotify()
         } else {
@@ -62,7 +67,13 @@ class EventDetailViewController: UIViewController, FilterDelegate {
             print(error.localizedDescription)
             
         }
-        //nameLabel.text = event.name
+        EventUpClient.sharedInstance.getUserInfo(uid: event.owner, success: { (user) in
+            self.userRatingLabel.text = String(format: "%.2f", user.rating)
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+        ratingLabel.text = String(format: "%.2f", event.rating)
+        nameLabel.text = event.name
         descriptionLabel.text = event.info
         descriptionLabel.sizeToFit()
         let date = Date(timeIntervalSince1970: event.date)

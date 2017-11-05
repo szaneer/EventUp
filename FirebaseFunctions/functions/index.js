@@ -110,6 +110,22 @@ exports.eventRated = functions.firestore
 
 });
 
+exports.eventRSVP = functions.firestore
+  .document('events/{eventId}/rsvpList/{userId}')
+  .onCreate(rsvp => {
+    // Get an object representing the document
+    // e.g. {'name': 'Marie', 'age': 66}
+    db.collection("events").doc(rsvp.params.eventId).get().then(function(doc) {
+        var rsvpCount = doc.data().rsvpCount + 1;
+        db.collection("events").doc(rsvp.params.eventId).update({
+            "rsvpCount": rsvpCount
+        });
+    });
+
+
+
+});
+
 exports.eventRatedUpdate = functions.firestore
   .document('events/{eventId}/rated/{userId}')
   .onUpdate(rating => {

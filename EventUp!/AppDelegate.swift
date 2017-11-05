@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 UserDefaults.standard.set(notification["uid"], forKey: "notifyUID");
                 UserDefaults.standard.synchronize()
             }
-            window?.rootViewController = mainViewController
+            //window?.rootViewController = mainViewController
         }
         registerForPushNotifications()
         return true

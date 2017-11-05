@@ -17,6 +17,10 @@ class EventTagSelectViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+//        let image = UIImage(named: "background")!
+//        let backgroundView = UIImageView(image: image)
+//        view.addSubview(backgroundView)
+//        view.sendSubview(toBack: backgroundView)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
