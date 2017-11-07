@@ -229,12 +229,27 @@
                                 <state key="normal" title="Logout">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="onLogout:" destination="kyR-LQ-FA4" eventType="touchUpInside" id="Kyd-Gl-qng"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WZv-PM-yCY">
+                                <rect key="frame" x="179" y="530" width="45" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Delete">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onDelete:" destination="kyR-LQ-FA4" eventType="touchUpInside" id="tyj-lk-RGs"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="Mh4-sl-PWw"/>
                     </view>
                     <connections>
+                        <outlet property="deleteButton" destination="WZv-PM-yCY" id="1bI-Oj-FAI"/>
                         <outlet property="logoutButton" destination="umM-ZS-d90" id="7k6-0J-zhn"/>
                     </connections>
                 </viewController>

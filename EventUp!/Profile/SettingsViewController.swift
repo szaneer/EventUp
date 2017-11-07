@@ -11,6 +11,7 @@ import Firebase
 
 class SettingsViewController: UIViewController {
 
+    @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +28,8 @@ class SettingsViewController: UIViewController {
         try! Auth.auth().signOut()
     }
     
+    @IBAction func onDelete(_ sender: Any) {
+    }
     /*
     // MARK: - Navigation
 
