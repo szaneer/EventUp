@@ -32,6 +32,7 @@
 		C76C14941F9827D1006B3F5C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76C14931F9827D1006B3F5C /* ProfileViewController.swift */; };
 		C76C14961F98293A006B3F5C /* EventUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76C14951F98293A006B3F5C /* EventUser.swift */; };
 		C79D17F21FA2A37400D25C4B /* EventTagSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79D17F11FA2A37400D25C4B /* EventTagSelectViewController.swift */; };
+		C7A4059F1FB78C6B00E33A70 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A4059E1FB78C6B00E33A70 /* WelcomeViewController.swift */; };
 		C7B1427B1FAAF14500B9DC0E /* SegueFromLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B1427A1FAAF14500B9DC0E /* SegueFromLeft.swift */; };
 		C7B1427D1FAB9B8C00B9DC0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7B1427C1FAB9B8C00B9DC0E /* Assets.xcassets */; };
 		C7C164641F852AF6007226FA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C7C164631F852AE6007226FA /* GoogleService-Info.plist */; };
@@ -74,6 +75,7 @@
 		C76C14931F9827D1006B3F5C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		C76C14951F98293A006B3F5C /* EventUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventUser.swift; sourceTree = "<group>"; };
 		C79D17F11FA2A37400D25C4B /* EventTagSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTagSelectViewController.swift; sourceTree = "<group>"; };
+		C7A4059E1FB78C6B00E33A70 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		C7B1427A1FAAF14500B9DC0E /* SegueFromLeft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueFromLeft.swift; sourceTree = "<group>"; };
 		C7B1427C1FAB9B8C00B9DC0E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7C164631F852AE6007226FA /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				C7C5D3811F5F2EA0001BCE38 /* Main.storyboard */,
+				C7A4059E1FB78C6B00E33A70 /* WelcomeViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 				C72C8E271FA6864300B16561 /* EventChatViewController.swift in Sources */,
 				C76402231F7C45B400AA3F06 /* FilterViewController.swift in Sources */,
 				839240231F85BA07003C0DAF /* RatingViewController.swift in Sources */,
+				C7A4059F1FB78C6B00E33A70 /* WelcomeViewController.swift in Sources */,
 				C7B1427B1FAAF14500B9DC0E /* SegueFromLeft.swift in Sources */,
 				C7D7109F1F99A4060010EAC8 /* EventLocationSelectViewController.swift in Sources */,
 				C76402281F7DB8C500AA3F06 /* Event.swift in Sources */,
