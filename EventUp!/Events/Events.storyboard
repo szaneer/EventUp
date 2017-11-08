@@ -789,6 +789,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EKr-Ju-kHq">
+                                <rect key="frame" x="221" y="190" width="90" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Cancel RSVP"/>
+                                <connections>
+                                    <action selector="onCancelRSVP:" destination="Bsj-OG-3Y9" eventType="touchUpInside" id="eUS-HT-QLe"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -834,6 +842,7 @@
                         <outlet property="eventView" destination="bLf-8B-Rah" id="pYB-rI-zw6"/>
                         <outlet property="nameLabel" destination="9vd-zf-Ul5" id="NpT-Eg-JEf"/>
                         <outlet property="ratingLabel" destination="RhQ-xk-1X6" id="a8d-hU-Kir"/>
+                        <outlet property="rsvpButton" destination="EKr-Ju-kHq" id="Uba-iW-Qv0"/>
                         <outlet property="userRatingLabel" destination="XG9-OQ-NRA" id="5ye-ew-Ezr"/>
                         <segue destination="wPV-2E-odV" kind="show" identifier="" id="tJJ-cM-ZYH"/>
                     </connections>

@@ -23,7 +23,7 @@ class EventDetailViewController: UIViewController, FilterDelegate {
     @IBOutlet weak var eventMapView: MKMapView!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var ratingLabel: UILabel!
-    
+    @IBOutlet weak var rsvpButton: UIButton!
     @IBOutlet weak var userRatingLabel: UILabel!
     var event: Event!
     var delegate: FilterDelegate!
@@ -155,6 +155,8 @@ class EventDetailViewController: UIViewController, FilterDelegate {
         }
     }
     
+    @IBAction func onCancelRSVP(_ sender: Any) {
+    }
     func filter(type: String, order: Bool) {
         return
     }
