@@ -79,6 +79,16 @@ class EventsViewController: UITableViewController {
         }
     }
 
+    func filterProfaneEvents() {
+        events = events.filter({ (event) -> Bool in
+            if event.name.contains("Bad words") || event.description.contains("Bad words") {
+                return false
+            }
+            return true
+        })
+        
+        tableView.reloadData()
+    }
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
