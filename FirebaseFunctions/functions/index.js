@@ -120,11 +120,17 @@ exports.eventRSVP = functions.firestore
         db.collection("events").doc(rsvp.params.eventId).update({
             "rsvpCount": rsvpCount
         });
+
+        db.collection("notifications").doc(doc.data().owner).set({
+            "type": "RSVP",
+            "uid": doc.data().owner
+        })
     });
 
 
 
 });
+
 
 exports.eventRatedUpdate = functions.firestore
   .document('events/{eventId}/rated/{userId}')
