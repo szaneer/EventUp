@@ -43,6 +43,7 @@ class EventCreateViewController: UIViewController {
             setupEdit()
             setupTags()
         }
+        infoView.delegate = self
     }
 
     func setupEdit() {
@@ -262,6 +263,16 @@ extension EventCreateViewController: UINavigationControllerDelegate, UIImagePick
         eventView.image = image
         picker.dismiss(animated: true, completion: nil)
         
+    }
+}
+
+extension EventCreateViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        let text = textView.text
+        
+        if (text?.contains("Social"))! || text?.contains("Learning") {
+            print("Reccomend tags")
+        }
     }
 }
 
