@@ -167,6 +167,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         try! audioPlayer = AVAudioPlayer(contentsOf: alertSound)
         audioPlayer!.prepareToPlay()
         audioPlayer!.play()
+        
+        let smallView = UIView()
+        smallView.frame = CGRect(x: 25, y: 25, width: 100, height: 100)
+        
+        let text = UILabel()
+        text.text = "Test Annotation Menu"
+        smallView.addSubview(text)
+        
     }
     // MARK: - Navigation
     
