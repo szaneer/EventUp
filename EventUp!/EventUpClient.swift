@@ -151,8 +151,8 @@ class EventUpClient: NSObject {
         eventData["uid"] = eventDoc.documentID
         let image = db.collection("eventImages").document(eventDoc.documentID)
         let rsvpList = db.collection("rsvpLists").document(eventDoc.documentID)
-        let checkInList = db.collection("checkInLists").document(eventDoc.documentID)
-        let ratingList = db.collection("ratingLists").document(eventDoc.documentID)
+        let checkInList = db.collection("eventCheckInLists").document(eventDoc.documentID)
+        let ratingList = db.collection("eventRatingLists").document(eventDoc.documentID)
         self.db.runTransaction({ (transaction, errorPointer) -> Any? in
             transaction.setData(eventData, forDocument: eventDoc)
             if let eventImage = eventImage {
@@ -202,8 +202,8 @@ class EventUpClient: NSObject {
         let eventDoc = db.collection("events").document(uid)
         let image = db.collection("eventImages").document(uid)
         let rsvpList = db.collection("rsvpLists").document(uid)
-        let checkInList = db.collection("checkInLists").document(uid)
-        let ratingList = db.collection("ratingLists").document(uid)
+        let checkInList = db.collection("eventCheckInLists").document(uid)
+        let ratingList = db.collection("eventRatingLists").document(uid)
         self.db.runTransaction({ (transaction, errorPointer) -> Any? in
             transaction.deleteDocument(eventDoc)
             transaction.deleteDocument(image)
@@ -303,8 +303,12 @@ class EventUpClient: NSObject {
                 let uid = user.uid
                 let userDoc = self.db.collection("users").document(uid)
                 let images = self.db.collection("userImages").document(uid)
+                let rsvpList = self.db.collection("userRsvpLists").document(uid)
+                let checkInList = self.db.collection("userCheckInLists").document(uid)
                 self.db.runTransaction({ (transaction, errorPointer) -> Any? in
                     transaction.setData(userData, forDocument: userDoc)
+                    transaction.setData([:], forDocument: rsvpList)
+                    transaction.setData([:], forDocument: checkInList)
                     if let userImage = userImage {
                         let imageString = self.base64EncodeImage(userImage)
                         transaction.setData(["image": imageString], forDocument: images)
@@ -372,8 +376,12 @@ class EventUpClient: NSObject {
         userData["checkedInCount"] = 0
         let userDoc = self.db.collection("users").document(uid)
         let images = self.db.collection("userImages").document(uid)
+        let rsvpList = self.db.collection("userRsvpLists").document(uid)
+        let checkInList = self.db.collection("userCheckInLists").document(uid)
         self.db.runTransaction({ (transaction, errorPointer) -> Any? in
             transaction.setData(userData, forDocument: userDoc)
+            transaction.setData([:], forDocument: rsvpList)
+            transaction.setData([:], forDocument: checkInList)
             if let userImage = userImage {
                 let imageString = self.base64EncodeImage(userImage)
                 transaction.setData(["image": imageString], forDocument: images)
@@ -494,7 +502,7 @@ class EventUpClient: NSObject {
     
     func checkInEvent(event: Event, uid: String, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
         let eventRef = db.collection("events").document(event.uid)
-        let checkInList = db.collection("checkIntLists").document(event.uid)
+        let checkInList = db.collection("checkInLists").document(event.uid)
         db.runTransaction({ (transaction, errorPointer) -> Any? in
             var eventDoc: DocumentSnapshot
             var checkInListDoc: DocumentSnapshot

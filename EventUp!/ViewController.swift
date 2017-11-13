@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GeoFire
 
 class ViewController: UIViewController {
 
