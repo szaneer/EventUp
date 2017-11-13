@@ -61,9 +61,9 @@ class EventCreateViewController: UIViewController {
         
         infoView.text = editEvent!.info
         
-        if let image = editEvent!.image {
-            eventView.image = EventUpClient.sharedInstance.base64DecodeImage(image)
-        }
+//        if let image = editEvent!.image {
+//            eventView.image = EventUpClient.sharedInstance.base64DecodeImage(image)
+//        }
         
         submitButton.setTitle("Edit", for: .normal)
         submitButton.setTitle("Edit", for: .highlighted)
@@ -115,7 +115,6 @@ class EventCreateViewController: UIViewController {
         eventInfo["info"] = infoView.text
         
         eventInfo["owner"] = Auth.auth().currentUser!.uid
-        eventInfo["rsvpList"] = [Auth.auth().currentUser!.uid]
         
         guard let editEvent = editEvent else {
             EventUpClient.sharedInstance.createEvent(eventData: eventInfo, eventImage: eventView.image, success: { (event) in
@@ -133,7 +132,7 @@ class EventCreateViewController: UIViewController {
             return
         }
         
-        EventUpClient.sharedInstance.editEvent(event: editEvent, eventData: eventInfo, eventImage: eventView.image, success: { (event) in
+        EventUpClient.sharedInstance.editEvent(event: editEvent, eventData: eventInfo, eventImage: eventView.image, success: {
             let alert = UIAlertController(title: "Success!", message: "The event was edited successfully", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in self.onSuccessfulEventCreation()}))
             self.present(alert, animated: true, completion: nil)
@@ -268,11 +267,11 @@ extension EventCreateViewController: UINavigationControllerDelegate, UIImagePick
 
 extension EventCreateViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        let text = textView.text
+        let text = textView.text!
         
-        if (text?.contains("Social"))! || text?.contains("Learning") {
-            print("Reccomend tags")
-        }
+//        if (text.contains("Social"))! || text.contains("Learning") {
+//            print("Reccomend tags")
+//        }
     }
 }
 

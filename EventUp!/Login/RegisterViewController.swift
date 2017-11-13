@@ -145,25 +145,36 @@ class RegisterViewController: UIViewController, UINavigationControllerDelegate, 
             }
             let userData = ["username": username, "email": email, "password": password]
             EventUpClient.sharedInstance.registerUser(userData: userData, userImage: userImage, success: { (user) in
-                self.view.isUserInteractionEnabled = true
-                SVProgressHUD.dismiss()
-                self.performSegue(withIdentifier: "registerSegue", sender: nil)
+                DispatchQueue.main.async {
+                    
+                    self.view.isUserInteractionEnabled = true
+                    SVProgressHUD.dismiss()
+                    self.performSegue(withIdentifier: "registerSegue", sender: nil)
+                }
             }) { (error) in
-                self.view.isUserInteractionEnabled = true
-                SVProgressHUD.dismiss()
-                print(error.localizedDescription)
+                DispatchQueue.main.async {
+                    
+                    self.view.isUserInteractionEnabled = true
+                    SVProgressHUD.dismiss()
+                    print(error.localizedDescription)
+                }
             }
             
         } else {
             let userData = ["username": username, "email": email]
             EventUpClient.sharedInstance.registerFacebookUser(uid: Auth.auth().currentUser!.uid,userData: userData, userImage: userImage, success: { () in
-                self.view.isUserInteractionEnabled = true
-                SVProgressHUD.dismiss()
-                self.performSegue(withIdentifier: "registerSegue", sender: nil)
+                DispatchQueue.main.async {
+                    
+                    self.view.isUserInteractionEnabled = true
+                    SVProgressHUD.dismiss()
+                    self.performSegue(withIdentifier: "registerSegue", sender: nil)
+                }
             }) { (error) in
-                self.view.isUserInteractionEnabled = true
-                SVProgressHUD.dismiss()
-                print(error.localizedDescription)
+                DispatchQueue.main.async {
+                    self.view.isUserInteractionEnabled = true
+                    SVProgressHUD.dismiss()
+                    print(error.localizedDescription)
+                }
             }
         }
         

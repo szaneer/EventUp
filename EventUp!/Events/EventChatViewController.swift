@@ -107,22 +107,21 @@ final class EventChatViewController: JSQMessagesViewController {
         }
     }
     
-    private lazy var userIsTypingRef: FIRDatabaseReference =
-        self.channelRef!.child("typingIndicator").child(self.senderId) 
-    private var localTyping = false
-    var isTyping: Bool {
-        get {
-            return localTyping
-        }
-        set {
-            localTyping = newValue
-            userIsTypingRef.setValue(newValue)
-        }
-    }
-    
-    override func textViewDidChange(_ textView: UITextView) {
-        super.textViewDidChange(textView)
-        
-        print(textView.text != "")
-    }
+    //private lazy var userIsTypingRef: DatabaseReference = self.channelRef!.child("typingIndicator").child(self.senderId)
+//    private var localTyping = false
+//    var isTyping: Bool {
+//        get {
+//            return localTyping
+//        }
+//        set {
+//            localTyping = newValue
+//            userIsTypingRef.setValue(newValue)
+//        }
+//    }
+//    
+//    override func textViewDidChange(_ textView: UITextView) {
+//        super.textViewDidChange(textView)
+//        
+//        print(textView.text != "")
+//    }
 }

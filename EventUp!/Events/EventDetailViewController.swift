@@ -28,7 +28,7 @@ class EventDetailViewController: UIViewController, FilterDelegate {
     var event: Event!
     var delegate: FilterDelegate!
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let image = UIImage(named: "background")!
@@ -82,9 +82,9 @@ class EventDetailViewController: UIViewController, FilterDelegate {
         dateLabel.text = dateFormatter.string(from: date)
         //locationLabel.text = event.location
         //tagsLabel.text = event.tags
-        if let image = event.image {
-            eventView.image = EventUpClient.sharedInstance.base64DecodeImage(image)
-        }
+        //        if let image = event.image {
+        //            eventView.image = EventUpClient.sharedInstance.base64DecodeImage(image)
+        //        }
         // Display the number of people that RSVP'd to the event
         attendeesLabel.text = "Attendees: \(event.rsvpCount!)"
         eventMapView.removeAnnotations(eventMapView.annotations)
@@ -101,7 +101,7 @@ class EventDetailViewController: UIViewController, FilterDelegate {
     @IBAction func deleteEvent(_ sender: Any) {
         let alert = UIAlertController(title: "Delete " + event.name, message: "Are you sure you want to delete this event?", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in
-            EventUpClient.sharedInstance.deleteEvent(event: self.event, success: {_ in 
+            EventUpClient.sharedInstance.deleteEvent(event: self.event, success: { 
                 self.onSuccessful()
             }) { (error) in
                 print(error)
@@ -138,18 +138,14 @@ class EventDetailViewController: UIViewController, FilterDelegate {
     }
     
     @IBAction func rsvpUser(_ sender: Any) {
-        EventUpClient.sharedInstance.rsvpEvent(event: event, uid: Auth.auth().currentUser!.uid, success: {(already) in
-            if (already) {
-                let alert = UIAlertController(title: "Error!", message: "You already have RSVP'd to the event", preferredStyle: UIAlertControllerStyle.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in self.onSuccessful()}))
-                self.present(alert, animated: true, completion: nil)
-            } else {
-                self.event.rsvpCount = self.event.rsvpCount + 1
-                self.setup()
-                let alert = UIAlertController(title: "Success!", message: "You RSVP'd to the event", preferredStyle: UIAlertControllerStyle.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in self.onSuccessful()}))
-                self.present(alert, animated: true, completion: nil)
-            }
+        EventUpClient.sharedInstance.rsvpEvent(event: event, uid: Auth.auth().currentUser!.uid, success: {
+            
+            self.event.rsvpCount = self.event.rsvpCount + 1
+            self.setup()
+            let alert = UIAlertController(title: "Success!", message: "You RSVP'd to the event", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in self.onSuccessful()}))
+            self.present(alert, animated: true, completion: nil)
+            
             
         }) { (error) in
             print(error.localizedDescription)

@@ -137,11 +137,11 @@ class EventsViewController: UITableViewController {
                 }
             }
         }
-        if let image = event.image {
-            cell.eventView.image = EventUpClient.sharedInstance.base64DecodeImage(image)
-            cell.eventView.layer.cornerRadius = 5
-            cell.eventView.clipsToBounds = true
-        }
+//        if let image = event.image {
+//            cell.eventView.image = EventUpClient.sharedInstance.base64DecodeImage(image)
+//            cell.eventView.layer.cornerRadius = 5
+//            cell.eventView.clipsToBounds = true
+//        }
         if let userLocation = locationManager.location?.coordinate {
             let coordinateMe = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
             let coordinateE = CLLocation(latitude: event.latitude, longitude: event.longitude)

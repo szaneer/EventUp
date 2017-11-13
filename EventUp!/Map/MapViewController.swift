@@ -158,16 +158,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        let alertSound = URL(fileURLWithPath: Bundle.main.path(forResource: "test", ofType: "wav")!)
-        print(alertSound)
-        
-        try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-        try! AVAudioSession.sharedInstance().setActive(true)
-        
-        try! audioPlayer = AVAudioPlayer(contentsOf: alertSound)
-        audioPlayer!.prepareToPlay()
-        audioPlayer!.play()
-        
+//        let alertSound = URL(fileURLWithPath: Bundle.main.path(forResource: "test", ofType: "wav")!)
+//        print(alertSound)
+//        
+//        try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+//        try! AVAudioSession.sharedInstance().setActive(true)
+//        
+//        try! audioPlayer = AVAudioPlayer(contentsOf: alertSound)
+//        audioPlayer!.prepareToPlay()
+//        audioPlayer!.play()
+//        
         let smallView = UIView()
         smallView.frame = CGRect(x: 25, y: 25, width: 100, height: 100)
         

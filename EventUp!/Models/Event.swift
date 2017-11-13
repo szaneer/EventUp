@@ -24,7 +24,6 @@ class Event: NSObject {
     var uid: String!
     var owner: String!
     var tags: [String]?
-    var image: String?
     
     init(eventData: [String: Any]) {
         uid = eventData["uid"] as! String
@@ -49,8 +48,5 @@ class Event: NSObject {
         ratingCount = eventData["ratingCount"] as! Int
         
         info = eventData["info"] as! String
-        
-        image = eventData["image"] as? String
-        
     }
 }

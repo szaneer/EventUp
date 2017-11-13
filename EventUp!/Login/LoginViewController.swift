@@ -24,6 +24,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         FBSDKLoginManager().logOut()
         // Do any additional setup after loading the view.
         
+        let db = Firestore.firestore()
+        
         let loginButton = FBSDKLoginButton()
         
         

@@ -143,107 +143,147 @@ class EventUpClient: NSObject {
     
     func createEvent(eventData: [String: Any], eventImage: UIImage?, success: @escaping (Event) ->(), failure: @escaping (Error) -> ()) {
         var eventData = eventData
-        let uid = UUID.init().uuidString
         eventData["rsvpCount"] = 0
         eventData["checkedInCount"] = 0
         eventData["rating"] = 0.00
         eventData["ratingCount"] = 0
-        eventData["uid"] = uid
-        if let eventImage = eventImage {
-            let imageString = base64EncodeImage(eventImage)
-            eventData["image"] = imageString
-        }
-        let newEvent = db.collection("events").document(uid)
-        newEvent.setData(eventData) { (error) in
+        let eventDoc = db.collection("events").document()
+        eventData["uid"] = eventDoc.documentID
+        let image = db.collection("eventImages").document(eventDoc.documentID)
+        let rsvpList = db.collection("rsvpLists").document(eventDoc.documentID)
+        let checkInList = db.collection("checkInLists").document(eventDoc.documentID)
+        let ratingList = db.collection("ratingLists").document(eventDoc.documentID)
+        self.db.runTransaction({ (transaction, errorPointer) -> Any? in
+            transaction.setData(eventData, forDocument: eventDoc)
+            if let eventImage = eventImage {
+                let imageString = self.base64EncodeImage(eventImage)
+                transaction.setData(["image": imageString], forDocument: image)
+            } else {
+                transaction.setData([:], forDocument: image)
+            }
+            transaction.setData([:], forDocument: rsvpList)
+            transaction.setData([:], forDocument: checkInList)
+            transaction.setData([:], forDocument: ratingList)
+            return eventData
+        }, completion: { (object, error) in
             if let error = error {
                 failure(error)
             } else {
-                success(Event(eventData: eventData))
+                success(Event(eventData: object as! [String : Any]))
             }
-        }
+        })
     }
     
-    func editEvent(event: Event, eventData: [String: Any], eventImage: UIImage?, success: @escaping (Event) ->(), failure: @escaping (Error) -> ()) {
-        var eventData = eventData
-        var eventNew = eventData
+    func editEvent(event: Event, eventData: [String: Any], eventImage: UIImage?, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
         let uid = event.uid!
-        eventData["rsvpCount"] = event.rsvpCount
-        eventData["checkedInCount"] = event.checkedInCount
-        eventData["rating"] = event.rating
-        eventData["ratingCount"] = event.ratingCount
-        eventData["uid"] = uid
-        if let eventImage = eventImage {
-            let imageString = base64EncodeImage(eventImage)
-            eventData["image"] = imageString
-            eventNew["image"] = imageString
-        }
-        let currEvent = db.collection("events").document(uid)
-        currEvent.updateData(eventNew) { (error) in
-            if let error = error {
-                failure(error)
-            } else {
-                success(Event(eventData: eventData))
-            }
-        }
-    }
-    
-    func deleteEvent(event: Event, success: @escaping (Event) ->(), failure: @escaping (Error) -> ()) {
-        let eventDoc = db.collection("events").document(event.uid)
-        eventDoc.delete { (error) in
-            if let error = error {
-                failure(error)
-            }
-        }
-    }
-    
-    func rateEvent(rating: Double, event: Event, uid: String, success: @escaping (Double) ->(), failure: @escaping (Error) -> ()) {
-        let rated = db.collection("events").document(event.uid).collection("rated").document(uid)
+        let eventDoc = db.collection("events").document(uid)
+        let image = db.collection("eventImages").document(uid)
         
-        rated.getDocument { (eventSnapshot, error) in
-            if let error = error {
-                failure(error)
-            } else if let eventSnapshot = eventSnapshot {
-                if (eventSnapshot.exists) {
-                    rated.updateData(["rating": rating], completion: { (error) in
-                        if let error = error {
-                            failure(error)
-                        }
-                        success(rating)
-                    })
-                } else {
-                    rated.setData(["rating": rating], completion: { (error) in
-                        if let error = error {
-                            failure(error)
-                        }
-                        success(rating)
-                    })
-                }
+        self.db.runTransaction({ (transaction, errorPointer) -> Any? in
+            transaction.updateData(eventData, forDocument: eventDoc)
+            if let eventImage = eventImage {
+                let imageString = self.base64EncodeImage(eventImage)
+                transaction.setData(["image": imageString], forDocument: image)
+            } else {
+                transaction.setData([:], forDocument: image)
             }
-        }
-    }
-    
-    func rateUser(rating: Double, uid: String, success: @escaping (Double) ->(), failure: @escaping (Error) -> ()) {
-        let event = db.collection("users").document(uid)
-        event.getDocument { (eventSnapshot, error) in
+            return nil
+        }, completion: { (object, error) in
             if let error = error {
                 failure(error)
             } else {
-                var eventData = eventSnapshot!.data()
-                let currRating = eventData["rating"] as! Double
-                let ratingCount = eventData["ratingCount"] as! Double
-                
-                let newRatingCount = ratingCount + 1
-                let newRating = (currRating * ratingCount + rating) / newRatingCount
-                
-                event.updateData(["rating": newRating, "ratingCount": ratingCount], completion: { (error) in
-                    if let error = error {
-                        failure(error)
-                    } else {
-                        success(newRating)
-                    }
-                })
+                success()
             }
-        }
+        })
+    }
+    
+    func deleteEvent(event: Event, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
+        let uid = event.uid!
+        let eventDoc = db.collection("events").document(uid)
+        let image = db.collection("eventImages").document(uid)
+        let rsvpList = db.collection("rsvpLists").document(uid)
+        let checkInList = db.collection("checkInLists").document(uid)
+        let ratingList = db.collection("ratingLists").document(uid)
+        self.db.runTransaction({ (transaction, errorPointer) -> Any? in
+            transaction.deleteDocument(eventDoc)
+            transaction.deleteDocument(image)
+            transaction.deleteDocument(rsvpList)
+            transaction.deleteDocument(checkInList)
+            transaction.deleteDocument(ratingList)
+            return nil
+        }, completion: { (object, error) in
+            if let error = error {
+                failure(error)
+            } else {
+                success()
+            }
+        })
+    }
+    
+    func rateEvent(rating: Double, event: Event, uid: String, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
+        
+        let eventRef = db.collection("events").document(event.uid)
+        let ratings = db.collection("ratingLists").document(event.uid)
+        let owner = db.collection("users").document(uid)
+        db.runTransaction({ (transaction, errorPointer) -> Any? in
+            var eventDoc: DocumentSnapshot
+            var ratingsDoc: DocumentSnapshot
+            var userDoc: DocumentSnapshot
+            do {
+                eventDoc = try transaction.getDocument(eventRef)
+                ratingsDoc = try transaction.getDocument(ratings)
+                userDoc = try transaction.getDocument(owner)
+            } catch let fetchError as NSError {
+                errorPointer?.pointee = fetchError
+                return nil
+            }
+            
+            let eventData = eventDoc.data()
+            let oldRating = eventData["rating"] as! Double
+            let oldRatingCount = eventData["ratingCount"] as! Int
+            
+            let ownerData = userDoc.data()
+            let oldOwnerRating = ownerData["rating"] as! Double
+            let oldOwnerRatingCount = ownerData["ratingCount"] as! Int
+            
+            
+            var newRating: Double
+            var newRatingCount: Int
+            var newOwnerRating: Double
+            var newOwnerRatingCount: Int
+            
+            let ratingsData = ratingsDoc.data()
+            if ratingsData[uid] == nil {
+                newRating = oldRating * Double(oldRatingCount) + rating
+                newRatingCount = oldRatingCount + 1
+                newRating /= Double(newRatingCount)
+                
+                newOwnerRating = oldOwnerRating * Double(oldOwnerRatingCount) + rating
+                newOwnerRatingCount = oldOwnerRatingCount + 1
+                newOwnerRating /= Double(newOwnerRatingCount)
+                
+            } else {
+                newRatingCount = oldRatingCount
+                newRating = oldRating * Double(oldRatingCount) - oldRating + rating
+                newRating /= Double(newRatingCount)
+                
+                newOwnerRatingCount = oldOwnerRatingCount
+                newOwnerRating = oldOwnerRating * Double(oldOwnerRatingCount) - oldOwnerRating + rating
+                newOwnerRating /= Double(newOwnerRatingCount)
+            }
+            
+            
+            transaction.updateData(["rating": newRatingCount, "ratingCount": newRatingCount], forDocument: eventRef)
+            transaction.updateData(["rating": newOwnerRating, "ratingCount": newOwnerRatingCount], forDocument: owner)
+            transaction.updateData([uid: true], forDocument: ratings)
+            return nil
+        }, completion: { (object, error) in
+            if let error = error {
+                failure(error)
+            } else {
+                success()
+            }
+        })
     }
     
     // Users
@@ -252,24 +292,33 @@ class EventUpClient: NSObject {
         let email = userData["email"] as! String
         let password = userData["password"] as! String
         userData["rating"] = 0.00
+        userData["ratingCount"] = 0
+        userData["checkedInCount"] = 0
         userData.removeValue(forKey: "password")
-        if let userImage = userImage {
-            let imageString = base64EncodeImage(userImage)
-            userData["image"] = imageString
-        }
+        
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             if let error = error {
                 failure(error)
             } else if let user = user {
                 let uid = user.uid
-                let users = self.db.collection("users").document(uid)
-                users.setData(userData) { (error) in
+                let userDoc = self.db.collection("users").document(uid)
+                let images = self.db.collection("userImages").document(uid)
+                self.db.runTransaction({ (transaction, errorPointer) -> Any? in
+                    transaction.setData(userData, forDocument: userDoc)
+                    if let userImage = userImage {
+                        let imageString = self.base64EncodeImage(userImage)
+                        transaction.setData(["image": imageString], forDocument: images)
+                    } else {
+                        transaction.setData([:], forDocument: images)
+                    }
+                    return nil
+                }, completion: { (object, error) in
                     if let error = error {
                         failure(error)
                     } else {
                         success(user)
                     }
-                }
+                })
             }
         }
     }
@@ -320,17 +369,26 @@ class EventUpClient: NSObject {
         var userData = userData
         userData["rating"] = 0.00
         userData["ratingCount"] = 0
-        if let userImage = userImage {
-            let imageString = base64EncodeImage(userImage)
-            userData["image"] = imageString
-        }
-        let users = db.collection("users")
-        users.document(uid).setData(userData) { (error) in
+        userData["checkedInCount"] = 0
+        let userDoc = self.db.collection("users").document(uid)
+        let images = self.db.collection("userImages").document(uid)
+        self.db.runTransaction({ (transaction, errorPointer) -> Any? in
+            transaction.setData(userData, forDocument: userDoc)
+            if let userImage = userImage {
+                let imageString = self.base64EncodeImage(userImage)
+                transaction.setData(["image": imageString], forDocument: images)
+            } else {
+                transaction.setData([:], forDocument: images)
+            }
+            return nil
+        }, completion: { (object, error) in
             if let error = error {
                 failure(error)
+            } else {
+                success(
+                )
             }
-            success()
-        }
+        })
     }
     
     func saveUserPushNotificationToken(uid: String, token: String, success: @escaping (EventUser) -> (), failure: @escaping (Error) -> ()) {
@@ -338,64 +396,133 @@ class EventUpClient: NSObject {
     }
     
     func getUserInfo(user: User, success: @escaping (EventUser?) -> (), failure: @escaping (Error) -> ()) {
-        let users = db.collection("users").document(user.uid)
-        users.getDocument { (userSnapshot, error) in
-            if let error = error {
-                failure(error)
-            } else if let userSnapshot = userSnapshot {
-                if userSnapshot.exists {
-                    
-                    let user = EventUser(eventData: userSnapshot.data())
-                    success(user)
-                } else {
-                    success(nil)
-                }
+        let userRef = db.collection("users").document(user.uid)
+        let images = db.collection("userImages").document(user.uid)
+        db.runTransaction({ (transaction, errorPointer) -> Any? in
+            var userDoc: DocumentSnapshot
+            var imageDoc: DocumentSnapshot
+            do {
+                userDoc = try transaction.getDocument(userRef)
+                imageDoc = try transaction.getDocument(images)
+            } catch let fetchError as NSError {
+                errorPointer?.pointee = fetchError
+                return nil
             }
-        }
+            
+            var userData = userDoc.data()
+            let userImageData = imageDoc.data()
+            if userImageData["image"] != nil {
+                userData["image"] = userImageData["image"]
+            }
+            transaction.updateData([:], forDocument: userRef)
+            transaction.updateData([:], forDocument: images)
+            return userData
+        }, completion: { (object, error) in
+            if let error = error {
+                print(error)
+                failure(error)
+            } else {
+                success(EventUser(eventData: object as! [String : Any]))
+            }
+        })
     }
     
     func getUserInfo(uid: String, success: @escaping (EventUser) -> (), failure: @escaping (Error) -> ()) {
-        let users = db.collection("users").document(uid)
-        users.getDocument { (userSnapshot, error) in
-            if let error = error {
-                failure(error)
-            } else if let userSnapshot = userSnapshot {
-                let user = EventUser(eventData: userSnapshot.data())
-                success(user)
+        let userRef = db.collection("users").document(uid)
+        let images = db.collection("userImages").document(uid)
+        db.runTransaction({ (transaction, errorPointer) -> Any? in
+            var userDoc: DocumentSnapshot
+            var imageDoc: DocumentSnapshot
+            do {
+                userDoc = try transaction.getDocument(userRef)
+                imageDoc = try transaction.getDocument(images)
+            } catch let fetchError as NSError {
+                errorPointer?.pointee = fetchError
+                return nil
             }
-        }
-    }
-    func rsvpEvent(event: Event, uid: String, success: @escaping (Bool) ->(), failure: @escaping (Error) -> ()) {
-        let event = db.collection("events").document(event.uid).collection("rsvpList").document(uid)
-        event.getDocument(completion: { (snapshot, error) in
+            
+            var userData = userDoc.data()
+            let userImageData = imageDoc.data()
+            
+            if userImageData["image"] != nil {
+                userData["image"] = userImageData["image"]
+            }
+            return userData
+        }, completion: { (object, error) in
             if let error = error {
                 failure(error)
-            } else if let snapshot = snapshot {
-                if (snapshot.exists) {
-                    success(true)
-                } else {
-                    
-                    event.setData(["uid": uid]) { (error) in
-                        if let error = error {
-                            failure(error)
-                        }
-                        success(false)
-                    }
-                    
-                }
+            } else {
+                success(EventUser(eventData: object as! [String : Any]))
+            }
+        })
+    }
+    
+    func rsvpEvent(event: Event, uid: String, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
+        
+        let eventRef = db.collection("events").document(event.uid)
+        let rsvpList = db.collection("rsvpLists").document(event.uid)
+        db.runTransaction({ (transaction, errorPointer) -> Any? in
+            var eventDoc: DocumentSnapshot
+            var rsvpListDoc: DocumentSnapshot
+            do {
+                eventDoc = try transaction.getDocument(eventRef)
+                rsvpListDoc = try transaction.getDocument(rsvpList)
+            } catch let fetchError as NSError {
+                errorPointer?.pointee = fetchError
+                return nil
+            }
+            
+            var eventData = eventDoc.data()
+            let rsvpListData = rsvpListDoc.data()
+            var rsvpCount = eventData["rsvpCount"] as! Int
+            if rsvpListData[uid] == nil {
+                rsvpCount += 1
+            }
+            
+            transaction.updateData(["rsvpCount": rsvpCount], forDocument: eventRef)
+            transaction.updateData([uid: true], forDocument: rsvpList)
+            return nil
+        }, completion: { (object, error) in
+            if let error = error {
+                failure(error)
+            } else {
+                success()
             }
         })
         
     }
     
     func checkInEvent(event: Event, uid: String, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
-        let event = db.collection("events").document(event.uid).collection("checkinList").document(uid)
-        event.setData(["uid": uid]) { (error) in
+        let eventRef = db.collection("events").document(event.uid)
+        let checkInList = db.collection("checkIntLists").document(event.uid)
+        db.runTransaction({ (transaction, errorPointer) -> Any? in
+            var eventDoc: DocumentSnapshot
+            var checkInListDoc: DocumentSnapshot
+            do {
+                eventDoc = try transaction.getDocument(eventRef)
+                checkInListDoc = try transaction.getDocument(checkInList)
+            } catch let fetchError as NSError {
+                errorPointer?.pointee = fetchError
+                return nil
+            }
+            
+            var eventData = eventDoc.data()
+            let checkInListData = checkInListDoc.data()
+            var checkInCount = eventData["checkInCount"] as! Int
+            if checkInListData[uid] == nil {
+                checkInCount += 1
+            }
+            
+            transaction.updateData(["checkInCount": checkInCount], forDocument: eventRef)
+            transaction.updateData([uid: true], forDocument: checkInList)
+            return nil
+        }, completion: { (object, error) in
             if let error = error {
                 failure(error)
+            } else {
+                success()
             }
-            success()
-        }
+        })
     }
     
     func setNotificationToken(uid: String, token: String, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
