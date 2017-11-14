@@ -25,19 +25,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         FBSDKLoginManager().logOut()
         // Do any additional setup after loading the view.
         
-        let geofireRef = Database.database().reference()
-        let geoFire = GeoFire(firebaseRef: geofireRef)!
-        
-        let center = CLLocation(latitude: 37.7832889, longitude: -122.4056973)
-        // Query locations at [37.7832889, -122.4056973] with a radius of 600 meters
-        var circleQuery = geoFire.query(at: center, withRadius: 100)
-        circleQuery?.observe(.keyEntered, with: { (key, location) in
-            print(key)
-        })
-        circleQuery?.observeReady({
-            print("asds")
-        })
-        
         let loginButton = FBSDKLoginButton()
         
         
