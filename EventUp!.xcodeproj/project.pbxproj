@@ -12,6 +12,7 @@
 		839240231F85BA07003C0DAF /* RatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839240221F85BA07003C0DAF /* RatingViewController.swift */; };
 		B5710CDC1F85D607000D1E70 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5710CDB1F85D607000D1E70 /* Profile.storyboard */; };
 		BB330A771FC3B5D9000143EB /* EventContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB330A761FC3B5D9000143EB /* EventContainerViewController.swift */; };
+		BB5B02001FC3BA8D00787AAA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB5B01FF1FC3BA8D00787AAA /* LaunchScreen.storyboard */; };
 		C72B02B71F8692F1005E7B97 /* EventAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72B02B61F8692F1005E7B97 /* EventAnnotation.swift */; };
 		C72C8E271FA6864300B16561 /* EventChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72C8E261FA6864300B16561 /* EventChatViewController.swift */; };
 		C72C8E291FA68B4B00B16561 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72C8E281FA68B4B00B16561 /* SettingsViewController.swift */; };
@@ -40,7 +41,6 @@
 		C7C5D37E1F5F2EA0001BCE38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C5D37D1F5F2EA0001BCE38 /* AppDelegate.swift */; };
 		C7C5D3801F5F2EA0001BCE38 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C5D37F1F5F2EA0001BCE38 /* ViewController.swift */; };
 		C7C5D3831F5F2EA0001BCE38 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7C5D3811F5F2EA0001BCE38 /* Main.storyboard */; };
-		C7C5D3881F5F2EA0001BCE38 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7C5D3861F5F2EA0001BCE38 /* LaunchScreen.storyboard */; };
 		C7D710991F9916210010EAC8 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D710981F9916210010EAC8 /* Message.swift */; };
 		C7D7109C1F9983520010EAC8 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D7109A1F9983510010EAC8 /* FBSDKCoreKit.framework */; };
 		C7D7109D1F9983520010EAC8 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D7109B1F9983520010EAC8 /* FBSDKLoginKit.framework */; };
@@ -55,6 +55,7 @@
 		B5710CDB1F85D607000D1E70 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		B8642049167ECB3A8DF5E8AB /* Pods-EventUp!.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventUp!.release.xcconfig"; path = "Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!.release.xcconfig"; sourceTree = "<group>"; };
 		BB330A761FC3B5D9000143EB /* EventContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventContainerViewController.swift; sourceTree = "<group>"; };
+		BB5B01FF1FC3BA8D00787AAA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C72B02B61F8692F1005E7B97 /* EventAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAnnotation.swift; sourceTree = "<group>"; };
 		C72C8E251FA5C8B000B16561 /* EventUp!.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "EventUp!.entitlements"; sourceTree = "<group>"; };
 		C72C8E261FA6864300B16561 /* EventChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventChatViewController.swift; sourceTree = "<group>"; };
@@ -85,7 +86,6 @@
 		C7C5D37D1F5F2EA0001BCE38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7C5D37F1F5F2EA0001BCE38 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C7C5D3821F5F2EA0001BCE38 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C7C5D3871F5F2EA0001BCE38 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C7C5D3891F5F2EA0001BCE38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C7D710981F9916210010EAC8 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		C7D7109A1F9983510010EAC8 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
@@ -228,11 +228,11 @@
 				C764020A1F7959CE00AA3F06 /* Map */,
 				C7C5D37D1F5F2EA0001BCE38 /* AppDelegate.swift */,
 				C7C5D37F1F5F2EA0001BCE38 /* ViewController.swift */,
-				C7C5D3861F5F2EA0001BCE38 /* LaunchScreen.storyboard */,
 				C7C5D3891F5F2EA0001BCE38 /* Info.plist */,
 				C76402291F7DB97B00AA3F06 /* EventUpClient.swift */,
 				C7C164631F852AE6007226FA /* GoogleService-Info.plist */,
 				C7B1427A1FAAF14500B9DC0E /* SegueFromLeft.swift */,
+				BB5B01FF1FC3BA8D00787AAA /* LaunchScreen.storyboard */,
 			);
 			path = "EventUp!";
 			sourceTree = "<group>";
@@ -305,7 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C76C148E1F981A6E006B3F5C /* Login.storyboard in Resources */,
-				C7C5D3881F5F2EA0001BCE38 /* LaunchScreen.storyboard in Resources */,
+				BB5B02001FC3BA8D00787AAA /* LaunchScreen.storyboard in Resources */,
 				C7C5D3831F5F2EA0001BCE38 /* Main.storyboard in Resources */,
 				C764020C1F7959DF00AA3F06 /* Map.storyboard in Resources */,
 				C76402111F7975E700AA3F06 /* Events.storyboard in Resources */,
@@ -462,14 +462,6 @@
 				C7C5D3821F5F2EA0001BCE38 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		C7C5D3861F5F2EA0001BCE38 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C7C5D3871F5F2EA0001BCE38 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
