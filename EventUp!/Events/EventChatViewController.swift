@@ -19,6 +19,11 @@ final class EventChatViewController: JSQMessagesViewController {
     lazy var outgoingBubbleImageView: JSQMessagesBubbleImage = self.setupOutgoingBubble()
     lazy var incomingBubbleImageView: JSQMessagesBubbleImage = self.setupIncomingBubble()
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        observeTyping()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
          self.edgesForExtendedLayout = []
@@ -74,6 +79,7 @@ final class EventChatViewController: JSQMessagesViewController {
         EventUpClient.sharedInstance.sendMessage(event: event, message: messageItem, success: {
             JSQSystemSoundPlayer.jsq_playMessageSentSound()
             self.finishSendingMessage()
+            self.isTyping = false
         }) { (error) in
             print(error.localizedDescription)
         }
@@ -107,21 +113,41 @@ final class EventChatViewController: JSQMessagesViewController {
         }
     }
     
-    //private lazy var userIsTypingRef: DatabaseReference = self.channelRef!.child("typingIndicator").child(self.senderId)
-//    private var localTyping = false
-//    var isTyping: Bool {
-//        get {
-//            return localTyping
-//        }
-//        set {
-//            localTyping = newValue
-//            userIsTypingRef.setValue(newValue)
-//        }
-//    }
-//    
-//    override func textViewDidChange(_ textView: UITextView) {
-//        super.textViewDidChange(textView)
-//        
-//        print(textView.text != "")
-//    }
+    private lazy var userIsTypingRef: DatabaseReference = Database.database().reference().child("chats").child(event.uid).child("typingIndicator").child(self.senderId)
+    
+    private lazy var usersTypingQuery: DatabaseQuery =
+        Database.database().reference().child("chats").child(event.uid).child("typingIndicator").queryOrderedByValue().queryEqual(toValue: true)
+    private var localTyping = false
+    var isTyping: Bool {
+        get {
+            return localTyping
+        }
+        set {
+            localTyping = newValue
+            userIsTypingRef.setValue(newValue)
+        }
+    }
+    
+    override func textViewDidChange(_ textView: UITextView) {
+        super.textViewDidChange(textView)
+        
+        isTyping = textView.text != ""
+    }
+    
+    private func observeTyping() {
+        let typingIndicatorRef = Database.database().reference().child("chats").child(event.uid).child("typingIndicator")
+        userIsTypingRef = typingIndicatorRef.child(senderId)
+        userIsTypingRef.onDisconnectRemoveValue()
+        
+        usersTypingQuery.observe(.value) { (data: DataSnapshot) in
+            // 2 You're the only one typing, don't show the indicator
+            if data.childrenCount == 1 && self.isTyping {
+                return
+            }
+            
+            // 3 Are there others typing?
+            self.showTypingIndicator = data.childrenCount > 0
+            self.scrollToBottom(animated: true)
+        }
+    }
 }
