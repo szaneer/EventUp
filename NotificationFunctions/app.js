@@ -35,6 +35,7 @@ var observer = query.onSnapshot(querySnapshot => {
             if (change.type === "added") {
                 let type = change.doc.data().type;
                 let uid = change.doc.data().uid;
+		let message = change.doc.data().message;
                 if (type == "edit") {
                   db.collection("events").doc(uid).collection("rsvpList").get().then(function(rsvpList) {
                     rsvpList.forEach(function(rsvp) {
@@ -66,7 +67,7 @@ var observer = query.onSnapshot(querySnapshot => {
 
                   query.doc(uid).delete();
                 } else if (type == "user") {
-                  db.collection("users").doc(change.doc.id).get().then(function(userInfo) {
+                  db.collection("users").doc(uid).get().then(function(userInfo) {
                       let data = userInfo.data();
 
                       let deviceToken = data.token;
@@ -77,7 +78,7 @@ var observer = query.onSnapshot(querySnapshot => {
                       note.expiry = Math.floor(Date.now() / 1000) + 3600; // Expires 1 hour from now.
                       note.badge = 3;
                       note.sound = "ping.aiff";
-                      note.alert = "Check out this event shared by a friend!";
+                      note.alert = message;
                       note.payload = {"uid": uid};
 
                       note.topic = "com.307.EventUp";
@@ -89,7 +90,7 @@ var observer = query.onSnapshot(querySnapshot => {
 
                   });
 
-                  query.doc(change.doc.id).delete();
+                  //query.doc(change.doc.id).delete();
                 }
             }
         });
