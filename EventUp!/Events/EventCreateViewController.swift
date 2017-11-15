@@ -12,6 +12,8 @@ import AVFoundation
 import MapKit
 import SVProgressHUD
 import TextFieldEffects
+import CoreML
+import Vision
 
 class EventCreateViewController: UIViewController {
     
