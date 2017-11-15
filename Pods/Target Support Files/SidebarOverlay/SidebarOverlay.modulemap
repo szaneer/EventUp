@@ -1,0 +1,6 @@
+framework module SidebarOverlay {
+  umbrella header "SidebarOverlay-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -181,6 +181,8 @@ class EventUpClient: NSObject {
         let eventDoc = db.collection("events").document(uid)
         let image = db.collection("eventImages").document(uid)
         
+        let notifications = db.collection("notifications").document()
+        
         self.db.runTransaction({ (transaction, errorPointer) -> Any? in
             transaction.updateData(eventData, forDocument: eventDoc)
             if let eventImage = eventImage {
@@ -189,6 +191,8 @@ class EventUpClient: NSObject {
             } else {
                 transaction.setData([:], forDocument: image)
             }
+            
+            transaction.setData(["uid": event.uid, "type": "edit", "message": "\(event.name!) has been edited, check out what's new!"], forDocument: notifications)
             return nil
         }, completion: { (object, error) in
             if let error = error {
@@ -465,6 +469,7 @@ class EventUpClient: NSObject {
         let eventRef = db.collection("events").document(event.uid)
         let rsvpList = db.collection("eventRsvpLists").document(event.uid)
         let userRsvpList = fdb.child("userRsvpLists").child(uid)
+        let notifications = db.collection("notifications").document()
         
         let geoFire = GeoFire(firebaseRef: userRsvpList)!
         
@@ -488,6 +493,7 @@ class EventUpClient: NSObject {
             
             transaction.updateData(["rsvpCount": rsvpCount], forDocument: eventRef)
             transaction.updateData([uid: true], forDocument: rsvpList)
+            transaction.setData(["uid": event.owner, "type": "user", "message": "A user has RSVP'd to \(event.name!)"], forDocument: notifications)
             return nil
         }, completion: { (object, error) in
             if let error = error {
@@ -505,6 +511,7 @@ class EventUpClient: NSObject {
         let eventRef = db.collection("events").document(event.uid)
         let rsvpList = db.collection("eventRsvpLists").document(event.uid)
         let userRsvpList = fdb.child("userRsvpLists").child(uid)
+        let notifications = db.collection("notifications").document()
         
         db.runTransaction({ (transaction, errorPointer) -> Any? in
             var eventDoc: DocumentSnapshot
@@ -524,6 +531,7 @@ class EventUpClient: NSObject {
             rsvpListData.removeValue(forKey: uid)
             transaction.updateData(["rsvpCount": rsvpCount], forDocument: eventRef)
             transaction.setData(rsvpListData, forDocument: rsvpList)
+            transaction.setData(["uid": event.owner, "type": "user", "message": "A user has canceled their RSVP to \(event.name!)"], forDocument: notifications)
             return nil
         }, completion: { (object, error) in
             if let error = error {

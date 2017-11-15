@@ -20,6 +20,7 @@ target 'EventUp!' do
   pod 'JSQMessagesViewController'
   pod 'TextFieldEffects'
   pod 'GeoFire', :git => 'https://github.com/firebase/geofire-objc.git'
+  pod 'SidebarOverlay'
 end
 
 post_install do |installer|

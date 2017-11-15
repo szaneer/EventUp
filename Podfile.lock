@@ -118,6 +118,7 @@ PODS:
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
   - Protobuf (3.5.0)
+  - SidebarOverlay (4.2.1)
   - SVProgressHUD (2.2.2)
   - TextFieldEffects (1.4.0)
   - TwitterCore (3.0.2)
@@ -135,6 +136,7 @@ DEPENDENCIES:
   - FirebaseUI/Twitter
   - GeoFire (from `https://github.com/firebase/geofire-objc.git`)
   - JSQMessagesViewController
+  - SidebarOverlay
   - SVProgressHUD
   - TextFieldEffects
 
@@ -174,11 +176,12 @@ SPEC CHECKSUMS:
   leveldb-library: 4f9eedf84ab46b4fa3b7893bf30714b2a1a74022
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
+  SidebarOverlay: 1a00a90b2bfac853163f305c977f106be2578497
   SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
   TextFieldEffects: 4ee41b5216e674d55fb6ac25107bf1af7629176f
   TwitterCore: e0420b01e02e7d20e94690e37f43e75de219ab8d
   TwitterKit: 205ac89824bbfe9e85a16c420d30bb7bcbedac45
 
-PODFILE CHECKSUM: 530f217d593fb8f4128dab3ce98ea09a91eac3ff
+PODFILE CHECKSUM: 8d43529ca30ef036ff703bf271da97ffdff86def
 
 COCOAPODS: 1.3.1

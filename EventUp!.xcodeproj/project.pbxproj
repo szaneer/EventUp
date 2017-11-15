@@ -11,6 +11,7 @@
 		7C3C6D591F861C2000511686 /* RSVPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3C6D581F861C2000511686 /* RSVPViewController.swift */; };
 		839240231F85BA07003C0DAF /* RatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839240221F85BA07003C0DAF /* RatingViewController.swift */; };
 		B5710CDC1F85D607000D1E70 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5710CDB1F85D607000D1E70 /* Profile.storyboard */; };
+		BB330A771FC3B5D9000143EB /* EventContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB330A761FC3B5D9000143EB /* EventContainerViewController.swift */; };
 		C72B02B71F8692F1005E7B97 /* EventAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72B02B61F8692F1005E7B97 /* EventAnnotation.swift */; };
 		C72C8E271FA6864300B16561 /* EventChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72C8E261FA6864300B16561 /* EventChatViewController.swift */; };
 		C72C8E291FA68B4B00B16561 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72C8E281FA68B4B00B16561 /* SettingsViewController.swift */; };
@@ -53,6 +54,7 @@
 		A00BEE0174A91D69362D7DEA /* Pods_EventUp_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EventUp_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5710CDB1F85D607000D1E70 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		B8642049167ECB3A8DF5E8AB /* Pods-EventUp!.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventUp!.release.xcconfig"; path = "Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!.release.xcconfig"; sourceTree = "<group>"; };
+		BB330A761FC3B5D9000143EB /* EventContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventContainerViewController.swift; sourceTree = "<group>"; };
 		C72B02B61F8692F1005E7B97 /* EventAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAnnotation.swift; sourceTree = "<group>"; };
 		C72C8E251FA5C8B000B16561 /* EventUp!.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "EventUp!.entitlements"; sourceTree = "<group>"; };
 		C72C8E261FA6864300B16561 /* EventChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventChatViewController.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				7C3C6D581F861C2000511686 /* RSVPViewController.swift */,
 				C79D17F11FA2A37400D25C4B /* EventTagSelectViewController.swift */,
 				C72C8E261FA6864300B16561 /* EventChatViewController.swift */,
+				BB330A761FC3B5D9000143EB /* EventContainerViewController.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				"${BUILT_PRODUCTS_DIR}/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SidebarOverlay/SidebarOverlay.framework",
 				"${BUILT_PRODUCTS_DIR}/TextFieldEffects/TextFieldEffects.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
@@ -374,6 +378,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQSystemSoundPlayer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SidebarOverlay.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TextFieldEffects.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
@@ -442,6 +447,7 @@
 				C76C14961F98293A006B3F5C /* EventUser.swift in Sources */,
 				C72B02B71F8692F1005E7B97 /* EventAnnotation.swift in Sources */,
 				C7D710991F9916210010EAC8 /* Message.swift in Sources */,
+				BB330A771FC3B5D9000143EB /* EventContainerViewController.swift in Sources */,
 				C7C5D37E1F5F2EA0001BCE38 /* AppDelegate.swift in Sources */,
 				7C3C6D591F861C2000511686 /* RSVPViewController.swift in Sources */,
 			);

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SidebarOverlay
 
 class EventContainerViewController: SOContainerViewController {
 
@@ -14,7 +15,9 @@ class EventContainerViewController: SOContainerViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        self.menuSide = .left
+        self.topViewController = self.storyboard?.instantiateViewController(withIdentifier: "eventMain")
+        self.sideViewController = self.storyboard?.instantiateViewController(withIdentifier: "eventSidebar")
     }
 
 }
