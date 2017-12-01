@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
+        GeolocationClient.sharedInstance.setupLocation()
         if Auth.auth().currentUser != nil {
             let mainViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UITabBarController
             
@@ -32,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 UserDefaults.standard.set(notification["uid"], forKey: "notifyUID");
                 UserDefaults.standard.synchronize()
             }
-            //window?.rootViewController = mainViewController
+            window?.rootViewController = mainViewController
         }
         registerForPushNotifications()
         return true

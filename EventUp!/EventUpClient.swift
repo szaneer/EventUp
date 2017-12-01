@@ -546,33 +546,103 @@ class EventUpClient: NSObject {
     }
     
     func checkInEvent(event: Event, uid: String, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
+        
         let eventRef = db.collection("events").document(event.uid)
-        let checkInList = db.collection("checkInLists").document(event.uid)
+        let checkInList = db.collection("eventCheckInLists").document(event.uid)
+        let userCheckInList = fdb.child("userCheckInLists").child(event.uid)
+        let rsvpList = db.collection("eventRsvpLists").document(event.uid)
+        let userRsvpList = fdb.child("userRsvpLists").child(uid)
+        let notifications = db.collection("notifications").document()
+        
+        let geoFire = GeoFire(firebaseRef: userCheckInList)!
+        
         db.runTransaction({ (transaction, errorPointer) -> Any? in
             var eventDoc: DocumentSnapshot
             var checkInListDoc: DocumentSnapshot
+            var rsvpListDoc: DocumentSnapshot
             do {
                 eventDoc = try transaction.getDocument(eventRef)
                 checkInListDoc = try transaction.getDocument(checkInList)
+                rsvpListDoc = try transaction.getDocument(rsvpList)
             } catch let fetchError as NSError {
                 errorPointer?.pointee = fetchError
                 return nil
             }
             
             var eventData = eventDoc.data()
+            var rsvpListData = rsvpListDoc.data()
             let checkInListData = checkInListDoc.data()
+            
             var checkInCount = eventData["checkInCount"] as! Int
             if checkInListData[uid] == nil {
                 checkInCount += 1
             }
             
+            rsvpListData.removeValue(forKey: uid)
+            
+            transaction.setData(rsvpListData, forDocument: rsvpList)
             transaction.updateData(["checkInCount": checkInCount], forDocument: eventRef)
             transaction.updateData([uid: true], forDocument: checkInList)
+            transaction.setData(["uid": event.owner, "type": "user", "message": "A user just has checked in for \(event.name!)"], forDocument: notifications)
             return nil
         }, completion: { (object, error) in
             if let error = error {
                 failure(error)
             } else {
+                userRsvpList.child(event.uid).removeValue()
+                geoFire.setLocation(CLLocation(latitude: event.latitude, longitude: event.longitude), forKey: event.uid)
+                success()
+            }
+        })
+    }
+    
+    func checkInEventWithUID(eventUID: String, uid: String, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
+        
+        let eventRef = db.collection("events").document(eventUID)
+        let checkInList = db.collection("eventCheckInLists").document(eventUID)
+        let userCheckInList = fdb.child("userCheckInLists").child(uid)
+        let rsvpList = db.collection("eventRsvpLists").document(eventUID)
+        let userRsvpList = fdb.child("userRsvpLists").child(uid)
+        let notifications = db.collection("notifications").document()
+        
+        let geoFire = GeoFire(firebaseRef: userCheckInList)!
+        
+        db.runTransaction({ (transaction, errorPointer) -> Any? in
+            var eventDoc: DocumentSnapshot
+            var checkInListDoc: DocumentSnapshot
+            var rsvpListDoc: DocumentSnapshot
+            do {
+                eventDoc = try transaction.getDocument(eventRef)
+                checkInListDoc = try transaction.getDocument(checkInList)
+                rsvpListDoc = try transaction.getDocument(rsvpList)
+            } catch let fetchError as NSError {
+                errorPointer?.pointee = fetchError
+                return nil
+            }
+            
+            var eventData = eventDoc.data()
+            var rsvpListData = rsvpListDoc.data()
+            let checkInListData = checkInListDoc.data()
+            
+            var checkInCount = eventData["checkedInCount"] as! Int
+            if checkInListData[uid] == nil {
+                checkInCount += 1
+            }
+            
+            rsvpListData.removeValue(forKey: uid)
+            
+            transaction.setData(rsvpListData, forDocument: rsvpList)
+            transaction.updateData(["checkedInCount": checkInCount], forDocument: eventRef)
+            transaction.updateData([uid: true], forDocument: checkInList)
+            transaction.setData(["uid": eventData["owner"] as! String, "type": "user", "message": "A user just has checked in for \(eventData["name"] as! String)"], forDocument: notifications)
+            return eventData
+        }, completion: { (object, error) in
+            if let error = error {
+                failure(error)
+            } else {
+                let eventData = object as! [String: Any]
+                userRsvpList.child(eventUID).removeValue()
+                geoFire.setLocation(CLLocation(latitude: eventData["latitude"] as! Double, longitude: eventData["longitude"] as! Double), forKey: eventUID)
                 success()
             }
         })

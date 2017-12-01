@@ -21,8 +21,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        GeolocationClient.sharedInstance.beginCheckins(uid: Auth.auth().currentUser!.uid)
         passwordField.isSecureTextEntry = true
         FBSDKLoginManager().logOut()
         // Do any additional setup after loading the view.
