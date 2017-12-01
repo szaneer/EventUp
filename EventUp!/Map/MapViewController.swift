@@ -27,11 +27,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         loadEvents()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     func setupLocation() {
         eventMapView.delegate = self
         eventMapView.showsUserLocation = true
