@@ -15,7 +15,7 @@ import TextFieldEffects
 import CoreML
 import Vision
 
-class EventCreateViewController: UIViewController {
+class EventCreateViewController: UITableViewController {
     
 
     @IBOutlet weak var eventView: UIImageView!
@@ -23,6 +23,7 @@ class EventCreateViewController: UIViewController {
     @IBOutlet weak var locationField: HoshiTextField!
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var dateField: UIDatePicker!
+    @IBOutlet weak var endDateField: UIDatePicker!
     @IBOutlet weak var infoView: UITextView!
     
     @IBOutlet weak var submitButton: UIButton!
@@ -108,7 +109,9 @@ class EventCreateViewController: UIViewController {
         eventInfo["name"] = nameField.text!
         
         let date = Double(dateField.date.timeIntervalSinceReferenceDate)
+        let endDate = Double(endDateField.date.timeIntervalSinceReferenceDate)
         eventInfo["date"] = date
+        eventInfo["endDate"] = endDate
         
         eventInfo["latitude"] = coordinate!.latitude
         eventInfo["longitude"] = coordinate!.longitude
@@ -262,6 +265,7 @@ extension EventCreateViewController: UINavigationControllerDelegate, UIImagePick
         plusButton.setTitle("", for: .normal)
         plusButton.setTitle("", for: .highlighted)
         eventView.image = image
+        eventView.clipsToBounds = true
         picker.dismiss(animated: true, completion: nil)
         
     }

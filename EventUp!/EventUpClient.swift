@@ -120,6 +120,20 @@ class EventUpClient: NSObject {
         }
     }
     
+    func getEventImage(uid: String, success: @escaping (UIImage) -> (), failure: @escaping (Error) -> ()) {
+        let eventImage = db.collection("eventImages").document(uid)
+        eventImage.getDocument { (snapshot, error) in
+            if let error = error {
+                failure(error)
+            } else if let snapshot = snapshot {
+                let data = snapshot.data()
+                let imageString = data["image"] as! String
+                let image = self.base64DecodeImage(imageString)
+                success(image)
+            }
+        }
+    }
+    
     func getPastUserEvents(uid: String, success: @escaping ([Event]) -> (), failure: @escaping (Error) -> ()) {
         let currDate = Date.timeIntervalSinceReferenceDate.magnitude
         let userEvents = db.collection("events").whereField("owner", isEqualTo: uid).whereField("date", isLessThan: currDate)

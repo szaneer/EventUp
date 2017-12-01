@@ -26,6 +26,7 @@ class EventDetailViewController: UIViewController, FilterDelegate {
     @IBOutlet weak var rsvpButton: UIButton!
     @IBOutlet weak var userRatingLabel: UILabel!
     var event: Event!
+    var eventImage: UIImage?
     var delegate: FilterDelegate!
     
     
@@ -46,8 +47,6 @@ class EventDetailViewController: UIViewController, FilterDelegate {
     }
     
     func setupFromNotify() {
-        
-        print(UserDefaults.standard.object(forKey: "notifyUID"))
         EventUpClient.sharedInstance.getEvent(uid: UserDefaults.standard.object(forKey: "notifyUID") as! String, success: { (event) in
             self.event = event
             UserDefaults.standard.removeObject(forKey: "notifyUID")
@@ -60,12 +59,14 @@ class EventDetailViewController: UIViewController, FilterDelegate {
         })
     }
     func setup() {
-        
-        EventUpClient.sharedInstance.getUserInfo(uid: event.owner, success: { (user) in
-            print(user.rating)
-        }) { (error) in
-            print(error.localizedDescription)
-            
+        if let eventImage = eventImage {
+            eventView.image = eventImage
+        } else {
+            EventUpClient.sharedInstance.getEventImage(uid: event.uid, success: { (image) in
+                self.eventView.image = image
+            }, failure: { (error) in
+                print(error)
+            })
         }
         EventUpClient.sharedInstance.getUserInfo(uid: event.owner, success: { (user) in
             self.userRatingLabel.text = String(format: "%.2f", user.rating)
@@ -76,7 +77,7 @@ class EventDetailViewController: UIViewController, FilterDelegate {
         nameLabel.text = event.name
         descriptionLabel.text = event.info
         descriptionLabel.sizeToFit()
-        let date = Date(timeIntervalSince1970: event.date)
+        let date = Date(timeIntervalSinceReferenceDate: event.date)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
         dateLabel.text = dateFormatter.string(from: date)

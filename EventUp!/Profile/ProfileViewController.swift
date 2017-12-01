@@ -118,7 +118,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         dateFormatter.dateFormat = "MM/dd/yyyy"
         cell.dateLabel.text = dateFormatter.string(from: date)
         cell.attendeesLabel.text = "Attendees: \(event.rsvpCount!)"
-        cell.locationLabel.text = event.location
         cell.ratingLabel.text = String(format: "%.2f", event.rating)
         if let tags = event.tags {
             var first = true

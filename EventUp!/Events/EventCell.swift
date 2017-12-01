@@ -13,7 +13,6 @@ class EventCell: UITableViewCell {
     @IBOutlet weak var eventView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
-    @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var tagLabel: UILabel!
     // added the attendees label here

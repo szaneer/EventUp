@@ -41,6 +41,9 @@ class EventsViewController: UITableViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = true
         
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 975
+        
         definesPresentationContext = true
         navigationItem.searchController = searchController
         
@@ -107,8 +110,6 @@ class EventsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell", for: indexPath) as! EventCell
 
-        // Configure the cell...
-        //cell.backgroundColor = .clear
         let event: Event
         
         if isFiltering() {
@@ -117,13 +118,14 @@ class EventsViewController: UITableViewController {
             event = events[indexPath.row]
         }
         
+        cell.eventView.image = nil
+        cell.distanceLabel.text = ""
         let date = Date(timeIntervalSinceReferenceDate: event.date)
         cell.nameLabel.text = event.name
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
         cell.dateLabel.text = dateFormatter.string(from: date)
         cell.attendeesLabel.text = "Attendees: \(event.rsvpCount!)"
-        cell.locationLabel.text = event.location
         cell.ratingLabel.text = String(format: "%.2f", event.rating)
         if let tags = event.tags {
             var first = true
@@ -137,12 +139,9 @@ class EventsViewController: UITableViewController {
                 }
             }
         }
-//        if let image = event.image {
-//            cell.eventView.image = EventUpClient.sharedInstance.base64DecodeImage(image)
-//            cell.eventView.layer.cornerRadius = 5
-//            cell.eventView.clipsToBounds = true
-//        }
+        
         if let userLocation = locationManager.location?.coordinate {
+            
             let coordinateMe = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
             let coordinateE = CLLocation(latitude: event.latitude, longitude: event.longitude)
             
@@ -150,6 +149,17 @@ class EventsViewController: UITableViewController {
             cell.distanceLabel.text = "\(distance)mi"
         }
         
+        cell.tag = indexPath.row
+        
+        EventUpClient.sharedInstance.getEventImage(uid: event.uid, success: { (image) in
+            DispatchQueue.main.async {
+                if cell.tag == indexPath.row {
+                    cell.eventView.image = image
+                }
+            }
+        }) { (error) in
+            print(error)
+        }
         
         return cell
     }
@@ -181,6 +191,7 @@ class EventsViewController: UITableViewController {
                 event = events[indexPath.row]
             }
             destination.event = event
+            destination.eventImage = cell.eventView.image
             destination.delegate = self
         case "filterSegue":
             let destination = segue.destination as! FilterViewController
@@ -210,7 +221,13 @@ extension EventsViewController: CLLocationManagerDelegate {
             // Tell user to turn on location
         }
         
+        locationManager.startUpdatingLocation()
         locationManager.delegate = self
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("wow")
+        tableView.reloadData()
     }
     
 }

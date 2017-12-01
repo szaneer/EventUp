@@ -36,7 +36,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             // Tell user to turn on location
         }
         
+        
+        locationManager.startUpdatingLocation()
+        
         locationManager.delegate = self
+        
+        onLocation(self)
     }
     
     
@@ -130,18 +135,20 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         annotationView.isEnabled = true
         
         let date = Date(timeIntervalSinceReferenceDate: eventAnnotation.event.date)
+        let endDate = Date(timeIntervalSinceReferenceDate: eventAnnotation.event.endDate)
         let currDate = Date(timeIntervalSinceReferenceDate: Date.timeIntervalSinceReferenceDate)
         
         let calendar = Calendar.current
         
         let currDay = calendar.ordinality(of: .day, in: .year, for: currDate)!
-        let toDay = calendar.ordinality(of: .day, in: .year, for: date)!
+        let start = calendar.ordinality(of: .day, in: .year, for: date)!
+        let end = calendar.ordinality(of: .day, in: .year, for: endDate)!
         
-        if currDay == toDay {
-            let annotationImage = UIImage(named: "EventAnnotation")
-            annotationView.image = annotationImage
-        } else if currDay > toDay {
+        if currDay >= start && currDay <= end {
             let annotationImage = UIImage(named: "EventAnnotation_green")
+            annotationView.image = annotationImage
+        } else if currDay < start {
+            let annotationImage = UIImage(named: "EventAnnotation")
             annotationView.image = annotationImage
         } else {
             let annotationImage = UIImage(named: "EventAnnotation_red")
