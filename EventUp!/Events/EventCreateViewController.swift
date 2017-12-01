@@ -279,6 +279,33 @@ extension EventCreateViewController: UITextViewDelegate {
 //            print("Reccomend tags")
 //        }
     }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if let text = textView.text {
+            if text.lowercased().contains("social") {
+                let alert = UIAlertController(title: "Tag", message: "EventUp thinks this might be a social event, want to add a tag for it?.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+                    self.setTag(tag: "Social", index: 0)
+                }))
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            } else if text.lowercased().contains("learning") {
+                let alert = UIAlertController(title: "Tag", message: "EventUp thinks this might be a learning event, want to add a tag for it?.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+                    self.setTag(tag: "Social", index: 0)
+                }))
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            } else {
+                let alert = UIAlertController(title: "Tag", message: "EventUp thinks this might be an other event, want to add a tag for it?.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+                    self.setTag(tag: "Social", index: 0)
+                }))
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
 }
 
 extension EventCreateViewController: EventLocationSelectViewControllerDelegate {

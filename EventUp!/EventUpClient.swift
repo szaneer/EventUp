@@ -637,6 +637,11 @@ class EventUpClient: NSObject {
             var eventData = eventDoc.data()
             var rsvpListData = rsvpListDoc.data()
             let checkInListData = checkInListDoc.data()
+            let event = Event(eventData: eventData)
+            
+            if event.date > Date().timeIntervalSinceReferenceDate {
+                return nil
+            }
             
             var checkInCount = eventData["checkedInCount"] as! Int
             if checkInListData[uid] == nil {
@@ -654,6 +659,9 @@ class EventUpClient: NSObject {
             if let error = error {
                 failure(error)
             } else {
+                if object == nil {
+                    success()
+                }
                 let eventData = object as! [String: Any]
                 userRsvpList.child(eventUID).removeValue()
                 geoFire.setLocation(CLLocation(latitude: eventData["latitude"] as! Double, longitude: eventData["longitude"] as! Double), forKey: eventUID)
