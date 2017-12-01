@@ -767,7 +767,7 @@ protocol EventTagSelectViewControllerDelegate {
 
 
 protocol FilterDelegate {
-    func filter(type: String, order: Bool)
+    func filter(filters: [String: Bool])
     func refresh(event: Event?)
 }
 

@@ -155,7 +155,7 @@ class EventDetailViewController: UIViewController, FilterDelegate {
     
     @IBAction func onCancelRSVP(_ sender: Any) {
     }
-    func filter(type: String, order: Bool) {
+    func filter(filters: [String: Bool]) {
         return
     }
     

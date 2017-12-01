@@ -10,11 +10,13 @@ import UIKit
 import Firebase
 import SVProgressHUD
 import MapKit
+import SidebarOverlay
 
 
 class EventsViewController: UITableViewController {
-
+    
     var events = [Event]()
+    var eventsOG = [Event]()
     var tempEvents = [Event]()
     var filteredEvents = [Event]()
     var filterButton: UIBarButtonItem!
@@ -23,6 +25,7 @@ class EventsViewController: UITableViewController {
     let locationManager = CLLocationManager()
     let searchController = UISearchController(searchResultsController: nil)
     var isSugg = false
+    var delegate: EventContainerViewControllerDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +73,7 @@ class EventsViewController: UITableViewController {
         }
         EventUpClient.sharedInstance.getEvents(filters: currFilter, success: { (events) in
             self.events = events
+            self.eventsOG = events
             self.tableView.reloadData()
             SVProgressHUD.dismiss()
             self.view.isUserInteractionEnabled = true
@@ -81,7 +85,7 @@ class EventsViewController: UITableViewController {
             self.refreshControl?.endRefreshing()
         }
     }
-
+    
     func filterProfaneEvents() {
         events = events.filter({ (event) -> Bool in
             if event.name.contains("Bad words") || event.description.contains("Bad words") {
@@ -96,7 +100,7 @@ class EventsViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if isFiltering() {
@@ -105,11 +109,11 @@ class EventsViewController: UITableViewController {
         
         return events.count
     }
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell", for: indexPath) as! EventCell
-
+        
         let event: Event
         
         if isFiltering() {
@@ -155,6 +159,8 @@ class EventsViewController: UITableViewController {
             DispatchQueue.main.async {
                 if cell.tag == indexPath.row {
                     cell.eventView.image = image
+                    cell.eventView.clipsToBounds = true
+                    cell.eventView.layer.cornerRadius = 5
                 }
             }
         }) { (error) in
@@ -165,13 +171,11 @@ class EventsViewController: UITableViewController {
     }
     
     
-    @IBAction func onTimeSwitch(_ sender: Any) {
-        
+    @IBAction func onSidebar(_ sender: Any) {
+        delegate.toggleSidebar()
     }
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    @IBAction func onTimeSwitch(_ sender: Any) {
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
@@ -196,7 +200,6 @@ class EventsViewController: UITableViewController {
         case "filterSegue":
             let destination = segue.destination as! FilterViewController
             destination.delegate = self
-            destination.filter = currFilter
         case "notifySegue":
             let destination = segue.destination as! EventDetailViewController
             destination.delegate = self
@@ -208,7 +211,7 @@ class EventsViewController: UITableViewController {
         }
     }
     
-
+    
 }
 
 extension EventsViewController: CLLocationManagerDelegate {
@@ -233,36 +236,180 @@ extension EventsViewController: CLLocationManagerDelegate {
 }
 
 extension EventsViewController: FilterDelegate {
+    
     func refresh(event: Event?) {
         SVProgressHUD.show()
         loadEvents()
     }
     
     
-    func filter(type: String, order: Bool) {
-        if type == "sugg" && order {
-            isSugg = true
-            tempEvents = events
-            events = events.filter({ (event) -> Bool in
-                if let tags = event.tags {
-                    for tag in tags {
-                        if tag.lowercased() == "social" {
-                            return true
-                        }
+    func filter(filters: [String: Bool]) {
+        self.events = eventsOG
+        searchEvents(searchController.searchBar.text!, scope: "ALL")
+        for (key, value) in filters {
+            switch key {
+            case "name":
+                if value {
+                    events.sort(by: { (second, first) -> Bool in
+                        return first.name.lowercased() > second.name.lowercased()
+                    })
+                    
+                    filteredEvents.sort(by: { (second, first) -> Bool in
+                        return first.name.lowercased() > second.name.lowercased()
+                    })
+                } else {
+                    events.sort(by: { (first, second) -> Bool in
+                        return first.name.lowercased() > second.name.lowercased()
+                    })
+                    
+                    filteredEvents.sort(by: { (first, second) -> Bool in
+                        return first.name.lowercased() > second.name.lowercased()
+                    })
+                }
+            case "distance":
+                if let userLocation = locationManager.location?.coordinate {
+                    
+                    let coordinateMe = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
+                    
+                    
+                    if value {
+                        events.sort(by: { (second, first) -> Bool in
+                            let coordinateS = CLLocation(latitude: second.latitude, longitude: second.longitude)
+                            let coordinateF = CLLocation(latitude: first.latitude, longitude: first.longitude)
+                            let distanceS = Int(coordinateS.distance(from: coordinateMe) / 1609.0)
+                            let distanceF = Int(coordinateF.distance(from: coordinateMe) / 1609.0)
+                            return distanceF > distanceS
+                        })
+                        
+                        filteredEvents.sort(by: { (second, first) -> Bool in
+                            let coordinateS = CLLocation(latitude: second.latitude, longitude: second.longitude)
+                            let coordinateF = CLLocation(latitude: first.latitude, longitude: first.longitude)
+                            let distanceS = Int(coordinateS.distance(from: coordinateMe) / 1609.0)
+                            let distanceF = Int(coordinateF.distance(from: coordinateMe) / 1609.0)
+                            return distanceF > distanceS
+                        })
+                    } else {
+                        events.sort(by: { (first, second) -> Bool in
+                            let coordinateS = CLLocation(latitude: second.latitude, longitude: second.longitude)
+                            let coordinateF = CLLocation(latitude: first.latitude, longitude: first.longitude)
+                            let distanceS = Int(coordinateS.distance(from: coordinateMe) / 1609.0)
+                            let distanceF = Int(coordinateF.distance(from: coordinateMe) / 1609.0)
+                            return distanceF > distanceS
+                            return first.name.lowercased() > second.name.lowercased()
+                        })
+                        
+                        filteredEvents.sort(by: { (first, second) -> Bool in
+                            let coordinateS = CLLocation(latitude: second.latitude, longitude: second.longitude)
+                            let coordinateF = CLLocation(latitude: first.latitude, longitude: first.longitude)
+                            let distanceS = Int(coordinateS.distance(from: coordinateMe) / 1609.0)
+                            let distanceF = Int(coordinateF.distance(from: coordinateMe) / 1609.0)
+                            return distanceF > distanceS
+                        })
                     }
                 }
-                return false
-            })
-            
-            tableView.reloadData()
-            return
-        } else if type == "sugg" {
-            isSugg = false
-            events = tempEvents
+            case "date":
+                if value {
+                    events.sort(by: { (second, first) -> Bool in
+                        return first.date > second.date
+                    })
+                    
+                    filteredEvents.sort(by: { (second, first) -> Bool in
+                        return first.date > second.date
+                    })
+                } else {
+                    events.sort(by: { (first, second) -> Bool in
+                        return first.date > second.date
+                    })
+                    
+                    filteredEvents.sort(by: { (first, second) -> Bool in
+                        return first.date > second.date
+                    })
+                }
+            case "sugg":
+                if value {
+                    events = events.filter({ (event) -> Bool in
+                        if let tags = event.tags {
+                            return tags.contains("social")
+                        }
+                        return false
+                    })
+                    filteredEvents = filteredEvents.filter({ (event) -> Bool in
+                        if let tags = event.tags {
+                            return tags.contains("social")
+                        }
+                        return false
+                    })
+                }
+            default:
+                continue
+            }
+        }
+        var past = false
+        var current = false
+        var future = false
+        if filters["past"] != nil {
+            past = filters["past"]!
+        }
+        
+        if filters["current"] != nil {
+            current = filters["current"]!
+        }
+        
+        if filters["future"] != nil {
+            future = filters["future"]!
+        }
+        
+        if ((!past && !current && !future) || (past && current && future)) {
             tableView.reloadData()
             return
         }
-        currFilter[type] = true && order
+        if past && current {
+            events = events.filter({ (event) -> Bool in
+                return event.date <= Date().timeIntervalSinceReferenceDate
+            })
+            filteredEvents = filteredEvents.filter({ (event) -> Bool in
+                return event.date <= Date().timeIntervalSinceReferenceDate
+            })
+        } else if current, future {
+            events = events.filter({ (event) -> Bool in
+                return event.date >= Date().timeIntervalSinceReferenceDate
+            })
+            filteredEvents = filteredEvents.filter({ (event) -> Bool in
+                return event.date >= Date().timeIntervalSinceReferenceDate
+            })
+        } else if past, future {
+            events = events.filter({ (event) -> Bool in
+                return event.endDate < Date().timeIntervalSinceReferenceDate || event.date > Date().timeIntervalSinceReferenceDate
+            })
+            filteredEvents = filteredEvents.filter({ (event) -> Bool in
+                return event.endDate < Date().timeIntervalSinceReferenceDate || event.date > Date().timeIntervalSinceReferenceDate
+            })
+        } else if past {
+            events = events.filter({ (event) -> Bool in
+                return event.endDate < Date().timeIntervalSinceReferenceDate
+            })
+            filteredEvents = filteredEvents.filter({ (event) -> Bool in
+                return event.endDate <= Date().timeIntervalSinceReferenceDate
+            })
+        } else if current {
+            events = events.filter({ (event) -> Bool in
+                return event.date <= Date().timeIntervalSinceReferenceDate && event.endDate >= Date().timeIntervalSinceReferenceDate
+            })
+            filteredEvents = filteredEvents.filter({ (event) -> Bool in
+                return event.date <= Date().timeIntervalSinceReferenceDate && event.endDate >= Date().timeIntervalSinceReferenceDate
+            })
+        } else if future {
+            events = events.filter({ (event) -> Bool in
+                return event.date > Date().timeIntervalSinceReferenceDate
+            })
+            filteredEvents = filteredEvents.filter({ (event) -> Bool in
+                return event.date > Date().timeIntervalSinceReferenceDate
+            })
+        }
+        
+        
+        
+        tableView.reloadData()
     }
 }
 

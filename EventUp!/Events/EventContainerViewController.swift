@@ -9,7 +9,7 @@
 import UIKit
 import SidebarOverlay
 
-class EventContainerViewController: SOContainerViewController {
+class EventContainerViewController: SOContainerViewController, EventContainerViewControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,7 +17,16 @@ class EventContainerViewController: SOContainerViewController {
         // Do any additional setup after loading the view.
         self.menuSide = .left
         self.topViewController = self.storyboard?.instantiateViewController(withIdentifier: "eventMain")
+        ((topViewController as! UINavigationController).topViewController as! EventsViewController).delegate = self
         self.sideViewController = self.storyboard?.instantiateViewController(withIdentifier: "eventSidebar")
+        (sideViewController as! FilterViewController).delegate = ((topViewController as! UINavigationController).topViewController as! EventsViewController)
     }
 
+    func toggleSidebar() {
+        so_containerViewController?.isSideViewControllerPresented = !so_containerViewController!.isSideViewControllerPresented
+    }
+}
+
+protocol EventContainerViewControllerDelegate {
+    func toggleSidebar()
 }
