@@ -18,17 +18,24 @@ class GeolocationClient: NSObject {
     let locationManager = CLLocationManager()
     var radius = 1000.00
     var enabled = true
-    var isActive = false
+    var isActive = true
     
     override init() {
         super.init()
+        if (UserDefaults.standard.value(forKey: "checkin") != nil) {
+            isActive = UserDefaults.standard.value(forKey: "checkin") as! Bool
+        }
+        
+        if (UserDefaults.standard.value(forKey: "radius") != nil) {
+            radius = UserDefaults.standard.value(forKey: "radius") as! Double
+        }
     }
     
     @objc func beginCheckins() {
         if !enabled {
             return
         }
-        if isActive {
+        if !isActive {
             return
         }
         guard let uid = Auth.auth().currentUser?.uid else {
@@ -47,8 +54,10 @@ class GeolocationClient: NSObject {
         circleQuery?.observe(.keyEntered, with: { (key, location) in
             print(key)
             EventUpClient.sharedInstance.checkInEventWithUID(eventUID: key!, uid: uid, success: {
-                
+                print("asdsd")
+                geofireRef.child(key!).removeValue()
             }, failure: { (error) in
+                print(error.localizedDescription)
             })
         })
     }

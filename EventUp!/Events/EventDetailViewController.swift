@@ -144,7 +144,6 @@ class EventDetailViewController: UIViewController, FilterDelegate {
     
     @IBAction func onRate(_ sender: Any) {
         ratingView.isUserInteractionEnabled = false
-        print(Double(ratingView.value))
         
         EventUpClient.sharedInstance.rateEvent(rating: Double(ratingView.value),event: event, uid: Auth.auth().currentUser!.uid, success: { (newRating) in
             self.ratingCountLabel.text = String(format: "%d ratings", newRating.count)
@@ -156,6 +155,7 @@ class EventDetailViewController: UIViewController, FilterDelegate {
             self.ratingView.isUserInteractionEnabled = true
         }) { (error) in
             print(error.localizedDescription)
+            self.ratingView.isUserInteractionEnabled = true
         }
     }
     

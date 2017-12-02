@@ -19,6 +19,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     @IBOutlet weak var refreshButton: UIButton!
     
     var events: [Event] = []
+    var filteredEvents: [Event] = []
     let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
@@ -68,7 +69,58 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     func filter(filters: [String: Bool]) {
-        return
+        var past = false
+        var current = false
+        var future = false
+        if filters["past"] != nil {
+            past = filters["past"]!
+        }
+        
+        if filters["current"] != nil {
+            current = filters["current"]!
+        }
+        
+        if filters["future"] != nil {
+            future = filters["future"]!
+        }
+        
+        if ((!past && !current && !future) || (past && current && future)) {
+            self.eventMapView.removeAnnotations(self.eventMapView.annotations)
+            for event in self.events {
+                self.addEventToMap(event: event)
+            }
+            return
+        }
+        if past && current {
+            filteredEvents = events.filter({ (event) -> Bool in
+                return event.date <= Date().timeIntervalSinceReferenceDate
+            })
+        } else if current, future {
+            filteredEvents = events.filter({ (event) -> Bool in
+                return event.date >= Date().timeIntervalSinceReferenceDate
+            })
+        } else if past, future {
+            filteredEvents = events.filter({ (event) -> Bool in
+                return event.endDate < Date().timeIntervalSinceReferenceDate || event.date > Date().timeIntervalSinceReferenceDate
+            })
+        } else if past {
+            filteredEvents = events.filter({ (event) -> Bool in
+                return event.endDate <= Date().timeIntervalSinceReferenceDate
+            })
+        } else if current {
+            filteredEvents = events.filter({ (event) -> Bool in
+                return event.date <= Date().timeIntervalSinceReferenceDate && event.endDate >= Date().timeIntervalSinceReferenceDate
+            })
+        } else if future {
+            filteredEvents = events.filter({ (event) -> Bool in
+                return event.date > Date().timeIntervalSinceReferenceDate
+            })
+        }
+        
+        self.eventMapView.removeAnnotations(self.eventMapView.annotations)
+        for event in self.filteredEvents {
+            self.addEventToMap(event: event)
+        }
     }
     
     func refresh(event: Event?) {
@@ -139,7 +191,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         {
             return nil
         }
-        let annotationView = MKAnnotationView()
+        let annotationView = EventAnnotationView()
         let currDate = Date().timeIntervalSinceReferenceDate
         let eventAnnotation = annotation as! EventAnnotation
         if currDate >= eventAnnotation.event.date && currDate <= eventAnnotation.event.endDate {
@@ -161,6 +213,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             // Don't proceed with custom callout
             return
         }
+        
+        if view.isKind(of: EventAnnotationView.self)
+        {
+            for subview in view.subviews
+            {
+                subview.removeFromSuperview()
+            }
+        }
         // 2
         let eventAnnotation = view.annotation as! EventAnnotation
         let event = eventAnnotation.event!
@@ -176,22 +236,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }) { (error) in
             print(error.localizedDescription)
         }
-        
-        calloutView.navigateButton.addTarget(self, action: #selector(self.onNavigate(sender:)), for: .touchUpInside)
-        calloutView.detailButton.addTarget(self, action: #selector(self.goToDetail(sender:)), for: .touchUpInside)
+        print("asds")
+        calloutView.navigateButton.addTarget(self, action: #selector(onNavigate(sender:)), for: .touchUpInside)
+        calloutView.detailButton.addTarget(self, action: #selector(goToDetail(sender:)), for: .touchUpInside)
         calloutView.center = CGPoint(x: view.bounds.size.width / 2, y: -calloutView.bounds.size.height*0.52)
         view.addSubview(calloutView)
         mapView.setCenter((view.annotation?.coordinate)!, animated: true)
-    }
-    
-    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        if view.isKind(of: EventAnnotationView.self)
-        {
-            for subview in view.subviews
-            {
-                subview.removeFromSuperview()
-            }
-        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

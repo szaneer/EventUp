@@ -677,6 +677,7 @@ class EventUpClient: NSObject {
         let rsvpList = db.collection("eventRsvpLists").document(event.uid)
         let userRsvpList = fdb.child("userRsvpLists").child(uid)
         let notifications = db.collection("notifications").document()
+        let geoFire = GeoFire(firebaseRef: userRsvpList)!
         
         db.runTransaction({ (transaction, errorPointer) -> Any? in
             var eventDoc: DocumentSnapshot
@@ -712,7 +713,7 @@ class EventUpClient: NSObject {
             if let error = error {
                 failure(error)
             } else {
-                userRsvpList.child(event.uid).removeValue()
+                geoFire.removeKey(event.uid)
                 success(object as! Int)
             }
         })
@@ -722,9 +723,7 @@ class EventUpClient: NSObject {
         
         let eventRef = db.collection("events").document(eventUID)
         let checkInList = db.collection("eventCheckInLists").document(eventUID)
-        let userCheckInList = db.collection("userCheckInLists").document(uid)
         let rsvpList = db.collection("eventRsvpLists").document(eventUID)
-        let userRsvpList = fdb.child("userRsvpLists").child(uid)
         let notifications = db.collection("notifications").document()
         
         var toast: GTToastView!
@@ -759,18 +758,13 @@ class EventUpClient: NSObject {
             
             rsvpListData.removeValue(forKey: uid)
             
-            transaction.updateData([eventUID: true], forDocument: userCheckInList)
-
             transaction.setData(rsvpListData, forDocument: rsvpList)
             transaction.updateData(["checkedInCount": checkInCount], forDocument: eventRef)
             transaction.updateData([uid: true], forDocument: checkInList)
             
             transaction.setData(["uid": eventData["owner"] as! String, "type": "user", "message": "A user just has checked in for \(eventData["name"] as! String)"], forDocument: notifications)
             
-            DispatchQueue.main.async {
-                toast = GTToast.create("You were just checked into \(eventData["name"] as! String)")
-                toast.show()
-            }
+            
             return eventData
         }, completion: { (object, error) in
             if let error = error {
@@ -778,11 +772,13 @@ class EventUpClient: NSObject {
 //                toast.dismiss()
                 failure(error)
             } else {
-                if object == nil {
-                    success()
-                }
+                
                 //toast.dismiss()
-                userRsvpList.child(eventUID).removeValue()
+                let eventData = object as! [String: Any]
+                DispatchQueue.main.async {
+                    toast = GTToast.create("You were just checked into \(eventData["name"] as! String)")
+                    toast.show()
+                }
                 success()
             }
         })

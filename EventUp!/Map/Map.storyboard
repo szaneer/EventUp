@@ -99,7 +99,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="9qH-xp-lXf"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Map" id="XZF-U3-b1n"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="Map" id="XZF-U3-b1n"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ppw-wz-dCn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -222,5 +222,6 @@
     </scenes>
     <resources>
         <image name="LocationArrow" width="512" height="512"/>
+        <image name="Map" width="100" height="100"/>
     </resources>
 </document>

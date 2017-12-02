@@ -18,6 +18,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emailField: UILabel!
+    @IBOutlet weak var settingsButton: UIButton!
     
     var user: EventUser!
     
@@ -28,6 +29,11 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let sidebarIcon = UIImageView(image: UIImage(named: "settingsIcon"))
+        sidebarIcon.frame = CGRect(x: 0, y: 0, width: settingsButton.frame.height, height: settingsButton.frame.height)
+        settingsButton.frame = CGRect(x: 0, y: 0, width: settingsButton.frame.height, height: settingsButton.frame.height)
+        settingsButton.addSubview(sidebarIcon)
+        
         let background = UIImage(named: "background")!
         self.navigationController!.navigationBar.setBackgroundImage(background, for: .default)
         // Do any additional setup after loading the view.

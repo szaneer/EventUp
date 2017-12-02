@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Event Tag Select View Controller-->
+        <!--Select Tag-->
         <scene sceneID="toN-XQ-bSU">
             <objects>
                 <tableViewController id="8Wy-fO-f8x" customClass="EventTagSelectViewController" customModule="EventUp_" customModuleProvider="target" sceneMemberID="viewController">
@@ -81,6 +81,7 @@
                             <outlet property="delegate" destination="8Wy-fO-f8x" id="4VP-TU-TnZ"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Select Tag" id="ydn-eF-Mzx"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tYb-6k-pY4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -368,7 +369,7 @@
             </objects>
             <point key="canvasLocation" x="1998" y="-2311"/>
         </scene>
-        <!--Event Create Calendar View Controller-->
+        <!--Select Date-->
         <scene sceneID="Gyf-yc-H6K">
             <objects>
                 <viewController id="4Jp-TJ-SoI" customClass="EventCreateCalendarViewController" customModule="EventUp_" customModuleProvider="target" sceneMemberID="viewController">
@@ -466,6 +467,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="eev-uU-QnT"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Select Date" id="Fq4-Qt-tQN"/>
                     <connections>
                         <outlet property="calendar" destination="dtG-aJ-rqr" id="mAL-Lb-3Qg"/>
                         <outlet property="monthLabel" destination="byN-Le-F6g" id="1FE-Iz-GKU"/>
@@ -876,7 +878,7 @@
             </objects>
             <point key="canvasLocation" x="-231" y="-740"/>
         </scene>
-        <!--Event Detail View Controller-->
+        <!--Detail-->
         <scene sceneID="0ON-wd-ROh">
             <objects>
                 <viewController storyboardIdentifier="EventDetail" id="Bsj-OG-3Y9" customClass="EventDetailViewController" customModule="EventUp_" customModuleProvider="target" sceneMemberID="viewController">
@@ -1076,18 +1078,7 @@
                         <viewLayoutGuide key="safeArea" id="v3T-ZD-39T"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="pjd-A4-NMs">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="UGN-2l-Ge2">
-                            <button key="customView" hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="aJD-bD-IcH">
-                                <rect key="frame" x="313" y="7" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Edit"/>
-                                <connections>
-                                    <segue destination="SIn-Un-h8w" kind="show" identifier="editSegue" id="OcO-Yk-mq6"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Detail" id="j2E-wy-rBX"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -1095,7 +1086,6 @@
                         <outlet property="dateLabel" destination="cjd-IE-Tsl" id="vIF-e6-SY1"/>
                         <outlet property="descriptionLabel" destination="rFJ-bq-1tf" id="P3l-5p-du7"/>
                         <outlet property="distanceLabel" destination="Qbp-K9-eOu" id="z99-uO-U5T"/>
-                        <outlet property="editButton" destination="aJD-bD-IcH" id="Wo1-1E-iYP"/>
                         <outlet property="endDateLabel" destination="UPc-hv-9DA" id="bKg-rs-1Ir"/>
                         <outlet property="eventMapView" destination="zCD-NK-XtP" id="SgI-bM-ifa"/>
                         <outlet property="eventView" destination="bLf-8B-Rah" id="pYB-rI-zw6"/>
@@ -1111,7 +1101,7 @@
             </objects>
             <point key="canvasLocation" x="878" y="-1436"/>
         </scene>
-        <!--Event Chat View Controller-->
+        <!--Chat-->
         <scene sceneID="Or1-3K-6uo">
             <objects>
                 <viewController hidesBottomBarWhenPushed="YES" id="wPV-2E-odV" customClass="EventChatViewController" customModule="EventUp_" customModuleProvider="target" sceneMemberID="viewController">
@@ -1121,6 +1111,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="J0n-Pq-HEb"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Chat" id="x4U-Vq-gRI"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Un-iq-qjM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1246,7 +1237,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="0HF-b5-G8p"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Events" id="qgz-tg-7Ye"/>
+                    <tabBarItem key="tabBarItem" title="Events" image="eventIcon" id="qgz-tg-7Ye"/>
                     <navigationItem key="navigationItem" id="qMg-SS-zKE"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
@@ -1295,9 +1286,9 @@
     <resources>
         <image name="EventAnnotation" width="58" height="50"/>
         <image name="background" width="1080" height="1920"/>
+        <image name="eventIcon" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Pl2-jY-X1v"/>
-        <segue reference="OcO-Yk-mq6"/>
     </inferredMetricsTieBreakers>
 </document>
