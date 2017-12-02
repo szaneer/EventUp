@@ -11,6 +11,7 @@ import MapKit
 import Firebase
 import GeoFire
 import FBSDKLoginKit
+import GTToast
 
 class EventUpClient: NSObject {
     static let sharedInstance = EventUpClient()
@@ -126,8 +127,12 @@ class EventUpClient: NSObject {
             if let error = error {
                 failure(error)
             } else if let snapshot = snapshot {
+                
                 let data = snapshot.data()
-                let imageString = data["image"] as! String
+                guard let imageString = data["image"] as? String else {
+                    failure(EventUpError.imageDownloadError)
+                    return
+                }
                 let image = self.base64DecodeImage(imageString)
                 success(image)
             }
@@ -218,33 +223,98 @@ class EventUpClient: NSObject {
     }
     
     func deleteEvent(event: Event, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
-        let uid = event.uid!
-        let eventDoc = db.collection("events").document(uid)
-        let image = db.collection("eventImages").document(uid)
-        let rsvpList = db.collection("eventRsvpLists").document(uid)
-        let checkInList = db.collection("eventCheckInLists").document(uid)
-        let ratingList = db.collection("eventRatingLists").document(uid)
-        self.db.runTransaction({ (transaction, errorPointer) -> Any? in
-            transaction.deleteDocument(eventDoc)
-            transaction.deleteDocument(image)
-            transaction.deleteDocument(rsvpList)
-            transaction.deleteDocument(checkInList)
-            transaction.deleteDocument(ratingList)
-            return nil
-        }, completion: { (object, error) in
+        let events = db.collection("events").document(event.uid)
+        let eventImages = db.collection("eventImages").document(event.uid)
+        let rsvpLists = db.collection("eventRsvpLists").document(event.uid)
+        let checkInLists = db.collection("eventCheckInLists").document(event.uid)
+        let userRsvpLists = fdb.child("userRsvpLists")
+        let ratingList = db.collection("eventRatingLists").document(event.uid)
+        
+        self.cdb.child(event.uid).removeValue()
+
+        let deleteBatch = db.batch()
+        deleteBatch.deleteDocument(events)
+        deleteBatch.deleteDocument(eventImages)
+        deleteBatch.deleteDocument(rsvpLists)
+        deleteBatch.deleteDocument(checkInLists)
+        deleteBatch.deleteDocument(ratingList)
+        
+        rsvpLists.getDocument { (snapshot, error) in
             if let error = error {
                 failure(error)
-            } else {
-                success()
+                
+            } else if let snapshot = snapshot {
+                print(snapshot.data())
+                for (key, _) in snapshot.data() {
+                    userRsvpLists.child(key).child(event.uid).removeValue()
+                }
+                self.cdb.child(event.uid).removeValue()
+                deleteBatch.commit(completion: { (error) in
+                    success()
+                })
             }
-        })
+        }
     }
     
-    func rateEvent(rating: Double, event: Event, uid: String, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
+    func deleteUser(uid: String, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
+        let user = db.collection("users").document(uid)
+        let image = db.collection("userImages").document(uid)
+        let eventImages = db.collection("eventImages")
+        let rsvpLists = db.collection("eventRsvpLists")
+        let checkInLists = db.collection("eventCheckInLists")
+        let userRsvpLists = fdb.child("userRsvpLists")
+        let ratingList = db.collection("eventRatingLists")
+        
+        
+        let deleteBatch = db.batch()
+        deleteBatch.deleteDocument(user)
+        deleteBatch.deleteDocument(image)
+        
+        let query = db.collection("events").whereField("owner", isEqualTo: uid)
+        
+        query.getDocuments { (snapshot, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else if let snapshot = snapshot {
+                let max = snapshot.documents.count - 1
+                for i in 0...max {
+                    let document = snapshot.documents[i]
+                    let eventUid = document.data()["uid"] as! String
+                    rsvpLists.document(eventUid).getDocument(completion: { (snapshot, error) in
+                        if let error = error {
+                            failure(error)
+                            
+                        } else if let snapshot = snapshot {
+                            print(snapshot.data())
+                            for (key, _) in snapshot.data() {
+                                userRsvpLists.child(key).child(eventUid).removeValue()
+                            }
+                            deleteBatch.deleteDocument(document.reference)
+                            deleteBatch.deleteDocument(eventImages.document(document.documentID))
+                            deleteBatch.deleteDocument(ratingList.document(document.documentID))
+                            deleteBatch.deleteDocument(checkInLists.document(document.documentID))
+                            deleteBatch.deleteDocument(rsvpLists.document(document.documentID))
+                            self.cdb.child(eventUid).removeValue()
+                            if i == max {
+                                deleteBatch.commit(completion: { (error) in
+                                    success()
+                                })
+                            }
+                        }
+                    })
+                    
+                    
+                }
+                
+            }
+        }
+    }
+    
+    func rateEvent(rating: Double, event: Event, uid: String, success: @escaping ((rating: Double, count: Int)) ->(), failure: @escaping (Error) -> ()) {
         
         let eventRef = db.collection("events").document(event.uid)
-        let ratings = db.collection("ratingLists").document(event.uid)
-        let owner = db.collection("users").document(event.uid)
+        let ratings = db.collection("eventRatingLists").document(event.uid)
+        let owner = db.collection("users").document(event.owner)
         
         db.runTransaction({ (transaction, errorPointer) -> Any? in
             var eventDoc: DocumentSnapshot
@@ -258,7 +328,7 @@ class EventUpClient: NSObject {
                 errorPointer?.pointee = fetchError
                 return nil
             }
-            
+        
             let eventData = eventDoc.data()
             let oldRating = eventData["rating"] as! Double
             let oldRatingCount = eventData["ratingCount"] as! Int
@@ -294,15 +364,15 @@ class EventUpClient: NSObject {
             }
             
             
-            transaction.updateData(["rating": newRatingCount, "ratingCount": newRatingCount], forDocument: eventRef)
+            transaction.updateData(["rating": newRating, "ratingCount": newRatingCount], forDocument: eventRef)
             transaction.updateData(["rating": newOwnerRating, "ratingCount": newOwnerRatingCount], forDocument: owner)
             transaction.updateData([uid: true], forDocument: ratings)
-            return nil
+            return (newRating, newRatingCount)
         }, completion: { (object, error) in
             if let error = error {
                 failure(error)
             } else {
-                success()
+                success(object as! (Double, Int))
             }
         })
     }
@@ -478,7 +548,7 @@ class EventUpClient: NSObject {
         })
     }
     
-    func rsvpEvent(event: Event, uid: String, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
+    func rsvpEvent(event: Event, uid: String, success: @escaping (Int) ->(), failure: @escaping (Error) -> ()) {
         
         let eventRef = db.collection("events").document(event.uid)
         let rsvpList = db.collection("eventRsvpLists").document(event.uid)
@@ -508,19 +578,19 @@ class EventUpClient: NSObject {
             transaction.updateData(["rsvpCount": rsvpCount], forDocument: eventRef)
             transaction.updateData([uid: true], forDocument: rsvpList)
             transaction.setData(["uid": event.owner, "type": "user", "message": "A user has RSVP'd to \(event.name!)"], forDocument: notifications)
-            return nil
+            return rsvpCount
         }, completion: { (object, error) in
             if let error = error {
                 failure(error)
             } else {
                 geoFire.setLocation(CLLocation(latitude: event.latitude, longitude: event.longitude), forKey: event.uid)
-                success()
+                success(object as! Int)
             }
         })
         
     }
     
-    func cancelRsvpEvent(event: Event, uid: String, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
+    func cancelRsvpEvent(event: Event, uid: String, success: @escaping (Int) ->(), failure: @escaping (Error) -> ()) {
         
         let eventRef = db.collection("events").document(event.uid)
         let rsvpList = db.collection("eventRsvpLists").document(event.uid)
@@ -530,6 +600,7 @@ class EventUpClient: NSObject {
         db.runTransaction({ (transaction, errorPointer) -> Any? in
             var eventDoc: DocumentSnapshot
             var rsvpListDoc: DocumentSnapshot
+            
             do {
                 eventDoc = try transaction.getDocument(eventRef)
                 rsvpListDoc = try transaction.getDocument(rsvpList)
@@ -546,80 +617,66 @@ class EventUpClient: NSObject {
             transaction.updateData(["rsvpCount": rsvpCount], forDocument: eventRef)
             transaction.setData(rsvpListData, forDocument: rsvpList)
             transaction.setData(["uid": event.owner, "type": "user", "message": "A user has canceled their RSVP to \(event.name!)"], forDocument: notifications)
-            return nil
+            return rsvpCount
         }, completion: { (object, error) in
             if let error = error {
                 failure(error)
             } else {
                 userRsvpList.child(event.uid).removeValue()
-                success()
+                success(object as! Int)
                 
             }
         })
         
     }
     
-    func checkInEvent(event: Event, uid: String, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
+    func cancelCheckInEvent(event: Event, uid: String, success: @escaping (Int) ->(), failure: @escaping (Error) -> ()) {
         
         let eventRef = db.collection("events").document(event.uid)
         let checkInList = db.collection("eventCheckInLists").document(event.uid)
-        let userCheckInList = fdb.child("userCheckInLists").child(event.uid)
-        let rsvpList = db.collection("eventRsvpLists").document(event.uid)
-        let userRsvpList = fdb.child("userRsvpLists").child(uid)
         let notifications = db.collection("notifications").document()
-        
-        let geoFire = GeoFire(firebaseRef: userCheckInList)!
         
         db.runTransaction({ (transaction, errorPointer) -> Any? in
             var eventDoc: DocumentSnapshot
             var checkInListDoc: DocumentSnapshot
-            var rsvpListDoc: DocumentSnapshot
             do {
                 eventDoc = try transaction.getDocument(eventRef)
                 checkInListDoc = try transaction.getDocument(checkInList)
-                rsvpListDoc = try transaction.getDocument(rsvpList)
             } catch let fetchError as NSError {
                 errorPointer?.pointee = fetchError
                 return nil
             }
             
             var eventData = eventDoc.data()
-            var rsvpListData = rsvpListDoc.data()
-            let checkInListData = checkInListDoc.data()
+            var checkInListData = checkInListDoc.data()
             
-            var checkInCount = eventData["checkInCount"] as! Int
-            if checkInListData[uid] == nil {
-                checkInCount += 1
-            }
+            var checkInCount = eventData["checkedInCount"] as! Int
+            checkInCount -= 1
             
-            rsvpListData.removeValue(forKey: uid)
+            checkInListData.removeValue(forKey: uid)
             
-            transaction.setData(rsvpListData, forDocument: rsvpList)
-            transaction.updateData(["checkInCount": checkInCount], forDocument: eventRef)
-            transaction.updateData([uid: true], forDocument: checkInList)
-            transaction.setData(["uid": event.owner, "type": "user", "message": "A user just has checked in for \(event.name!)"], forDocument: notifications)
-            return nil
+            transaction.updateData(["checkedInCount": checkInCount], forDocument: eventRef)
+            transaction.setData(checkInListData, forDocument: checkInList)
+            transaction.setData(["uid": event.owner, "type": "user", "message": "A user has canceled their checkin for \(event.name!)"], forDocument: notifications)
+            return checkInCount
         }, completion: { (object, error) in
             if let error = error {
                 failure(error)
             } else {
-                userRsvpList.child(event.uid).removeValue()
-                geoFire.setLocation(CLLocation(latitude: event.latitude, longitude: event.longitude), forKey: event.uid)
-                success()
+                success(object as! Int)
+                
             }
         })
+        
     }
     
-    func checkInEventWithUID(eventUID: String, uid: String, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
+    func checkInEvent(event: Event, uid: String, success: @escaping (Int) ->(), failure: @escaping (Error) -> ()) {
         
-        let eventRef = db.collection("events").document(eventUID)
-        let checkInList = db.collection("eventCheckInLists").document(eventUID)
-        let userCheckInList = fdb.child("userCheckInLists").child(uid)
-        let rsvpList = db.collection("eventRsvpLists").document(eventUID)
+        let eventRef = db.collection("events").document(event.uid)
+        let checkInList = db.collection("eventCheckInLists").document(event.uid)
+        let rsvpList = db.collection("eventRsvpLists").document(event.uid)
         let userRsvpList = fdb.child("userRsvpLists").child(uid)
         let notifications = db.collection("notifications").document()
-        
-        let geoFire = GeoFire(firebaseRef: userCheckInList)!
         
         db.runTransaction({ (transaction, errorPointer) -> Any? in
             var eventDoc: DocumentSnapshot
@@ -637,11 +694,6 @@ class EventUpClient: NSObject {
             var eventData = eventDoc.data()
             var rsvpListData = rsvpListDoc.data()
             let checkInListData = checkInListDoc.data()
-            let event = Event(eventData: eventData)
-            
-            if event.date > Date().timeIntervalSinceReferenceDate {
-                return nil
-            }
             
             var checkInCount = eventData["checkedInCount"] as! Int
             if checkInListData[uid] == nil {
@@ -653,23 +705,90 @@ class EventUpClient: NSObject {
             transaction.setData(rsvpListData, forDocument: rsvpList)
             transaction.updateData(["checkedInCount": checkInCount], forDocument: eventRef)
             transaction.updateData([uid: true], forDocument: checkInList)
+            
+            transaction.setData(["uid": event.owner, "type": "user", "message": "A user just has checked in for \(event.name!)"], forDocument: notifications)
+            return checkInCount
+        }, completion: { (object, error) in
+            if let error = error {
+                failure(error)
+            } else {
+                userRsvpList.child(event.uid).removeValue()
+                success(object as! Int)
+            }
+        })
+    }
+    
+    func checkInEventWithUID(eventUID: String, uid: String, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
+        
+        let eventRef = db.collection("events").document(eventUID)
+        let checkInList = db.collection("eventCheckInLists").document(eventUID)
+        let userCheckInList = db.collection("userCheckInLists").document(uid)
+        let rsvpList = db.collection("eventRsvpLists").document(eventUID)
+        let userRsvpList = fdb.child("userRsvpLists").child(uid)
+        let notifications = db.collection("notifications").document()
+        
+        var toast: GTToastView!
+        db.runTransaction({ (transaction, errorPointer) -> Any? in
+            var eventDoc: DocumentSnapshot
+            var checkInListDoc: DocumentSnapshot
+            var rsvpListDoc: DocumentSnapshot
+            do {
+                eventDoc = try transaction.getDocument(eventRef)
+                checkInListDoc = try transaction.getDocument(checkInList)
+                rsvpListDoc = try transaction.getDocument(rsvpList)
+            } catch let fetchError as NSError {
+                errorPointer?.pointee = fetchError
+                return nil
+            }
+            
+            var eventData = eventDoc.data()
+            var rsvpListData = rsvpListDoc.data()
+            let checkInListData = checkInListDoc.data()
+            
+            
+            let event = Event(eventData: eventData)
+            
+            if event.date > Date().timeIntervalSince1970 {
+                return nil
+            }
+            
+            var checkInCount = eventData["checkedInCount"] as! Int
+            if checkInListData[uid] == nil {
+                checkInCount += 1
+            }
+            
+            rsvpListData.removeValue(forKey: uid)
+            
+            transaction.updateData([eventUID: true], forDocument: userCheckInList)
+
+            transaction.setData(rsvpListData, forDocument: rsvpList)
+            transaction.updateData(["checkedInCount": checkInCount], forDocument: eventRef)
+            transaction.updateData([uid: true], forDocument: checkInList)
+            
             transaction.setData(["uid": eventData["owner"] as! String, "type": "user", "message": "A user just has checked in for \(eventData["name"] as! String)"], forDocument: notifications)
+            
+            DispatchQueue.main.async {
+                toast = GTToast.create("You were just checked into \(eventData["name"] as! String)")
+                toast.show()
+            }
             return eventData
         }, completion: { (object, error) in
             if let error = error {
+//
+//                toast.dismiss()
                 failure(error)
             } else {
                 if object == nil {
                     success()
                 }
-                let eventData = object as! [String: Any]
+                //toast.dismiss()
                 userRsvpList.child(eventUID).removeValue()
-                geoFire.setLocation(CLLocation(latitude: eventData["latitude"] as! Double, longitude: eventData["longitude"] as! Double), forKey: eventUID)
                 success()
             }
         })
     }
     
+   
     func setNotificationToken(uid: String, token: String, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
         let eventDoc = db.collection("users").document(uid)
         eventDoc.updateData(["token": token], completion: { (error) in
@@ -696,6 +815,34 @@ class EventUpClient: NSObject {
                 notifications.setData(["uid": event.uid, "type": "user"])
                 success(user)
                 
+            }
+        }
+    }
+    
+    func checkIfRsvp(event: Event, uid: String, success: @escaping (Bool) ->(), failure: @escaping (Error) -> ()) {
+        
+        let rsvpList = db.collection("eventRsvpLists").document(event.uid)
+        
+        rsvpList.getDocument { (snapshot, error) in
+            if let error = error {
+                failure(error)
+            } else if let snapshot = snapshot {
+                let rsvpList = snapshot.data()
+                success(rsvpList[uid] != nil)
+            }
+        }
+    }
+    
+    func checkIfCheckedIn(event: Event, uid: String, success: @escaping (Bool) ->(), failure: @escaping (Error) -> ()) {
+        
+        let rsvpList = db.collection("eventCheckInLists").document(event.uid)
+        
+        rsvpList.getDocument { (snapshot, error) in
+            if let error = error {
+                failure(error)
+            } else if let snapshot = snapshot {
+                let checkInList = snapshot.data()
+                success(checkInList[uid] != nil)
             }
         }
     }
@@ -779,4 +926,7 @@ protocol FilterDelegate {
     func refresh(event: Event?)
 }
 
+enum EventUpError: Error {
+    case imageDownloadError
+}
 

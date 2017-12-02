@@ -16,16 +16,6 @@ class EventTagSelectViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        let image = UIImage(named: "background")!
-//        let backgroundView = UIImageView(image: image)
-//        view.addSubview(backgroundView)
-//        view.sendSubview(toBack: backgroundView)
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,7 +38,7 @@ class EventTagSelectViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         delegate.setTag(tag: cell!.textLabel!.text!, index: index)
-        self.dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
 
     /*

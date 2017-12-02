@@ -9,14 +9,22 @@
 /* Begin PBXBuildFile section */
 		2951DB387623E6DCB57F303B /* Pods_EventUp_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00BEE0174A91D69362D7DEA /* Pods_EventUp_.framework */; };
 		7C3C6D591F861C2000511686 /* RSVPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3C6D581F861C2000511686 /* RSVPViewController.swift */; };
-		839240231F85BA07003C0DAF /* RatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839240221F85BA07003C0DAF /* RatingViewController.swift */; };
+		AE9576623DE0D3E4F8EF5B21 /* Pods_EventUp_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68D80C0491BED5ED7C8160A7 /* Pods_EventUp_Tests.framework */; };
 		B5710CDC1F85D607000D1E70 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5710CDB1F85D607000D1E70 /* Profile.storyboard */; };
 		BB330A771FC3B5D9000143EB /* EventContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB330A761FC3B5D9000143EB /* EventContainerViewController.swift */; };
 		BB5B02001FC3BA8D00787AAA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB5B01FF1FC3BA8D00787AAA /* LaunchScreen.storyboard */; };
 		BB5B02021FC3BA8D00787AAA /* GeolocationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5B02011FC3BA8D00787AAA /* GeolocationClient.swift */; };
+		C71576981FD520E4001294D2 /* EventCreateCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71576971FD520E4001294D2 /* EventCreateCalendarCell.swift */; };
+		C71CCE3A1FD49BEA00D4D28A /* EventUp_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71CCE391FD49BEA00D4D28A /* EventUp_Tests.swift */; };
+		C71CCE421FD4A9C300D4D28A /* EventAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71CCE411FD4A9C300D4D28A /* EventAnnotationView.swift */; };
+		C71CCE441FD4AA6500D4D28A /* EventAnnotationCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C71CCE431FD4AA6500D4D28A /* EventAnnotationCalloutView.xib */; };
+		C71CCE461FD4AB2C00D4D28A /* EventAnnotationCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71CCE451FD4AB2C00D4D28A /* EventAnnotationCalloutView.swift */; };
+		C71CCE481FD4E69100D4D28A /* DetailSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71CCE471FD4E69000D4D28A /* DetailSegue.swift */; };
+		C71CCE4A1FD5183200D4D28A /* EventCreateMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71CCE491FD5183200D4D28A /* EventCreateMapViewController.swift */; };
 		C72B02B71F8692F1005E7B97 /* EventAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72B02B61F8692F1005E7B97 /* EventAnnotation.swift */; };
 		C72C8E271FA6864300B16561 /* EventChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72C8E261FA6864300B16561 /* EventChatViewController.swift */; };
 		C72C8E291FA68B4B00B16561 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72C8E281FA68B4B00B16561 /* SettingsViewController.swift */; };
+		C73701811FD36BA800DE6040 /* MapSidebarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73701801FD36BA800DE6040 /* MapSidebarViewController.swift */; };
 		C764020C1F7959DF00AA3F06 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C764020B1F7959DF00AA3F06 /* Map.storyboard */; };
 		C764020E1F795AA500AA3F06 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C764020D1F795AA500AA3F06 /* MapViewController.swift */; };
 		C76402111F7975E700AA3F06 /* Events.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C76402101F7975E700AA3F06 /* Events.storyboard */; };
@@ -34,13 +42,13 @@
 		C76C14921F981FE8006B3F5C /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76C14911F981FE8006B3F5C /* RegisterViewController.swift */; };
 		C76C14941F9827D1006B3F5C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76C14931F9827D1006B3F5C /* ProfileViewController.swift */; };
 		C76C14961F98293A006B3F5C /* EventUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76C14951F98293A006B3F5C /* EventUser.swift */; };
+		C79988A81FD2485100EAD32F /* MapContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79988A71FD2485100EAD32F /* MapContainerViewController.swift */; };
 		C79D17F21FA2A37400D25C4B /* EventTagSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79D17F11FA2A37400D25C4B /* EventTagSelectViewController.swift */; };
 		C7A4059F1FB78C6B00E33A70 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A4059E1FB78C6B00E33A70 /* WelcomeViewController.swift */; };
 		C7B1427B1FAAF14500B9DC0E /* SegueFromLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B1427A1FAAF14500B9DC0E /* SegueFromLeft.swift */; };
 		C7B1427D1FAB9B8C00B9DC0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7B1427C1FAB9B8C00B9DC0E /* Assets.xcassets */; };
 		C7C164641F852AF6007226FA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C7C164631F852AE6007226FA /* GoogleService-Info.plist */; };
 		C7C5D37E1F5F2EA0001BCE38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C5D37D1F5F2EA0001BCE38 /* AppDelegate.swift */; };
-		C7C5D3801F5F2EA0001BCE38 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C5D37F1F5F2EA0001BCE38 /* ViewController.swift */; };
 		C7C5D3831F5F2EA0001BCE38 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7C5D3811F5F2EA0001BCE38 /* Main.storyboard */; };
 		C7D710991F9916210010EAC8 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D710981F9916210010EAC8 /* Message.swift */; };
 		C7D7109C1F9983520010EAC8 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D7109A1F9983510010EAC8 /* FBSDKCoreKit.framework */; };
@@ -48,20 +56,41 @@
 		C7D7109F1F99A4060010EAC8 /* EventLocationSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D7109E1F99A4060010EAC8 /* EventLocationSelectViewController.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C71CCE3C1FD49BEA00D4D28A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C7C5D3721F5F2E9F001BCE38 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C7C5D3791F5F2E9F001BCE38;
+			remoteInfo = "EventUp!";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		0ECBAAF3044ED4B96DC08B27 /* Pods-EventUp!.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventUp!.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!.debug.xcconfig"; sourceTree = "<group>"; };
+		68D80C0491BED5ED7C8160A7 /* Pods_EventUp_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EventUp_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C3C6D581F861C2000511686 /* RSVPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSVPViewController.swift; sourceTree = "<group>"; };
-		839240221F85BA07003C0DAF /* RatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingViewController.swift; sourceTree = "<group>"; };
+		8F6B37CD75FDDA37BE29BCAC /* Pods-EventUp!Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventUp!Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EventUp!Tests/Pods-EventUp!Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		A00BEE0174A91D69362D7DEA /* Pods_EventUp_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EventUp_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5710CDB1F85D607000D1E70 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		B8642049167ECB3A8DF5E8AB /* Pods-EventUp!.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventUp!.release.xcconfig"; path = "Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!.release.xcconfig"; sourceTree = "<group>"; };
 		BB330A761FC3B5D9000143EB /* EventContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventContainerViewController.swift; sourceTree = "<group>"; };
 		BB5B01FF1FC3BA8D00787AAA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BB5B02011FC3BA8D00787AAA /* GeolocationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeolocationClient.swift; sourceTree = "<group>"; };
+		C71576971FD520E4001294D2 /* EventCreateCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCreateCalendarCell.swift; sourceTree = "<group>"; };
+		C71CCE371FD49BEA00D4D28A /* EventUp!Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EventUp!Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C71CCE391FD49BEA00D4D28A /* EventUp_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventUp_Tests.swift; sourceTree = "<group>"; };
+		C71CCE3B1FD49BEA00D4D28A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C71CCE411FD4A9C300D4D28A /* EventAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAnnotationView.swift; sourceTree = "<group>"; };
+		C71CCE431FD4AA6500D4D28A /* EventAnnotationCalloutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventAnnotationCalloutView.xib; sourceTree = "<group>"; };
+		C71CCE451FD4AB2C00D4D28A /* EventAnnotationCalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAnnotationCalloutView.swift; sourceTree = "<group>"; };
+		C71CCE471FD4E69000D4D28A /* DetailSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailSegue.swift; sourceTree = "<group>"; };
+		C71CCE491FD5183200D4D28A /* EventCreateMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCreateMapViewController.swift; sourceTree = "<group>"; };
 		C72B02B61F8692F1005E7B97 /* EventAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAnnotation.swift; sourceTree = "<group>"; };
 		C72C8E251FA5C8B000B16561 /* EventUp!.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "EventUp!.entitlements"; sourceTree = "<group>"; };
 		C72C8E261FA6864300B16561 /* EventChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventChatViewController.swift; sourceTree = "<group>"; };
 		C72C8E281FA68B4B00B16561 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		C73701801FD36BA800DE6040 /* MapSidebarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSidebarViewController.swift; sourceTree = "<group>"; };
 		C764020B1F7959DF00AA3F06 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		C764020D1F795AA500AA3F06 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C76402101F7975E700AA3F06 /* Events.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Events.storyboard; sourceTree = "<group>"; };
@@ -79,6 +108,7 @@
 		C76C14911F981FE8006B3F5C /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		C76C14931F9827D1006B3F5C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		C76C14951F98293A006B3F5C /* EventUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventUser.swift; sourceTree = "<group>"; };
+		C79988A71FD2485100EAD32F /* MapContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapContainerViewController.swift; sourceTree = "<group>"; };
 		C79D17F11FA2A37400D25C4B /* EventTagSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTagSelectViewController.swift; sourceTree = "<group>"; };
 		C7A4059E1FB78C6B00E33A70 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		C7B1427A1FAAF14500B9DC0E /* SegueFromLeft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueFromLeft.swift; sourceTree = "<group>"; };
@@ -86,16 +116,25 @@
 		C7C164631F852AE6007226FA /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C7C5D37A1F5F2EA0001BCE38 /* EventUp!.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EventUp!.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7C5D37D1F5F2EA0001BCE38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C7C5D37F1F5F2EA0001BCE38 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C7C5D3821F5F2EA0001BCE38 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C7C5D3891F5F2EA0001BCE38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C7D710981F9916210010EAC8 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		C7D7109A1F9983510010EAC8 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		C7D7109B1F9983520010EAC8 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		C7D7109E1F99A4060010EAC8 /* EventLocationSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLocationSelectViewController.swift; sourceTree = "<group>"; };
+		C7E90ABD1FD1D2CD00654621 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		D2BA751A039937079AE7BE63 /* Pods-EventUp!Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EventUp!Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EventUp!Tests/Pods-EventUp!Tests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C71CCE341FD49BEA00D4D28A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE9576623DE0D3E4F8EF5B21 /* Pods_EventUp_Tests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C7C5D3771F5F2E9F001BCE38 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -115,6 +154,8 @@
 			children = (
 				0ECBAAF3044ED4B96DC08B27 /* Pods-EventUp!.debug.xcconfig */,
 				B8642049167ECB3A8DF5E8AB /* Pods-EventUp!.release.xcconfig */,
+				8F6B37CD75FDDA37BE29BCAC /* Pods-EventUp!Tests.debug.xcconfig */,
+				D2BA751A039937079AE7BE63 /* Pods-EventUp!Tests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -129,11 +170,25 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		C71CCE381FD49BEA00D4D28A /* EventUp!Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C71CCE391FD49BEA00D4D28A /* EventUp_Tests.swift */,
+				C71CCE3B1FD49BEA00D4D28A /* Info.plist */,
+			);
+			path = "EventUp!Tests";
+			sourceTree = "<group>";
+		};
 		C764020A1F7959CE00AA3F06 /* Map */ = {
 			isa = PBXGroup;
 			children = (
 				C764020B1F7959DF00AA3F06 /* Map.storyboard */,
 				C764020D1F795AA500AA3F06 /* MapViewController.swift */,
+				C79988A71FD2485100EAD32F /* MapContainerViewController.swift */,
+				C73701801FD36BA800DE6040 /* MapSidebarViewController.swift */,
+				C71CCE411FD4A9C300D4D28A /* EventAnnotationView.swift */,
+				C71CCE431FD4AA6500D4D28A /* EventAnnotationCalloutView.xib */,
+				C71CCE451FD4AB2C00D4D28A /* EventAnnotationCalloutView.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -144,16 +199,17 @@
 				C76402101F7975E700AA3F06 /* Events.storyboard */,
 				C7D7109E1F99A4060010EAC8 /* EventLocationSelectViewController.swift */,
 				C76402141F79776900AA3F06 /* EventsViewController.swift */,
-				C764022F1F7DBF1400AA3F06 /* EventCreateViewController.swift */,
 				C76402161F79782100AA3F06 /* EventCell.swift */,
 				C764021C1F79891300AA3F06 /* EventMapViewController.swift */,
 				C764021E1F7C34B900AA3F06 /* EventDetailViewController.swift */,
 				C76402221F7C45B400AA3F06 /* FilterViewController.swift */,
-				839240221F85BA07003C0DAF /* RatingViewController.swift */,
 				7C3C6D581F861C2000511686 /* RSVPViewController.swift */,
 				C79D17F11FA2A37400D25C4B /* EventTagSelectViewController.swift */,
 				C72C8E261FA6864300B16561 /* EventChatViewController.swift */,
 				BB330A761FC3B5D9000143EB /* EventContainerViewController.swift */,
+				C764022F1F7DBF1400AA3F06 /* EventCreateViewController.swift */,
+				C71CCE491FD5183200D4D28A /* EventCreateMapViewController.swift */,
+				C71576971FD520E4001294D2 /* EventCreateCalendarCell.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -161,10 +217,12 @@
 		C76402181F797E6300AA3F06 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C7E90ABD1FD1D2CD00654621 /* XCTest.framework */,
 				C7D7109A1F9983510010EAC8 /* FBSDKCoreKit.framework */,
 				C7D7109B1F9983520010EAC8 /* FBSDKLoginKit.framework */,
 				C76402191F797E6300AA3F06 /* MapKit.framework */,
 				A00BEE0174A91D69362D7DEA /* Pods_EventUp_.framework */,
+				68D80C0491BED5ED7C8160A7 /* Pods_EventUp_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -203,6 +261,7 @@
 			isa = PBXGroup;
 			children = (
 				C7C5D37C1F5F2EA0001BCE38 /* EventUp! */,
+				C71CCE381FD49BEA00D4D28A /* EventUp!Tests */,
 				C7C5D37B1F5F2EA0001BCE38 /* Products */,
 				C76402181F797E6300AA3F06 /* Frameworks */,
 				4E9E571413FA467D8A193A2F /* Pods */,
@@ -213,6 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				C7C5D37A1F5F2EA0001BCE38 /* EventUp!.app */,
+				C71CCE371FD49BEA00D4D28A /* EventUp!Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -229,9 +289,9 @@
 				C76C148C1F981A4B006B3F5C /* Login */,
 				C764020A1F7959CE00AA3F06 /* Map */,
 				C7C5D37D1F5F2EA0001BCE38 /* AppDelegate.swift */,
-				C7C5D37F1F5F2EA0001BCE38 /* ViewController.swift */,
 				C7C5D3891F5F2EA0001BCE38 /* Info.plist */,
 				C76402291F7DB97B00AA3F06 /* EventUpClient.swift */,
+				C71CCE471FD4E69000D4D28A /* DetailSegue.swift */,
 				C7C164631F852AE6007226FA /* GoogleService-Info.plist */,
 				C7B1427A1FAAF14500B9DC0E /* SegueFromLeft.swift */,
 				BB5B01FF1FC3BA8D00787AAA /* LaunchScreen.storyboard */,
@@ -243,6 +303,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		C71CCE361FD49BEA00D4D28A /* EventUp!Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C71CCE3E1FD49BEA00D4D28A /* Build configuration list for PBXNativeTarget "EventUp!Tests" */;
+			buildPhases = (
+				96218D9F908C5A270143A03F /* [CP] Check Pods Manifest.lock */,
+				C71CCE331FD49BEA00D4D28A /* Sources */,
+				C71CCE341FD49BEA00D4D28A /* Frameworks */,
+				C71CCE351FD49BEA00D4D28A /* Resources */,
+				E5FE043E5F1F6527F20FC044 /* [CP] Embed Pods Frameworks */,
+				EE8E57AFE6C5609D5A29F676 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C71CCE3D1FD49BEA00D4D28A /* PBXTargetDependency */,
+			);
+			name = "EventUp!Tests";
+			productName = "EventUp!Tests";
+			productReference = C71CCE371FD49BEA00D4D28A /* EventUp!Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		C7C5D3791F5F2E9F001BCE38 /* EventUp! */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C7C5D38C1F5F2EA0001BCE38 /* Build configuration list for PBXNativeTarget "EventUp!" */;
@@ -269,10 +350,15 @@
 		C7C5D3721F5F2E9F001BCE38 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0900;
+				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Siraj Zaneer";
 				TargetAttributes = {
+					C71CCE361FD49BEA00D4D28A = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = C7C5D3791F5F2E9F001BCE38;
+					};
 					C7C5D3791F5F2E9F001BCE38 = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
@@ -298,11 +384,19 @@
 			projectRoot = "";
 			targets = (
 				C7C5D3791F5F2E9F001BCE38 /* EventUp! */,
+				C71CCE361FD49BEA00D4D28A /* EventUp!Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		C71CCE351FD49BEA00D4D28A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C7C5D3781F5F2E9F001BCE38 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -313,6 +407,7 @@
 				C764020C1F7959DF00AA3F06 /* Map.storyboard in Resources */,
 				C76402111F7975E700AA3F06 /* Events.storyboard in Resources */,
 				B5710CDC1F85D607000D1E70 /* Profile.storyboard in Resources */,
+				C71CCE441FD4AA6500D4D28A /* EventAnnotationCalloutView.xib in Resources */,
 				C7B1427D1FAB9B8C00B9DC0E /* Assets.xcassets in Resources */,
 				C7C164641F852AF6007226FA /* GoogleService-Info.plist in Resources */,
 			);
@@ -352,10 +447,14 @@
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GTToast/GTToast.framework",
 				"${BUILT_PRODUCTS_DIR}/GeoFire/GeoFire.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/HCSStarRatingView/HCSStarRatingView.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/JSQMessagesViewController/JSQMessagesViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework",
+				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SidebarOverlay/SidebarOverlay.framework",
@@ -375,10 +474,14 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTToast.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GeoFire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HCSStarRatingView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQMessagesViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQSystemSoundPlayer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SidebarOverlay.framework",
@@ -393,6 +496,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		96218D9F908C5A270143A03F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EventUp!Tests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		AEB0E66B5741BDC91C67F856 /* [CP] Copy Pods Resources */ = {
@@ -420,27 +541,126 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		E5FE043E5F1F6527F20FC044 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-EventUp!Tests/Pods-EventUp!Tests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GTToast/GTToast.framework",
+				"${BUILT_PRODUCTS_DIR}/GeoFire/GeoFire.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/HCSStarRatingView/HCSStarRatingView.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/JSQMessagesViewController/JSQMessagesViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework",
+				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SidebarOverlay/SidebarOverlay.framework",
+				"${BUILT_PRODUCTS_DIR}/TextFieldEffects/TextFieldEffects.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTToast.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GeoFire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HCSStarRatingView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQMessagesViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQSystemSoundPlayer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SidebarOverlay.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TextFieldEffects.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EventUp!Tests/Pods-EventUp!Tests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EE8E57AFE6C5609D5A29F676 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-EventUp!Tests/Pods-EventUp!Tests-resources.sh",
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseFacebookAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseGoogleAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebasePhoneAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseTwitterAuthUI.bundle,
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterShareExtensionUIResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EventUp!Tests/Pods-EventUp!Tests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C71CCE331FD49BEA00D4D28A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C71CCE3A1FD49BEA00D4D28A /* EventUp_Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C7C5D3761F5F2E9F001BCE38 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7C5D3801F5F2EA0001BCE38 /* ViewController.swift in Sources */,
 				C76402301F7DBF1400AA3F06 /* EventCreateViewController.swift in Sources */,
 				C76402151F79776900AA3F06 /* EventsViewController.swift in Sources */,
 				C72C8E271FA6864300B16561 /* EventChatViewController.swift in Sources */,
 				C76402231F7C45B400AA3F06 /* FilterViewController.swift in Sources */,
-				839240231F85BA07003C0DAF /* RatingViewController.swift in Sources */,
 				C7A4059F1FB78C6B00E33A70 /* WelcomeViewController.swift in Sources */,
 				C7B1427B1FAAF14500B9DC0E /* SegueFromLeft.swift in Sources */,
 				C7D7109F1F99A4060010EAC8 /* EventLocationSelectViewController.swift in Sources */,
+				C71CCE461FD4AB2C00D4D28A /* EventAnnotationCalloutView.swift in Sources */,
 				C76402281F7DB8C500AA3F06 /* Event.swift in Sources */,
 				C76402171F79782100AA3F06 /* EventCell.swift in Sources */,
 				C76C14941F9827D1006B3F5C /* ProfileViewController.swift in Sources */,
 				C79D17F21FA2A37400D25C4B /* EventTagSelectViewController.swift in Sources */,
+				C73701811FD36BA800DE6040 /* MapSidebarViewController.swift in Sources */,
 				BB5B02021FC3BA8D00787AAA /* GeolocationClient.swift in Sources */,
+				C71CCE421FD4A9C300D4D28A /* EventAnnotationView.swift in Sources */,
+				C71CCE4A1FD5183200D4D28A /* EventCreateMapViewController.swift in Sources */,
 				C764020E1F795AA500AA3F06 /* MapViewController.swift in Sources */,
 				C764021D1F79891300AA3F06 /* EventMapViewController.swift in Sources */,
 				C764021F1F7C34B900AA3F06 /* EventDetailViewController.swift in Sources */,
@@ -448,9 +668,12 @@
 				C72C8E291FA68B4B00B16561 /* SettingsViewController.swift in Sources */,
 				C76C14901F981A7C006B3F5C /* LoginViewController.swift in Sources */,
 				C76C14921F981FE8006B3F5C /* RegisterViewController.swift in Sources */,
+				C79988A81FD2485100EAD32F /* MapContainerViewController.swift in Sources */,
 				C76C14961F98293A006B3F5C /* EventUser.swift in Sources */,
 				C72B02B71F8692F1005E7B97 /* EventAnnotation.swift in Sources */,
 				C7D710991F9916210010EAC8 /* Message.swift in Sources */,
+				C71CCE481FD4E69100D4D28A /* DetailSegue.swift in Sources */,
+				C71576981FD520E4001294D2 /* EventCreateCalendarCell.swift in Sources */,
 				BB330A771FC3B5D9000143EB /* EventContainerViewController.swift in Sources */,
 				C7C5D37E1F5F2EA0001BCE38 /* AppDelegate.swift in Sources */,
 				7C3C6D591F861C2000511686 /* RSVPViewController.swift in Sources */,
@@ -458,6 +681,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C71CCE3D1FD49BEA00D4D28A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C7C5D3791F5F2E9F001BCE38 /* EventUp! */;
+			targetProxy = C71CCE3C1FD49BEA00D4D28A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C7C5D3811F5F2EA0001BCE38 /* Main.storyboard */ = {
@@ -471,6 +702,42 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		C71CCE3F1FD49BEA00D4D28A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8F6B37CD75FDDA37BE29BCAC /* Pods-EventUp!Tests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3YC9K4952Y;
+				INFOPLIST_FILE = "EventUp!Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sirajzaneer.EventUp-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EventUp!.app/EventUp!";
+			};
+			name = Debug;
+		};
+		C71CCE401FD49BEA00D4D28A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D2BA751A039937079AE7BE63 /* Pods-EventUp!Tests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3YC9K4952Y;
+				INFOPLIST_FILE = "EventUp!Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sirajzaneer.EventUp-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EventUp!.app/EventUp!";
+			};
+			name = Release;
+		};
 		C7C5D38A1F5F2EA0001BCE38 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -627,6 +894,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C71CCE3E1FD49BEA00D4D28A /* Build configuration list for PBXNativeTarget "EventUp!Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C71CCE3F1FD49BEA00D4D28A /* Debug */,
+				C71CCE401FD49BEA00D4D28A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C7C5D3751F5F2E9F001BCE38 /* Build configuration list for PBXProject "EventUp!" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

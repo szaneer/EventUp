@@ -26,9 +26,18 @@ class SettingsViewController: UIViewController {
     
     @IBAction func onLogout(_ sender: Any) {
         try! Auth.auth().signOut()
+        performSegue(withIdentifier: "loginSegue", sender: nil)
     }
     
     @IBAction func onDelete(_ sender: Any) {
+        EventUpClient.sharedInstance.deleteUser(uid: Auth.auth().currentUser!.uid, success: {
+            Auth.auth().currentUser?.delete(completion: { (erorr) in
+                
+                self.performSegue(withIdentifier: "loginSegue", sender: nil)
+            })
+        }) { (error) in
+            print(error)
+        }
     }
     /*
     // MARK: - Navigation

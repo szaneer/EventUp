@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class EventLocationSelectViewController: ViewController {
+class EventLocationSelectViewController: UIViewController {
 
     @IBOutlet weak var eventLocationView: MKMapView!
     
@@ -21,11 +21,6 @@ class EventLocationSelectViewController: ViewController {
 
         // Do any additional setup after loading the view.
         locationManger.startUpdatingLocation()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func onSelect(_ sender: Any) {

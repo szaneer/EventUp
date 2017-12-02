@@ -25,6 +25,9 @@ class GeolocationClient: NSObject {
     }
     
     @objc func beginCheckins() {
+        if !enabled {
+            return
+        }
         if isActive {
             return
         }
@@ -41,27 +44,12 @@ class GeolocationClient: NSObject {
         let circleQuery = geoFire.query(at: location, withRadius: self.radius)
         var uids: [String] = []
         
-        isActive = true
         circleQuery?.observe(.keyEntered, with: { (key, location) in
-            if let key = key {
-                uids.append(key)
-            }
-        })
-        
-        circleQuery?.observeReady({
-            for eventUID in uids {
-                EventUpClient.sharedInstance.checkInEventWithUID(eventUID: eventUID, uid: uid, success: {
-                    
-                    if uids.index(of: eventUID) == uids.count - 1 {
-                        self.isActive = false
-                    }
-                }, failure: { (error) in
-                    if uids.index(of: eventUID) == uids.count - 1 {
-                        
-                        self.isActive = false
-                    }
-                })
-            }
+            print(key)
+            EventUpClient.sharedInstance.checkInEventWithUID(eventUID: key!, uid: uid, success: {
+                
+            }, failure: { (error) in
+            })
         })
     }
     
@@ -82,8 +70,9 @@ extension GeolocationClient: CLLocationManagerDelegate {
         locationManager.startMonitoringSignificantLocationChanges()
         locationManager.delegate = self
         
-        
-        Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.beginCheckins), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { (timer) in
+            self.beginCheckins()
+        }
 
     }
 }

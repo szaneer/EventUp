@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FBSDKCoreKit
 import UserNotifications
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,10 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        
+        IQKeyboardManager.sharedManager().enable = true
         GeolocationClient.sharedInstance.setupLocation()
         if Auth.auth().currentUser != nil {
-            let mainViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UITabBarController
+            let mainViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() 
             
             if let notification = launchOptions?[.remoteNotification] as? [String: AnyObject] {
                 // 2

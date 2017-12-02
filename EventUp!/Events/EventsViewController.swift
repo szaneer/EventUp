@@ -25,33 +25,40 @@ class EventsViewController: UITableViewController {
     let locationManager = CLLocationManager()
     let searchController = UISearchController(searchResultsController: nil)
     var isSugg = false
-    var delegate: EventContainerViewControllerDelegate!
+    
+    @IBOutlet weak var sidebarButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let sidebarIcon = UIImageView(image: UIImage(named: "sidebarIcon"))
+        sidebarIcon.frame = CGRect(x: 0, y: 0, width: sidebarButton.frame.height, height: sidebarButton.frame.height)
+        sidebarButton.frame = CGRect(x: 0, y: 0, width: sidebarButton.frame.height, height: sidebarButton.frame.height)
+        sidebarButton.addSubview(sidebarIcon)
+        
+        let background = UIImage(named: "background")!
+        self.navigationController!.navigationBar.setBackgroundImage(background, for: .default)
+        
+        self.navigationController!.navigationBar.tintColor = .black
         if (UserDefaults.standard.object(forKey: "notifyUID") != nil) {
             performSegue(withIdentifier: "notifySegue", sender: nil)
             return
         }
-        let image = UIImage(named: "background")!
-        tableView.backgroundView = UIImageView(image: image)
-        tableView.backgroundColor = .clear
+        
+        //tableView.backgroundColor = .clear
         searchController.searchBar.scopeButtonTitles = ["All", "Social", "Learning", "Other"]
         
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.searchBar.placeholder = "Search Events"
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.hidesNavigationBarDuringPresentation = true
         
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 975
+        tableView.estimatedRowHeight = 116
         
         definesPresentationContext = true
         navigationItem.searchController = searchController
         
-        
-        tableView.rowHeight = UITableViewAutomaticDimension
         SVProgressHUD.show()
         
         
@@ -64,8 +71,12 @@ class EventsViewController: UITableViewController {
         loadEvents()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadEvents()
+    }
+    
     @objc func loadEvents() {
-        print("hello")
         if isSugg {
             SVProgressHUD.dismiss()
             self.view.isUserInteractionEnabled = true
@@ -122,15 +133,17 @@ class EventsViewController: UITableViewController {
             event = events[indexPath.row]
         }
         
-        cell.eventView.image = nil
+        //cell.eventView.image = nil
         cell.distanceLabel.text = ""
-        let date = Date(timeIntervalSinceReferenceDate: event.date)
+        
         cell.nameLabel.text = event.name
+        cell.ratingView.value = CGFloat(event.rating)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
+        let date = Date(timeIntervalSince1970: event.date)
+        
         cell.dateLabel.text = dateFormatter.string(from: date)
-        cell.attendeesLabel.text = "Attendees: \(event.rsvpCount!)"
-        cell.ratingLabel.text = String(format: "%.2f", event.rating)
+        cell.ratingCountLabel.text = String(format: "%d ratings", event.ratingCount)
         if let tags = event.tags {
             var first = true
             for tag in tags {
@@ -172,7 +185,7 @@ class EventsViewController: UITableViewController {
     
     
     @IBAction func onSidebar(_ sender: Any) {
-        delegate.toggleSidebar()
+        so_containerViewController?.isSideViewControllerPresented = !so_containerViewController!.isSideViewControllerPresented
     }
     @IBAction func onTimeSwitch(_ sender: Any) {
     }
@@ -197,6 +210,10 @@ class EventsViewController: UITableViewController {
             destination.event = event
             destination.eventImage = cell.eventView.image
             destination.delegate = self
+            
+            let detailSegue = segue as! DetailSegue
+            detailSegue.event = event
+            detailSegue.index = indexPath.row
         case "filterSegue":
             let destination = segue.destination as! FilterViewController
             destination.delegate = self
@@ -229,8 +246,9 @@ extension EventsViewController: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("wow")
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
 }

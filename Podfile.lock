@@ -108,9 +108,13 @@ PODS:
   - GTMSessionFetcher/Core (1.1.12)
   - GTMSessionFetcher/Full (1.1.12):
     - GTMSessionFetcher/Core (= 1.1.12)
+  - GTToast (0.3.0)
+  - HCSStarRatingView (1.5)
+  - IQKeyboardManagerSwift (5.0.6)
   - JSQMessagesViewController (7.3.5):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
+  - JTAppleCalendar (7.1.4)
   - leveldb-library (1.20)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
@@ -135,7 +139,11 @@ DEPENDENCIES:
   - FirebaseUI/Phone
   - FirebaseUI/Twitter
   - GeoFire (from `https://github.com/firebase/geofire-objc.git`)
+  - GTToast
+  - HCSStarRatingView
+  - IQKeyboardManagerSwift
   - JSQMessagesViewController
+  - JTAppleCalendar (~> 7.1.0)
   - SidebarOverlay
   - SVProgressHUD
   - TextFieldEffects
@@ -171,8 +179,12 @@ SPEC CHECKSUMS:
   gRPC-RxLibrary: 4f46343e74e74a7ee8373ffeeaf772dfb330cbd7
   GTMOAuth2: be83fd28d63ae3087e7d351b1f39c1a7e24ab6e7
   GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
+  GTToast: 5c5fa8fb35091f73be09d8c5a99bbf723a081263
+  HCSStarRatingView: 1d18f79654735514cd6f00e6d90e38cb6320dc31
+  IQKeyboardManagerSwift: 02bfbb0dff71c66d0ab77d80d25dfce0c3717735
   JSQMessagesViewController: 6587f56aedbcb150a8ba1d968e1ef58b1bc758b7
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
+  JTAppleCalendar: aaeee95e939e0b0a381fb51eb77738bd26bb10f6
   leveldb-library: 4f9eedf84ab46b4fa3b7893bf30714b2a1a74022
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
@@ -182,6 +194,6 @@ SPEC CHECKSUMS:
   TwitterCore: e0420b01e02e7d20e94690e37f43e75de219ab8d
   TwitterKit: 205ac89824bbfe9e85a16c420d30bb7bcbedac45
 
-PODFILE CHECKSUM: 8d43529ca30ef036ff703bf271da97ffdff86def
+PODFILE CHECKSUM: ecea411b5015ef05b336bfc3b798597b7c830b6a
 
 COCOAPODS: 1.3.1

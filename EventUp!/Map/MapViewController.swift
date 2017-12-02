@@ -15,12 +15,29 @@ import AVFoundation
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, FilterDelegate {
     
     @IBOutlet weak var eventMapView: MKMapView!
+    @IBOutlet weak var sideBarButton: UIButton!
+    @IBOutlet weak var refreshButton: UIButton!
+    
     var events: [Event] = []
     let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        let sidebarIcon = UIImageView(image: UIImage(named: "sidebarIcon"))
+        sidebarIcon.frame = CGRect(x: 0, y: 0, width: sideBarButton.frame.height, height: sideBarButton.frame.height)
+        sideBarButton.frame = CGRect(x: 0, y: 0, width: sideBarButton.frame.height, height: sideBarButton.frame.height)
+        sideBarButton.addSubview(sidebarIcon)
+        
+        let refreshIcon = UIImageView(image: UIImage(named: "refreshIcon"))
+        refreshIcon.frame = CGRect(x: 0, y: 0, width: refreshButton.frame.height, height: refreshButton.frame.height)
+        refreshButton.frame = CGRect(x: 0, y: 0, width: refreshButton.frame.height, height: refreshButton.frame.height)
+        refreshButton.addSubview(refreshIcon)
+        
+        let background = UIImage(named: "background")!
+        self.navigationController!.navigationBar.setBackgroundImage(background, for: .default)
+        
+        self.navigationController!.navigationBar.tintColor = .black
         SVProgressHUD.show()
         view.isUserInteractionEnabled = false
         setupLocation()
@@ -32,10 +49,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         eventMapView.showsUserLocation = true
         if CLLocationManager.locationServicesEnabled() {
             locationManager.requestWhenInUseAuthorization()
-        } else {
-            // Tell user to turn on location
         }
-        
         
         locationManager.startUpdatingLocation()
         
@@ -51,8 +65,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             let region = MKCoordinateRegion(center: userLocation, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
             eventMapView.setRegion(region, animated: true)
         }
-        
-        
     }
     
     func filter(filters: [String: Bool]) {
@@ -88,6 +100,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         loadEvents()
     }
     
+    @IBAction func onMenu(_ sender: Any) {
+        so_containerViewController?.isSideViewControllerPresented = !so_containerViewController!.isSideViewControllerPresented
+    }
     
     func addEventToMap(event: Event) {
         let annotation = EventAnnotation()
@@ -99,8 +114,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         eventMapView.add(heatCircle)
     }
     
-    func goToDetail(event: Event) {
+    @objc func goToDetail(sender: UIButton) {
+        let event = (sender.superview! as! EventAnnotationCalloutView).event
         performSegue(withIdentifier: "detailSegue", sender: event)
+    }
+    
+    @objc func onNavigate(sender: UIButton) {
+        let event = (sender.superview! as! EventAnnotationCalloutView).event!
+        let coordinate = CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude)
+        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))
+        mapItem.name = event.name
+        mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -110,77 +134,66 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         return renderer
     }
     
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        if control == view.rightCalloutAccessoryView {
-            let eventAnnotation = view.annotation as! EventAnnotation
-            goToDetail(event: eventAnnotation.event)
-        } else if control == view.leftCalloutAccessoryView {
-            let eventAnnotation = view.annotation as! EventAnnotation
-            let coordinate = CLLocationCoordinate2D(latitude: eventAnnotation.event.latitude, longitude: eventAnnotation.event.longitude)
-            let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))
-            mapItem.name = eventAnnotation.event.name
-            mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
-        }
-    }
-    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let eventAnnotation = annotation as? EventAnnotation else {
+        if annotation is MKUserLocation
+        {
             return nil
         }
-        let annotationView = MKAnnotationView(annotation: eventAnnotation, reuseIdentifier: nil)
-        annotationView.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-        let navButton = UIButton(type: .detailDisclosure)
-        annotationView.leftCalloutAccessoryView = navButton
-        annotationView.canShowCallout = true
-        annotationView.isEnabled = true
-        
-        let date = Date(timeIntervalSinceReferenceDate: eventAnnotation.event.date)
-        let endDate = Date(timeIntervalSinceReferenceDate: eventAnnotation.event.endDate)
-        let currDate = Date(timeIntervalSinceReferenceDate: Date.timeIntervalSinceReferenceDate)
-        
-        let calendar = Calendar.current
-        
-        let currDay = calendar.ordinality(of: .day, in: .year, for: currDate)!
-        let start = calendar.ordinality(of: .day, in: .year, for: date)!
-        let end = calendar.ordinality(of: .day, in: .year, for: endDate)!
-        
-        if currDay >= start && currDay <= end {
+        let annotationView = MKAnnotationView()
+        let currDate = Date().timeIntervalSinceReferenceDate
+        let eventAnnotation = annotation as! EventAnnotation
+        if currDate >= eventAnnotation.event.date && currDate <= eventAnnotation.event.endDate {
             let annotationImage = UIImage(named: "EventAnnotation_green")
             annotationView.image = annotationImage
-        } else if currDay < start {
+        } else if currDate < eventAnnotation.event.date {
             let annotationImage = UIImage(named: "EventAnnotation")
             annotationView.image = annotationImage
         } else {
             let annotationImage = UIImage(named: "EventAnnotation_red")
             annotationView.image = annotationImage
         }
-        
-        
         return annotationView
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-//        let alertSound = URL(fileURLWithPath: Bundle.main.path(forResource: "test", ofType: "wav")!)
-//        print(alertSound)
-//        
-//        try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-//        try! AVAudioSession.sharedInstance().setActive(true)
-//        
-//        try! audioPlayer = AVAudioPlayer(contentsOf: alertSound)
-//        audioPlayer!.prepareToPlay()
-//        audioPlayer!.play()
-//        
-        let smallView = UIView()
-        smallView.frame = CGRect(x: 25, y: 25, width: 100, height: 100)
+        if view.annotation is MKUserLocation
+        {
+            // Don't proceed with custom callout
+            return
+        }
+        // 2
+        let eventAnnotation = view.annotation as! EventAnnotation
+        let event = eventAnnotation.event!
+        let views = Bundle.main.loadNibNamed("EventAnnotationCalloutView", owner: nil, options: nil)
+        let calloutView = views?[0] as! EventAnnotationCalloutView
+        calloutView.event = event
+        calloutView.layer.cornerRadius = 10
+        calloutView.nameLabel.text = event.name
+        EventUpClient.sharedInstance.getEventImage(uid: event.uid, success: { (image) in
+            calloutView.imageView.image = image
+            calloutView.imageView.clipsToBounds = true
+            calloutView.imageView.layer.cornerRadius = 10
+        }) { (error) in
+            print(error.localizedDescription)
+        }
         
-        let text = UILabel()
-        text.text = "Test Annotation Menu"
-        smallView.addSubview(text)
-        
+        calloutView.navigateButton.addTarget(self, action: #selector(self.onNavigate(sender:)), for: .touchUpInside)
+        calloutView.detailButton.addTarget(self, action: #selector(self.goToDetail(sender:)), for: .touchUpInside)
+        calloutView.center = CGPoint(x: view.bounds.size.width / 2, y: -calloutView.bounds.size.height*0.52)
+        view.addSubview(calloutView)
+        mapView.setCenter((view.annotation?.coordinate)!, animated: true)
     }
-    // MARK: - Navigation
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        if view.isKind(of: EventAnnotationView.self)
+        {
+            for subview in view.subviews
+            {
+                subview.removeFromSuperview()
+            }
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.

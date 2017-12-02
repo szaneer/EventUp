@@ -14,19 +14,23 @@ import TextFieldEffects
 import GeoFire
 import MapKit
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
-    @IBOutlet weak var emailField: HoshiTextField!
-    @IBOutlet weak var passwordField: HoshiTextField!
+    @IBOutlet weak var containingView: UIView!
+    @IBOutlet weak var eventUpLabel: UILabel!
+    @IBOutlet weak var emailField: UITextField!
+    @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var registerButton: UIButton!
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        passwordField.isSecureTextEntry = true
         FBSDKLoginManager().logOut()
         // Do any additional setup after loading the view.
         
-        let loginButton = FBSDKLoginButton()
+        let background = UIImage(named: "background")!
+        self.navigationController!.navigationBar.setBackgroundImage(background, for: .default)
         
+        let loginButton = FBSDKLoginButton()
+        loginButton.frame = CGRect(x: self.loginButton.frame.origin.x, y: self.loginButton.frame.origin.y + 16 + self.loginButton.frame.height, width: self.loginButton.frame.width, height: loginButton.frame.height)
         
         emailField.returnKeyType = .next
         passwordField.returnKeyType = .done
@@ -36,13 +40,16 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         passwordField.tag = 1
         loginButton.readPermissions = ["email", "public_profile"]
         loginButton.delegate = self
-        loginButton.center = self.view.center
-        self.loginButton.frame = CGRect(x: loginButton.frame.origin.x, y: loginButton.frame.origin.y - loginButton.frame.height - 8, width: loginButton.frame.width, height: loginButton.frame.height)
-        self.loginButton.layer.cornerRadius = 5
-        registerButton.frame = CGRect(x: loginButton.frame.origin.x, y: view.frame.height - loginButton.frame.height - 16, width: loginButton.frame.width, height: loginButton.frame.height)
         registerButton.layer.cornerRadius = 5
         registerButton.center.x = view.center.x
         view.addSubview(loginButton)
+        
+        containingView.layer.borderColor = UIColor.lightGray.cgColor
+        containingView.layer.borderWidth = 0.5
+        
+        
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -142,7 +149,7 @@ extension LoginViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
         // Try to find next responder
-        if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? HoshiTextField {
+        if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField {
             nextField.becomeFirstResponder()
         } else {
             // Not found, so remove keyboard.

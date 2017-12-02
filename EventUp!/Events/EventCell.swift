@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import HCSStarRatingView
 
 class EventCell: UITableViewCell {
 
@@ -15,9 +16,10 @@ class EventCell: UITableViewCell {
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var tagLabel: UILabel!
-    // added the attendees label here
-    @IBOutlet weak var attendeesLabel: UILabel!
-    @IBOutlet weak var ratingLabel: UILabel!
+    @IBOutlet weak var ratingView: HCSStarRatingView!
+    @IBOutlet weak var ratingCountLabel: UILabel!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

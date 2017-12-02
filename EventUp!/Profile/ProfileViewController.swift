@@ -28,15 +28,19 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let image = UIImage(named: "background")!
-        let backgroundView = UIImageView(image: image)
-        view.addSubview(backgroundView)
-        view.sendSubview(toBack: backgroundView)
+        let background = UIImage(named: "background")!
+        self.navigationController!.navigationBar.setBackgroundImage(background, for: .default)
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension
         setupLocation()
+        setup()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         setup()
     }
     
@@ -117,8 +121,8 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
         cell.dateLabel.text = dateFormatter.string(from: date)
-        cell.attendeesLabel.text = "Attendees: \(event.rsvpCount!)"
-        cell.ratingLabel.text = String(format: "%.2f", event.rating)
+        cell.dateLabel.text = dateFormatter.string(from: date)
+        cell.ratingCountLabel.text = String(format: "%d ratings", event.ratingCount)
         if let tags = event.tags {
             var first = true
             for tag in tags {

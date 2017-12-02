@@ -241,11 +241,20 @@
                     <connections>
                         <outlet property="deleteButton" destination="WZv-PM-yCY" id="1bI-Oj-FAI"/>
                         <outlet property="logoutButton" destination="umM-ZS-d90" id="7k6-0J-zhn"/>
+                        <segue destination="F6O-zJ-1Ed" kind="presentation" identifier="loginSegue" id="Pxb-kp-evj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LXz-dN-Vqa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1650.4000000000001" y="-2297.0014992503748"/>
+        </scene>
+        <!--Login-->
+        <scene sceneID="ux7-pZ-HrO">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Login" id="F6O-zJ-1Ed" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jy4-fS-4Xb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1005" y="-2268"/>
         </scene>
         <!--Profile-->
         <scene sceneID="AaJ-36-S8x">

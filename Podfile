@@ -8,6 +8,7 @@ target 'EventUp!' do
   use_frameworks!
 
   # Pods for EventUp!
+  pod 'HCSStarRatingView'
   pod 'Firebase'
   pod 'Firebase/Database'
   pod 'Firebase/Firestore'
@@ -21,6 +22,33 @@ target 'EventUp!' do
   pod 'TextFieldEffects'
   pod 'GeoFire', :git => 'https://github.com/firebase/geofire-objc.git'
   pod 'SidebarOverlay'
+  pod 'GTToast'
+  pod 'IQKeyboardManagerSwift'
+  pod 'JTAppleCalendar', '~> 7.1.0'
+
+  target 'EventUp!Tests' do
+    inherit! :search_paths
+    # Pods for testing
+    pod 'HCSStarRatingView'
+    pod 'Firebase'
+    pod 'Firebase/Database'
+    pod 'Firebase/Firestore'
+    pod 'FirebaseUI/Auth'
+    pod 'FirebaseUI/Google'
+    pod 'FirebaseUI/Facebook'
+    pod 'FirebaseUI/Twitter'
+    pod 'FirebaseUI/Phone'
+    pod 'SVProgressHUD'
+    pod 'JSQMessagesViewController'
+    pod 'TextFieldEffects'
+    pod 'GeoFire', :git => 'https://github.com/firebase/geofire-objc.git'
+    pod 'SidebarOverlay'
+    pod 'GTToast'
+    pod 'IQKeyboardManagerSwift'
+    pod 'JTAppleCalendar', '~> 7.1.0'
+
+  end
+
 end
 
 post_install do |installer|
@@ -33,6 +61,6 @@ post_install do |installer|
                 config.build_settings["OTHER_LDFLAGS"] = '$(inherited) -framework "FirebaseDatabase"'
             end
         end
-        
+
     end
 end

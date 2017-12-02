@@ -12,16 +12,26 @@ import SVProgressHUD
 import TextFieldEffects
 
 class RegisterViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    @IBOutlet weak var containingHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var containingView: UIView!
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var userImageView: UIImageView!
-    @IBOutlet weak var usernameField: HoshiTextField!
-    @IBOutlet weak var emailField: HoshiTextField!
-    @IBOutlet weak var passwordField: HoshiTextField!
-    @IBOutlet weak var confirmPasswordField: HoshiTextField!
+    @IBOutlet weak var usernameField: UITextField!
+    @IBOutlet weak var emailField: UITextField!
+    @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var confirmPasswordField: UITextField!
     var userInfo: [String: Any]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        containingView.layer.borderColor = UIColor.lightGray.cgColor
+        containingView.layer.borderWidth = 0.5
+        let background = UIImage(named: "background")!
+        self.navigationController!.navigationBar.setBackgroundImage(background, for: .default)
+
+        self.navigationController!.navigationBar.tintColor = .black
+        
         userImageView.layer.cornerRadius = 5
         userImageView.clipsToBounds = true
         passwordField.isSecureTextEntry = true
@@ -47,6 +57,7 @@ class RegisterViewController: UIViewController, UINavigationControllerDelegate, 
     func setupFacebook() {
         view.isUserInteractionEnabled = false
         SVProgressHUD.show()
+        containingHeightConstraint.constant = 120
         passwordField.isHidden = true
         confirmPasswordField.isHidden = true
         
@@ -71,11 +82,6 @@ class RegisterViewController: UIViewController, UINavigationControllerDelegate, 
             }
             
         }.resume()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func onRegister(_ sender: Any) {
@@ -197,22 +203,10 @@ class RegisterViewController: UIViewController, UINavigationControllerDelegate, 
         
         
         userImageView.image = image
+        
         picker.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func onCancel(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension RegisterViewController: UITextFieldDelegate {

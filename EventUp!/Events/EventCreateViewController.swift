@@ -15,41 +15,55 @@ import TextFieldEffects
 import CoreML
 import Vision
 
-class EventCreateViewController: UITableViewController {
+class EventCreateViewController: UIViewController {
     
-
+    @IBOutlet weak var containingView: UIView!
     @IBOutlet weak var eventView: UIImageView!
-    @IBOutlet weak var nameField: HoshiTextField!
-    @IBOutlet weak var locationField: HoshiTextField!
-    @IBOutlet weak var locationButton: UIButton!
-    @IBOutlet weak var dateField: UIDatePicker!
-    @IBOutlet weak var endDateField: UIDatePicker!
-    @IBOutlet weak var infoView: UITextView!
+    @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var locationField: UITextField!
+    @IBOutlet weak var infoView: UITextField!
     
+    @IBOutlet weak var startDateButton: UIButton!
     @IBOutlet weak var submitButton: UIButton!
+    @IBOutlet weak var endDateButton: UIButton!
     
+    @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var plusButton: UIButton!
     @IBOutlet var tagButtons: [UIButton]!
     
-    @IBOutlet weak var cancelButton: UIButton!
     var editEvent: Event?
+    var editImage: UIImage?
     var delegate: FilterDelegate!
     var coordinate: CLLocationCoordinate2D?
+    var startDate = Date().timeIntervalSince1970
+    var endDate = Date().timeIntervalSince1970 + 60
+    let dateFormatter = DateFormatter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        locationButton.layer.cornerRadius = 5
-        submitButton.layer.cornerRadius = 5
-        cancelButton.layer.cornerRadius = 5
-        // Do any additional setup after loading the view.
+        
+        dateFormatter.dateFormat = "MM/dd/yyyy h:mma"
+        dateFormatter.timeZone = Calendar.current.timeZone
+        dateFormatter.locale = Calendar.current.locale
+        
+        let start = Date(timeIntervalSince1970: startDate)
+        let end = Date(timeIntervalSince1970: endDate)
+        startDateButton.setTitle("Start: \(dateFormatter.string(from: start))", for: .normal)
+        endDateButton.setTitle("End: \(dateFormatter.string(from: end))", for: .normal)
+        
+        containingView.layer.borderColor = UIColor.lightGray.cgColor
+        containingView.layer.borderWidth = 0.5
+        
+        infoView.delegate = self
+        
         if editEvent != nil {
             setupEdit()
             setupTags()
         }
-        infoView.delegate = self
     }
 
     func setupEdit() {
+        deleteButton.isHidden = false
         nameField.text = editEvent!.name
         if let tags = editEvent!.tags {
             for index in 0..<tags.count {
@@ -57,16 +71,25 @@ class EventCreateViewController: UITableViewController {
             }
         }
         
-        dateField.date = Date(timeIntervalSinceReferenceDate: editEvent!.date)
+        
         let coordinate = CLLocationCoordinate2D(latitude: editEvent!.latitude, longitude: editEvent!.longitude)
         self.coordinate = coordinate
         locationField.text = editEvent!.location
         
         infoView.text = editEvent!.info
         
-//        if let image = editEvent!.image {
-//            eventView.image = EventUpClient.sharedInstance.base64DecodeImage(image)
-//        }
+        if let image = editImage {
+            eventView.image = image
+            eventView.clipsToBounds = true
+            eventView.layer.cornerRadius = 10
+        }
+        
+        let start = Date(timeIntervalSince1970: editEvent!.date)
+        let end = Date(timeIntervalSince1970: editEvent!.endDate)
+        startDateButton.setTitle("Start: \(dateFormatter.string(from: start))", for: .normal)
+        endDateButton.setTitle("End: \(dateFormatter.string(from: end))", for: .normal)
+        self.endDate = editEvent!.endDate
+        self.startDate = editEvent!.date
         
         submitButton.setTitle("Edit", for: .normal)
         submitButton.setTitle("Edit", for: .highlighted)
@@ -80,11 +103,6 @@ class EventCreateViewController: UITableViewController {
         for index in 0..<tags.count {
             tagButtons[index].setTitle(tags[index], for: .normal)
         }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func onCreate(_ sender: Any) {
@@ -108,8 +126,8 @@ class EventCreateViewController: UITableViewController {
         
         eventInfo["name"] = nameField.text!
         
-        let date = Double(dateField.date.timeIntervalSinceReferenceDate)
-        let endDate = Double(endDateField.date.timeIntervalSinceReferenceDate)
+        let date = Double(startDate)
+        let endDate = Double(self.endDate)
         eventInfo["date"] = date
         eventInfo["endDate"] = endDate
         
@@ -149,13 +167,9 @@ class EventCreateViewController: UITableViewController {
         
     }
     
-    @IBAction func onCancel(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
     func onSuccessfulEventCreation() {
         delegate.refresh(event: nil)
-         self.dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
     
     func validateInput() -> Bool {
@@ -198,10 +212,26 @@ class EventCreateViewController: UITableViewController {
             return false
         }
         
+        if startDate > endDate {
+            let alert = UIAlertController(title: "Error", message: "End date must be after start date.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            view.isUserInteractionEnabled = true
+            SVProgressHUD.dismiss()
+            return false
+        }
+        
         return true
     }
     
-   
+    @IBAction func onDelete(_ sender: Any) {
+        EventUpClient.sharedInstance.deleteEvent(event: editEvent!, success: {
+            self.navigationController?.popToRootViewController(animated: true)
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+    }
+    
     
     @IBAction func onTouchScreen(_ sender: Any) {
         view.endEditing(true)
@@ -210,6 +240,14 @@ class EventCreateViewController: UITableViewController {
     @IBAction func onTag(_ sender: Any) {
         let sender = sender as! UIButton
         performSegue(withIdentifier: "tagSelectSegue", sender: sender.tag)
+    }
+    
+    @IBAction func onStartDate(_ sender: Any) {
+        performSegue(withIdentifier: "dateSegue", sender: createDateType.startDate)
+    }
+    
+    @IBAction func onEndDate(_ sender: Any) {
+        performSegue(withIdentifier: "dateSegue", sender: createDateType.endDate)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -228,6 +266,16 @@ class EventCreateViewController: UITableViewController {
             let destination = segue.destination as! EventTagSelectViewController
             destination.delegate = self
             destination.index = sender as! Int
+        case "dateSegue":
+            let destination = segue.destination as! EventCreateCalendarViewController
+            destination.delegate = self
+            let type = sender as! createDateType
+            destination.dateType = type
+            if type == .startDate {
+                destination.date = startDate
+            } else {
+                destination.date = endDate
+            }
         default:
             return
         }
@@ -265,23 +313,17 @@ extension EventCreateViewController: UINavigationControllerDelegate, UIImagePick
         plusButton.setTitle("", for: .normal)
         plusButton.setTitle("", for: .highlighted)
         eventView.image = image
+        eventView.layer.cornerRadius = 10
         eventView.clipsToBounds = true
         picker.dismiss(animated: true, completion: nil)
         
     }
 }
 
-extension EventCreateViewController: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-        let text = textView.text!
-        
-//        if (text.contains("Social"))! || text.contains("Learning") {
-//            print("Reccomend tags")
-//        }
-    }
+extension EventCreateViewController: UITextFieldDelegate {
     
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if let text = textView.text {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let text = textField.text {
             if text.lowercased().contains("social") {
                 let alert = UIAlertController(title: "Tag", message: "EventUp thinks this might be a social event, want to add a tag for it?.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
@@ -292,14 +334,14 @@ extension EventCreateViewController: UITextViewDelegate {
             } else if text.lowercased().contains("learning") {
                 let alert = UIAlertController(title: "Tag", message: "EventUp thinks this might be a learning event, want to add a tag for it?.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
-                    self.setTag(tag: "Social", index: 0)
+                    self.setTag(tag: "Learning", index: 0)
                 }))
                 alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             } else {
                 let alert = UIAlertController(title: "Tag", message: "EventUp thinks this might be an other event, want to add a tag for it?.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
-                    self.setTag(tag: "Social", index: 0)
+                    self.setTag(tag: "Other", index: 0)
                 }))
                 alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
@@ -314,4 +356,28 @@ extension EventCreateViewController: EventLocationSelectViewControllerDelegate {
 
 extension EventCreateViewController: EventTagSelectViewControllerDelegate {
     
+}
+
+extension EventCreateViewController: EventCreateCalendarDelegate {
+    func setDate(date: TimeInterval, which: createDateType) {
+        if which == .startDate {
+            startDate = date
+        } else {
+            endDate = date
+        }
+        
+        let start = Date(timeIntervalSince1970: startDate)
+        let end = Date(timeIntervalSince1970: endDate)
+        startDateButton.setTitle("Start: \(dateFormatter.string(from: start))", for: .normal)
+        endDateButton.setTitle("End: \(dateFormatter.string(from: end))", for: .normal)
+    }
+}
+
+protocol EventCreateCalendarDelegate {
+    func setDate(date: TimeInterval, which: createDateType)
+}
+
+enum createDateType {
+    case startDate
+    case endDate
 }
