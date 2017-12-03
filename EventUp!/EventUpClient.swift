@@ -274,38 +274,48 @@ class EventUpClient: NSObject {
         
         query.getDocuments { (snapshot, error) in
             if let error = error {
-                print(error.localizedDescription)
+                
+                failure(error)
             } else if let snapshot = snapshot {
                 let max = snapshot.documents.count - 1
-                for i in 0...max {
-                    let document = snapshot.documents[i]
-                    let eventUid = document.data()["uid"] as! String
-                    rsvpLists.document(eventUid).getDocument(completion: { (snapshot, error) in
-                        if let error = error {
-                            failure(error)
-                            
-                        } else if let snapshot = snapshot {
-                            print(snapshot.data())
-                            for (key, _) in snapshot.data() {
-                                userRsvpLists.child(key).child(eventUid).removeValue()
-                            }
-                            deleteBatch.deleteDocument(document.reference)
-                            deleteBatch.deleteDocument(eventImages.document(document.documentID))
-                            deleteBatch.deleteDocument(ratingList.document(document.documentID))
-                            deleteBatch.deleteDocument(checkInLists.document(document.documentID))
-                            deleteBatch.deleteDocument(rsvpLists.document(document.documentID))
-                            self.cdb.child(eventUid).removeValue()
-                            if i == max {
-                                deleteBatch.commit(completion: { (error) in
-                                    success()
-                                })
-                            }
-                        }
+                if max <= 0 {
+                    deleteBatch.commit(completion: { (error) in
+                        success()
                     })
-                    
-                    
+                } else {
+                    for i in 0...max {
+                        let document = snapshot.documents[i]
+                        let eventUid = document.data()["uid"] as! String
+                        rsvpLists.document(eventUid).getDocument(completion: { (snapshot, error) in
+                            if let error = error {
+                                failure(error)
+                                
+                            } else if let snapshot = snapshot {
+                                print(snapshot.data())
+                                for (key, _) in snapshot.data() {
+                                    userRsvpLists.child(key).child(eventUid).removeValue()
+                                }
+                                deleteBatch.deleteDocument(document.reference)
+                                deleteBatch.deleteDocument(eventImages.document(document.documentID))
+                                deleteBatch.deleteDocument(ratingList.document(document.documentID))
+                                deleteBatch.deleteDocument(checkInLists.document(document.documentID))
+                                deleteBatch.deleteDocument(rsvpLists.document(document.documentID))
+                                self.cdb.child(eventUid).removeValue()
+                                if i == max {
+                                    deleteBatch.commit(completion: { (error) in
+                                        success()
+                                    })
+                                }
+                            }
+                        })
+                        
+                        
+                    }
                 }
-                
+            } else {
+                deleteBatch.commit(completion: { (error) in
+                    success()
+                })
             }
         }
     }
@@ -486,9 +496,9 @@ class EventUpClient: NSObject {
         
     }
     
-    func getUserInfo(user: User, success: @escaping (EventUser?) -> (), failure: @escaping (Error) -> ()) {
-        let userRef = db.collection("users").document(user.uid)
-        let images = db.collection("userImages").document(user.uid)
+    func getUserInfo(user: String, success: @escaping (EventUser?) -> (), failure: @escaping (Error) -> ()) {
+        let userRef = db.collection("users").document(user)
+        let images = db.collection("userImages").document(user)
         db.runTransaction({ (transaction, errorPointer) -> Any? in
             var userDoc: DocumentSnapshot
             var imageDoc: DocumentSnapshot

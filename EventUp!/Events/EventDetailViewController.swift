@@ -40,9 +40,7 @@ class EventDetailViewController: UIViewController, FilterDelegate {
         if (UserDefaults.standard.object(forKey: "notifyUID") != nil) {
             setupFromNotify()
         } else {
-            if (Auth.auth().currentUser!.uid == event.owner) {
-                self.editButton.isHidden = false
-            }
+            
             setup()
         }
     }
@@ -77,8 +75,10 @@ class EventDetailViewController: UIViewController, FilterDelegate {
             print(error.localizedDescription)
         }
         
-        if (Auth.auth().currentUser!.uid == event.owner) {
-            self.editButton.isHidden = false
+        if (Auth.auth().currentUser!.uid != event.owner) {
+            editButton.isHidden = true
+        } else {
+            editButton.isHidden = false
         }
         
         if let tags = event.tags {
@@ -108,14 +108,14 @@ class EventDetailViewController: UIViewController, FilterDelegate {
         dateFormatter.dateFormat = "MM/dd/yyyy h:mma"
         endDateLabel.text = dateFormatter.string(from: endDate)
         let currDate = Date()
-        
-        let calendar = Calendar.current
-        
+    
         let currDay = currDate.timeIntervalSince1970
         
         if currDay >= event.date && currDay <= event.endDate {
+            rsvpButton.isEnabled = true
             rsvpButton.setTitle("Check In: \(event.checkedInCount!)", for: .normal)
         } else if currDay < event.date {
+            rsvpButton.isEnabled = true
             rsvpButton.setTitle("RSVP: \(event.rsvpCount!)", for: .normal)
         } else {
             rsvpButton.isEnabled = false

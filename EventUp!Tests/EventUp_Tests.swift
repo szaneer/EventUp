@@ -15,8 +15,6 @@ class EventUp_Tests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-        
     }
     
     override func tearDown() {
@@ -24,17 +22,201 @@ class EventUp_Tests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testSignUpAndDeleteUser() {
+        var users: [Dictionary<String, String>] = []
         
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        users.append(["email": "test1@gmail.com",
+                   "password": "test1password",
+                   "username": "test1"
+        ])
+        users.append(["email": "test2@gmail.com",
+                    "password": "test2password",
+                    "username": "test2"
+        ])
+        users.append(["email": "test3@gmail.com",
+                    "password": "tester4",
+                    "username": "test3"
+        ])
+        users.append(["email": "test4@gmail.com",
+                    "password": "tester4",
+                    "username": "test4"
+        ])
+        
+        let image = UIImage(named: "sidebarIcon")
+        let expect = expectation(description: "Create users")
+        expect.expectedFulfillmentCount = users.count
+        for user in users {
+            EventUpClient.sharedInstance.registerUser(userData: user, userImage: image, success: { (newUser) in
+                newUser.delete(completion: { (error) in
+                    if let error = error {
+                        XCTFail(error.localizedDescription)
+                    } else {
+                        try! Auth.auth().signOut()
+                        EventUpClient.sharedInstance.deleteUser(uid: newUser.uid, success: {
+                            
+                            expect.fulfill()
+                        }, failure: { (error) in
+                            XCTFail(error.localizedDescription)
+                        })
+                    }
+                })
+            }) { (error) in
+                XCTFail(error.localizedDescription)
+            }
         }
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
     
+    func testCreateEvent() {
+        var events: [[String: Any]] = []
+        
+        let currDate = Double(Date().timeIntervalSince1970)
+        
+        let event1 = ["date": currDate, "endDate": currDate, "location": "test", "info": "information",
+                      "latitude": 43.934857, "longitude": 24.029348, "name": "title"] as [String : Any]
+ 
+        let event2 = ["date": currDate, "endDate": currDate, "location": "test", "info": "information",
+                      "latitude": 43.934857, "longitude": 24.029348, "name": "title"] as [String : Any]
+        
+        let event3 = ["date": currDate, "endDate": currDate, "location": "test", "info": "information",
+                      "latitude": 43.934857, "longitude": 24.029348, "name": "title", "tags": ["Social"]] as [String : Any]
+      
+        let event4 = ["date": currDate, "endDate": currDate, "location": "test", "info": "information",
+                      "latitude": 43.934857, "longitude": 24.029348, "name": "title", "tags": ["Social", "Other"]] as [String : Any]
+        
+        events.append(event1)
+        events.append(event2)
+        events.append(event3)
+        events.append(event4)
+        
+        let image = UIImage(named: "sidebarIcon")
+        
+        let expect = expectation(description: "Create Events")
+        expect.expectedFulfillmentCount = events.count
+        
+        Auth.auth().signIn(withEmail: "tester@example.com", password: "123456") { (user, error) in
+            if let error = error {
+                XCTFail(error.localizedDescription)
+            } else if let user = user {
+                for event in events {
+                    var eventData = event
+                    eventData["owner"] = user.uid
+                    EventUpClient.sharedInstance.createEvent(eventData: eventData, eventImage: image, success: { (event) in
+                        expect.fulfill()
+                    }, failure: { (error) in
+                        XCTFail(error.localizedDescription)
+                    })
+                }
+            }
+        }
+        self.waitForExpectations(timeout: 30, handler: nil)
+    }
+    
+    func testGetUserData() {
+        let expect = expectation(description: "Get user data")
+        
+        Auth.auth().signIn(withEmail: "tester@example.com", password: "123456") { (user, error) in
+            if let error = error {
+                XCTFail(error.localizedDescription)
+            } else if let user = user {
+                EventUpClient.sharedInstance.getUserInfo(user: user.uid, success: { (user) in
+                    expect.fulfill()
+                }, failure: { (error) in
+                    XCTFail(error.localizedDescription)
+                })
+            }
+        }
+        
+        waitForExpectations(timeout: 30, handler: nil)
+    }
+    
+    func testGetEvents() {
+        let expect = expectation(description: "Get events")
+        EventUpClient.sharedInstance.getEvents(success: { (events) in
+            expect.fulfill()
+        }) { (error) in
+            XCTFail(error.localizedDescription)
+        }
+        
+        waitForExpectations(timeout: 30, handler: nil)
+    }
+    
+    func testGetEventData() {
+        let expect = expectation(description: "Get event data")
+        
+        let currDate = Double(Date().timeIntervalSince1970)
+        
+        var event = ["date": currDate, "endDate": currDate, "location": "test", "info": "information",
+                      "latitude": 43.934857, "longitude": 24.029348, "name": "title"] as [String : Any]
+        
+        Auth.auth().signIn(withEmail: "tester@example.com", password: "123456") { (user, error) in
+            if let error = error {
+                XCTFail(error.localizedDescription)
+            } else if let user = user {
+                event["owner"] = user.uid
+                let image = UIImage(named: "sidebarIcon")
+                EventUpClient.sharedInstance.createEvent(eventData: event, eventImage: image, success: { (event) in
+                    EventUpClient.sharedInstance.getEvent(uid: event.uid, success: { (user) in
+                        expect.fulfill()
+                    }, failure: { (error) in
+                        XCTFail(error.localizedDescription)
+                    })
+                }, failure: { (error) in
+                    XCTFail(error.localizedDescription)
+                })
+                
+            }
+        }
+        
+        waitForExpectations(timeout: 30, handler: nil)
+    }
+    
+    func testDeleteEvent() {
+        var events: [[String: Any]] = []
+        
+        let currDate = Double(Date().timeIntervalSince1970)
+        
+        let event1 = ["date": currDate, "endDate": currDate, "location": "test", "info": "information",
+                      "latitude": 43.934857, "longitude": 24.029348, "name": "title"] as [String : Any]
+        
+        let event2 = ["date": currDate, "endDate": currDate, "location": "test", "info": "information",
+                      "latitude": 43.934857, "longitude": 24.029348, "name": "title"] as [String : Any]
+        
+        let event3 = ["date": currDate, "endDate": currDate, "location": "test", "info": "information",
+                      "latitude": 43.934857, "longitude": 24.029348, "name": "title", "tags": ["Social"]] as [String : Any]
+        
+        let event4 = ["date": currDate, "endDate": currDate, "location": "test", "info": "information",
+                      "latitude": 43.934857, "longitude": 24.029348, "name": "title", "tags": ["Social", "Other"]] as [String : Any]
+        
+        events.append(event1)
+        events.append(event2)
+        events.append(event3)
+        events.append(event4)
+        
+        let image = UIImage(named: "sidebarIcon")
+        
+        let expect = expectation(description: "Create Events")
+        expect.expectedFulfillmentCount = events.count
+        
+        Auth.auth().signIn(withEmail: "tester@example.com", password: "123456") { (user, error) in
+            if let error = error {
+                XCTFail(error.localizedDescription)
+            } else if let user = user {
+                for event in events {
+                    var eventData = event
+                    eventData["owner"] = user.uid
+                    EventUpClient.sharedInstance.createEvent(eventData: eventData, eventImage: image, success: { (event) in
+                        EventUpClient.sharedInstance.deleteEvent(event: event, success: {
+                            expect.fulfill()
+                        }, failure: { (error) in
+                            XCTFail(error.localizedDescription)
+                        })
+                    }, failure: { (error) in
+                        XCTFail(error.localizedDescription)
+                    })
+                }
+            }
+        }
+        self.waitForExpectations(timeout: 30, handler: nil)
+    }
 }

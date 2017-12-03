@@ -54,11 +54,7 @@ class ProfileViewController: UIViewController {
         view.isUserInteractionEnabled = false
         SVProgressHUD.show()
         
-        guard let user = Auth.auth().currentUser else {
-            return
-        }
-        
-        EventUpClient.sharedInstance.getUserInfo(user: user, success: { (user) in
+        EventUpClient.sharedInstance.getUserInfo(user: Auth.auth().currentUser!.uid, success: { (user) in
             DispatchQueue.main.async {
                 guard let user = user else {
                     try! Auth.auth().signOut()

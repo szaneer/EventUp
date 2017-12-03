@@ -192,7 +192,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             return nil
         }
         let annotationView = EventAnnotationView()
-        let currDate = Date().timeIntervalSinceReferenceDate
+        let currDate = Date().timeIntervalSince1970
         let eventAnnotation = annotation as! EventAnnotation
         if currDate >= eventAnnotation.event.date && currDate <= eventAnnotation.event.endDate {
             let annotationImage = UIImage(named: "EventAnnotation_green")
@@ -207,13 +207,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         return annotationView
     }
     
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        if view.annotation is MKUserLocation
-        {
-            // Don't proceed with custom callout
-            return
-        }
-        
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         if view.isKind(of: EventAnnotationView.self)
         {
             for subview in view.subviews
@@ -221,6 +215,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 subview.removeFromSuperview()
             }
         }
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if view.annotation is MKUserLocation
+        {
+            // Don't proceed with custom callout
+            return
+        }
+        
+        
         // 2
         let eventAnnotation = view.annotation as! EventAnnotation
         let event = eventAnnotation.event!
