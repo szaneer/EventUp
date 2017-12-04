@@ -9,7 +9,6 @@
 import UIKit
 import Firebase
 import SVProgressHUD
-import TextFieldEffects
 
 class RegisterViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     @IBOutlet weak var containingHeightConstraint: NSLayoutConstraint!
@@ -213,7 +212,7 @@ extension RegisterViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
         // Try to find next responder
-        if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? HoshiTextField {
+        if let nextField = textField.superview?.viewWithTag(textField.tag + 1) as? UITextField {
             nextField.becomeFirstResponder()
         } else {
             // Not found, so remove keyboard.

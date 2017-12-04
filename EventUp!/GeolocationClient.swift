@@ -49,12 +49,9 @@ class GeolocationClient: NSObject {
         let geoFire = GeoFire(firebaseRef: geofireRef)!
         
         let circleQuery = geoFire.query(at: location, withRadius: self.radius)
-        var uids: [String] = []
         
         circleQuery?.observe(.keyEntered, with: { (key, location) in
-            print(key)
             EventUpClient.sharedInstance.checkInEventWithUID(eventUID: key!, uid: uid, success: {
-                print("asdsd")
                 geofireRef.child(key!).removeValue()
             }, failure: { (error) in
                 print(error.localizedDescription)

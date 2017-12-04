@@ -15,16 +15,11 @@ class DetailSegue: UIStoryboardSegue {
     
     override func perform() {
         let sourceController = source as! EventsViewController
-        let destinationController = destination as! EventDetailViewController
         let indexPath = IndexPath(row: index, section: 0)
         let cell = sourceController.tableView.cellForRow(at: indexPath) as! EventCell
-        print(cell.nameLabel.text)
         
-        let sourceView = source.view as! UIView
-        let destinationView = destination.view as! UIView
-        
-        let screenWidth = UIScreen.main.bounds.size.width
-        let screenHeight = UIScreen.main.bounds.size.height
+        let sourceView = source.view!
+        let destinationView = destination.view!
         
         let window = UIApplication.shared.keyWindow
         

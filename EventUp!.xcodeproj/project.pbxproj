@@ -9,13 +9,12 @@
 /* Begin PBXBuildFile section */
 		2951DB387623E6DCB57F303B /* Pods_EventUp_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A00BEE0174A91D69362D7DEA /* Pods_EventUp_.framework */; };
 		7C3C6D591F861C2000511686 /* RSVPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3C6D581F861C2000511686 /* RSVPViewController.swift */; };
-		AE9576623DE0D3E4F8EF5B21 /* Pods_EventUp_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68D80C0491BED5ED7C8160A7 /* Pods_EventUp_Tests.framework */; };
+		98BD26DC6F55CC69B449CD63 /* Pods_EventUp_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68D80C0491BED5ED7C8160A7 /* Pods_EventUp_Tests.framework */; };
 		B5710CDC1F85D607000D1E70 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5710CDB1F85D607000D1E70 /* Profile.storyboard */; };
 		BB330A771FC3B5D9000143EB /* EventContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB330A761FC3B5D9000143EB /* EventContainerViewController.swift */; };
 		BB5B02001FC3BA8D00787AAA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB5B01FF1FC3BA8D00787AAA /* LaunchScreen.storyboard */; };
 		BB5B02021FC3BA8D00787AAA /* GeolocationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5B02011FC3BA8D00787AAA /* GeolocationClient.swift */; };
 		C71576981FD520E4001294D2 /* EventCreateCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71576971FD520E4001294D2 /* EventCreateCalendarCell.swift */; };
-		C71CCE3A1FD49BEA00D4D28A /* EventUp_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71CCE391FD49BEA00D4D28A /* EventUp_Tests.swift */; };
 		C71CCE421FD4A9C300D4D28A /* EventAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71CCE411FD4A9C300D4D28A /* EventAnnotationView.swift */; };
 		C71CCE441FD4AA6500D4D28A /* EventAnnotationCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C71CCE431FD4AA6500D4D28A /* EventAnnotationCalloutView.xib */; };
 		C71CCE461FD4AB2C00D4D28A /* EventAnnotationCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71CCE451FD4AB2C00D4D28A /* EventAnnotationCalloutView.swift */; };
@@ -50,6 +49,7 @@
 		C7C164641F852AF6007226FA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C7C164631F852AE6007226FA /* GoogleService-Info.plist */; };
 		C7C5D37E1F5F2EA0001BCE38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C5D37D1F5F2EA0001BCE38 /* AppDelegate.swift */; };
 		C7C5D3831F5F2EA0001BCE38 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7C5D3811F5F2EA0001BCE38 /* Main.storyboard */; };
+		C7D2F9CE1FD5E92A00DA8EC1 /* EventUp_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D2F9CD1FD5E92A00DA8EC1 /* EventUp_Tests.swift */; };
 		C7D710991F9916210010EAC8 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D710981F9916210010EAC8 /* Message.swift */; };
 		C7D7109C1F9983520010EAC8 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D7109A1F9983510010EAC8 /* FBSDKCoreKit.framework */; };
 		C7D7109D1F9983520010EAC8 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D7109B1F9983520010EAC8 /* FBSDKLoginKit.framework */; };
@@ -57,7 +57,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C71CCE3C1FD49BEA00D4D28A /* PBXContainerItemProxy */ = {
+		C7D2F9D01FD5E92A00DA8EC1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C7C5D3721F5F2E9F001BCE38 /* Project object */;
 			proxyType = 1;
@@ -78,9 +78,6 @@
 		BB5B01FF1FC3BA8D00787AAA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BB5B02011FC3BA8D00787AAA /* GeolocationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeolocationClient.swift; sourceTree = "<group>"; };
 		C71576971FD520E4001294D2 /* EventCreateCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCreateCalendarCell.swift; sourceTree = "<group>"; };
-		C71CCE371FD49BEA00D4D28A /* EventUp!Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EventUp!Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C71CCE391FD49BEA00D4D28A /* EventUp_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventUp_Tests.swift; sourceTree = "<group>"; };
-		C71CCE3B1FD49BEA00D4D28A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C71CCE411FD4A9C300D4D28A /* EventAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAnnotationView.swift; sourceTree = "<group>"; };
 		C71CCE431FD4AA6500D4D28A /* EventAnnotationCalloutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventAnnotationCalloutView.xib; sourceTree = "<group>"; };
 		C71CCE451FD4AB2C00D4D28A /* EventAnnotationCalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAnnotationCalloutView.swift; sourceTree = "<group>"; };
@@ -118,6 +115,9 @@
 		C7C5D37D1F5F2EA0001BCE38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7C5D3821F5F2EA0001BCE38 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C7C5D3891F5F2EA0001BCE38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C7D2F9CB1FD5E92A00DA8EC1 /* EventUp!Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EventUp!Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7D2F9CD1FD5E92A00DA8EC1 /* EventUp_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventUp_Tests.swift; sourceTree = "<group>"; };
+		C7D2F9CF1FD5E92A00DA8EC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C7D710981F9916210010EAC8 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		C7D7109A1F9983510010EAC8 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		C7D7109B1F9983520010EAC8 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
@@ -127,14 +127,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		C71CCE341FD49BEA00D4D28A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AE9576623DE0D3E4F8EF5B21 /* Pods_EventUp_Tests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C7C5D3771F5F2E9F001BCE38 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -143,6 +135,14 @@
 				C7D7109C1F9983520010EAC8 /* FBSDKCoreKit.framework in Frameworks */,
 				C7D7109D1F9983520010EAC8 /* FBSDKLoginKit.framework in Frameworks */,
 				2951DB387623E6DCB57F303B /* Pods_EventUp_.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C7D2F9C81FD5E92A00DA8EC1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98BD26DC6F55CC69B449CD63 /* Pods_EventUp_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,15 +168,6 @@
 				C72C8E281FA68B4B00B16561 /* SettingsViewController.swift */,
 			);
 			path = Profile;
-			sourceTree = "<group>";
-		};
-		C71CCE381FD49BEA00D4D28A /* EventUp!Tests */ = {
-			isa = PBXGroup;
-			children = (
-				C71CCE391FD49BEA00D4D28A /* EventUp_Tests.swift */,
-				C71CCE3B1FD49BEA00D4D28A /* Info.plist */,
-			);
-			path = "EventUp!Tests";
 			sourceTree = "<group>";
 		};
 		C764020A1F7959CE00AA3F06 /* Map */ = {
@@ -261,7 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				C7C5D37C1F5F2EA0001BCE38 /* EventUp! */,
-				C71CCE381FD49BEA00D4D28A /* EventUp!Tests */,
+				C7D2F9CC1FD5E92A00DA8EC1 /* EventUp!Tests */,
 				C7C5D37B1F5F2EA0001BCE38 /* Products */,
 				C76402181F797E6300AA3F06 /* Frameworks */,
 				4E9E571413FA467D8A193A2F /* Pods */,
@@ -272,7 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				C7C5D37A1F5F2EA0001BCE38 /* EventUp!.app */,
-				C71CCE371FD49BEA00D4D28A /* EventUp!Tests.xctest */,
+				C7D2F9CB1FD5E92A00DA8EC1 /* EventUp!Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -300,30 +291,18 @@
 			path = "EventUp!";
 			sourceTree = "<group>";
 		};
+		C7D2F9CC1FD5E92A00DA8EC1 /* EventUp!Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C7D2F9CD1FD5E92A00DA8EC1 /* EventUp_Tests.swift */,
+				C7D2F9CF1FD5E92A00DA8EC1 /* Info.plist */,
+			);
+			path = "EventUp!Tests";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C71CCE361FD49BEA00D4D28A /* EventUp!Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C71CCE3E1FD49BEA00D4D28A /* Build configuration list for PBXNativeTarget "EventUp!Tests" */;
-			buildPhases = (
-				96218D9F908C5A270143A03F /* [CP] Check Pods Manifest.lock */,
-				C71CCE331FD49BEA00D4D28A /* Sources */,
-				C71CCE341FD49BEA00D4D28A /* Frameworks */,
-				C71CCE351FD49BEA00D4D28A /* Resources */,
-				E5FE043E5F1F6527F20FC044 /* [CP] Embed Pods Frameworks */,
-				EE8E57AFE6C5609D5A29F676 /* [CP] Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C71CCE3D1FD49BEA00D4D28A /* PBXTargetDependency */,
-			);
-			name = "EventUp!Tests";
-			productName = "EventUp!Tests";
-			productReference = C71CCE371FD49BEA00D4D28A /* EventUp!Tests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		C7C5D3791F5F2E9F001BCE38 /* EventUp! */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C7C5D38C1F5F2EA0001BCE38 /* Build configuration list for PBXNativeTarget "EventUp!" */;
@@ -344,6 +323,27 @@
 			productReference = C7C5D37A1F5F2EA0001BCE38 /* EventUp!.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C7D2F9CA1FD5E92A00DA8EC1 /* EventUp!Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C7D2F9D21FD5E92A00DA8EC1 /* Build configuration list for PBXNativeTarget "EventUp!Tests" */;
+			buildPhases = (
+				C651FE62B87D0B24F5EFC859 /* [CP] Check Pods Manifest.lock */,
+				C7D2F9C71FD5E92A00DA8EC1 /* Sources */,
+				C7D2F9C81FD5E92A00DA8EC1 /* Frameworks */,
+				C7D2F9C91FD5E92A00DA8EC1 /* Resources */,
+				A7F404A778BFC1FA4CAA7B72 /* [CP] Embed Pods Frameworks */,
+				C2708EF9EFE727320CFF34F2 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C7D2F9D11FD5E92A00DA8EC1 /* PBXTargetDependency */,
+			);
+			name = "EventUp!Tests";
+			productName = "EventUp!Tests";
+			productReference = C7D2F9CB1FD5E92A00DA8EC1 /* EventUp!Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -354,11 +354,6 @@
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Siraj Zaneer";
 				TargetAttributes = {
-					C71CCE361FD49BEA00D4D28A = {
-						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Automatic;
-						TestTargetID = C7C5D3791F5F2E9F001BCE38;
-					};
 					C7C5D3791F5F2E9F001BCE38 = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
@@ -367,6 +362,11 @@
 								enabled = 1;
 							};
 						};
+					};
+					C7D2F9CA1FD5E92A00DA8EC1 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = C7C5D3791F5F2E9F001BCE38;
 					};
 				};
 			};
@@ -384,19 +384,12 @@
 			projectRoot = "";
 			targets = (
 				C7C5D3791F5F2E9F001BCE38 /* EventUp! */,
-				C71CCE361FD49BEA00D4D28A /* EventUp!Tests */,
+				C7D2F9CA1FD5E92A00DA8EC1 /* EventUp!Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		C71CCE351FD49BEA00D4D28A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C7C5D3781F5F2E9F001BCE38 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -410,6 +403,13 @@
 				C71CCE441FD4AA6500D4D28A /* EventAnnotationCalloutView.xib in Resources */,
 				C7B04EAF1FD58FD000BE510D /* Assets.xcassets in Resources */,
 				C7C164641F852AF6007226FA /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C7D2F9C91FD5E92A00DA8EC1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,11 +441,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GTToast/GTToast.framework",
 				"${BUILT_PRODUCTS_DIR}/GeoFire/GeoFire.framework",
@@ -459,7 +455,6 @@
 				"${BUILT_PRODUCTS_DIR}/RevealingSplashView/RevealingSplashView.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SidebarOverlay/SidebarOverlay.framework",
-				"${BUILT_PRODUCTS_DIR}/TextFieldEffects/TextFieldEffects.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
@@ -469,11 +464,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTToast.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GeoFire.framework",
@@ -487,7 +478,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealingSplashView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SidebarOverlay.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TextFieldEffects.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
@@ -500,7 +490,103 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		96218D9F908C5A270143A03F /* [CP] Check Pods Manifest.lock */ = {
+		A7F404A778BFC1FA4CAA7B72 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-EventUp!Tests/Pods-EventUp!Tests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GTToast/GTToast.framework",
+				"${BUILT_PRODUCTS_DIR}/GeoFire/GeoFire.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/HCSStarRatingView/HCSStarRatingView.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/JSQMessagesViewController/JSQMessagesViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework",
+				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/RevealingSplashView/RevealingSplashView.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SidebarOverlay/SidebarOverlay.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTToast.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GeoFire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HCSStarRatingView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQMessagesViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQSystemSoundPlayer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealingSplashView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SidebarOverlay.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EventUp!Tests/Pods-EventUp!Tests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AEB0E66B5741BDC91C67F856 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!-resources.sh",
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseFacebookAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseGoogleAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebasePhoneAuthUI.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseTwitterAuthUI.bundle,
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterShareExtensionUIResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C2708EF9EFE727320CFF34F2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EventUp!Tests/Pods-EventUp!Tests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C651FE62B87D0B24F5EFC859 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -518,133 +604,9 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AEB0E66B5741BDC91C67F856 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!-resources.sh",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseAuthUI.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseFacebookAuthUI.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseGoogleAuthUI.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebasePhoneAuthUI.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseTwitterAuthUI.bundle",
-				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
-				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
-				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterShareExtensionUIResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E5FE043E5F1F6527F20FC044 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-EventUp!Tests/Pods-EventUp!Tests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
-				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GTToast/GTToast.framework",
-				"${BUILT_PRODUCTS_DIR}/GeoFire/GeoFire.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
-				"${BUILT_PRODUCTS_DIR}/HCSStarRatingView/HCSStarRatingView.framework",
-				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/JSQMessagesViewController/JSQMessagesViewController.framework",
-				"${BUILT_PRODUCTS_DIR}/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework",
-				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
-				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
-				"${BUILT_PRODUCTS_DIR}/RevealingSplashView/RevealingSplashView.framework",
-				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/SidebarOverlay/SidebarOverlay.framework",
-				"${BUILT_PRODUCTS_DIR}/TextFieldEffects/TextFieldEffects.framework",
-				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
-				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
-				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
-				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
-				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTToast.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GeoFire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HCSStarRatingView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQMessagesViewController.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQSystemSoundPlayer.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealingSplashView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SidebarOverlay.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TextFieldEffects.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EventUp!Tests/Pods-EventUp!Tests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EE8E57AFE6C5609D5A29F676 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-EventUp!Tests/Pods-EventUp!Tests-resources.sh",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseAuthUI.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseFacebookAuthUI.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseGoogleAuthUI.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebasePhoneAuthUI.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseTwitterAuthUI.bundle",
-				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
-				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
-				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterShareExtensionUIResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EventUp!Tests/Pods-EventUp!Tests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		C71CCE331FD49BEA00D4D28A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C71CCE3A1FD49BEA00D4D28A /* EventUp_Tests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C7C5D3761F5F2E9F001BCE38 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -684,13 +646,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C7D2F9C71FD5E92A00DA8EC1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C7D2F9CE1FD5E92A00DA8EC1 /* EventUp_Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C71CCE3D1FD49BEA00D4D28A /* PBXTargetDependency */ = {
+		C7D2F9D11FD5E92A00DA8EC1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C7C5D3791F5F2E9F001BCE38 /* EventUp! */;
-			targetProxy = C71CCE3C1FD49BEA00D4D28A /* PBXContainerItemProxy */;
+			targetProxy = C7D2F9D01FD5E92A00DA8EC1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -706,42 +676,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		C71CCE3F1FD49BEA00D4D28A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8F6B37CD75FDDA37BE29BCAC /* Pods-EventUp!Tests.debug.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3YC9K4952Y;
-				INFOPLIST_FILE = "EventUp!Tests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.sirajzaneer.EventUp-Tests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EventUp!.app/EventUp!";
-			};
-			name = Debug;
-		};
-		C71CCE401FD49BEA00D4D28A /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D2BA751A039937079AE7BE63 /* Pods-EventUp!Tests.release.xcconfig */;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3YC9K4952Y;
-				INFOPLIST_FILE = "EventUp!Tests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.sirajzaneer.EventUp-Tests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EventUp!.app/EventUp!";
-			};
-			name = Release;
-		};
 		C7C5D38A1F5F2EA0001BCE38 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -895,18 +829,45 @@
 			};
 			name = Release;
 		};
+		C7D2F9D31FD5E92A00DA8EC1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8F6B37CD75FDDA37BE29BCAC /* Pods-EventUp!Tests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3YC9K4952Y;
+				INFOPLIST_FILE = "EventUp!Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.307.EventUp-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EventUp!.app/EventUp!";
+			};
+			name = Debug;
+		};
+		C7D2F9D41FD5E92A00DA8EC1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D2BA751A039937079AE7BE63 /* Pods-EventUp!Tests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3YC9K4952Y;
+				INFOPLIST_FILE = "EventUp!Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.307.EventUp-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EventUp!.app/EventUp!";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C71CCE3E1FD49BEA00D4D28A /* Build configuration list for PBXNativeTarget "EventUp!Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C71CCE3F1FD49BEA00D4D28A /* Debug */,
-				C71CCE401FD49BEA00D4D28A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		C7C5D3751F5F2E9F001BCE38 /* Build configuration list for PBXProject "EventUp!" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -921,6 +882,15 @@
 			buildConfigurations = (
 				C7C5D38D1F5F2EA0001BCE38 /* Debug */,
 				C7C5D38E1F5F2EA0001BCE38 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C7D2F9D21FD5E92A00DA8EC1 /* Build configuration list for PBXNativeTarget "EventUp!Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C7D2F9D31FD5E92A00DA8EC1 /* Debug */,
+				C7D2F9D41FD5E92A00DA8EC1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -1,84 +1,53 @@
 PODS:
-  - Bolts (1.8.4):
-    - Bolts/AppLinks (= 1.8.4)
-    - Bolts/Tasks (= 1.8.4)
-  - Bolts/AppLinks (1.8.4):
-    - Bolts/Tasks
-  - Bolts/Tasks (1.8.4)
   - BoringSSL (9.1):
     - BoringSSL/Implementation (= 9.1)
     - BoringSSL/Interface (= 9.1)
   - BoringSSL/Implementation (9.1):
     - BoringSSL/Interface (= 9.1)
   - BoringSSL/Interface (9.1)
-  - FBSDKCoreKit (4.28.0):
-    - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.28.0):
-    - FBSDKCoreKit
-  - Firebase (4.6.0):
-    - Firebase/Core (= 4.6.0)
-  - Firebase/Auth (4.6.0):
-    - Firebase/Core
-    - FirebaseAuth (= 4.3.2)
-  - Firebase/Core (4.6.0):
+  - Firebase (4.7.0):
+    - Firebase/Core (= 4.7.0)
+  - Firebase/Core (4.7.0):
     - FirebaseAnalytics (= 4.0.5)
-    - FirebaseCore (= 4.0.11)
-  - Firebase/Database (4.6.0):
+    - FirebaseCore (= 4.0.12)
+  - Firebase/Database (4.7.0):
     - Firebase/Core
-    - FirebaseDatabase (= 4.1.1)
-  - Firebase/Firestore (4.6.0):
+    - FirebaseDatabase (= 4.1.2)
+  - Firebase/Firestore (4.7.0):
     - Firebase/Core
-    - FirebaseFirestore (= 0.9.2)
-  - Firebase/Storage (4.6.0):
+    - FirebaseFirestore (= 0.9.3)
+  - Firebase/Storage (4.7.0):
     - Firebase/Core
-    - FirebaseStorage (= 2.0.2)
+    - FirebaseStorage (= 2.1.0)
   - FirebaseAnalytics (4.0.5):
     - FirebaseCore (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
     - nanopb (~> 0.3)
-  - FirebaseAuth (4.3.2):
+  - FirebaseAuth (4.4.0):
     - FirebaseAnalytics (~> 4.0)
     - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
     - GTMSessionFetcher/Core (~> 1.1)
-  - FirebaseCore (4.0.11):
+  - FirebaseCore (4.0.12):
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-  - FirebaseDatabase (4.1.1):
+  - FirebaseDatabase (4.1.2):
     - FirebaseAnalytics (~> 4.0)
     - FirebaseCore (~> 4.0)
     - leveldb-library (~> 1.18)
-  - FirebaseFirestore (0.9.2):
+  - FirebaseFirestore (0.9.3):
     - FirebaseAnalytics (~> 4.0)
-    - FirebaseAuth (~> 4.3)
+    - FirebaseAuth (~> 4.4)
     - FirebaseCore (~> 4.0)
     - gRPC-ProtoRPC (~> 1.0)
     - leveldb-library (~> 1.18)
     - Protobuf (~> 3.1)
-  - FirebaseInstanceID (2.0.6)
-  - FirebaseStorage (2.0.2):
+  - FirebaseInstanceID (2.0.7)
+  - FirebaseStorage (2.1.0):
     - FirebaseAnalytics (~> 4.0)
     - FirebaseCore (~> 4.0)
     - GTMSessionFetcher/Core (~> 1.1)
-  - FirebaseUI/Auth (4.5.0):
-    - Firebase/Auth (~> 4.2)
-  - FirebaseUI/Facebook (4.5.0):
-    - FBSDKLoginKit (~> 4.0)
-    - FirebaseUI/Auth
-  - FirebaseUI/Google (4.5.0):
-    - FirebaseUI/Auth
-    - GoogleSignIn (~> 4.0)
-  - FirebaseUI/Phone (4.5.0):
-    - FirebaseUI/Auth
-  - FirebaseUI/Twitter (4.5.0):
-    - FirebaseUI/Auth
-    - TwitterKit (~> 3.0)
   - GeoFire (2.0.0):
     - Firebase/Database (~> 4.0)
-  - GoogleSignIn (4.1.1):
-    - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
-    - GoogleToolboxForMac/NSString+URLArguments (~> 2.1)
-    - GTMOAuth2 (~> 1.0)
-    - GTMSessionFetcher/Core (~> 1.1)
   - GoogleToolboxForMac/DebugUtils (2.1.3):
     - GoogleToolboxForMac/Defines (= 2.1.3)
   - GoogleToolboxForMac/Defines (2.1.3)
@@ -108,13 +77,7 @@ PODS:
   - gRPC/Main (1.7.1):
     - gRPC-Core (= 1.7.1)
     - gRPC-RxLibrary (= 1.7.1)
-  - GTMOAuth2 (1.1.5):
-    - GTMSessionFetcher (~> 1.1)
-  - GTMSessionFetcher (1.1.12):
-    - GTMSessionFetcher/Full (= 1.1.12)
   - GTMSessionFetcher/Core (1.1.12)
-  - GTMSessionFetcher/Full (1.1.12):
-    - GTMSessionFetcher/Core (= 1.1.12)
   - GTToast (0.3.0)
   - HCSStarRatingView (1.5)
   - IQKeyboardManagerSwift (5.0.6)
@@ -132,21 +95,12 @@ PODS:
   - RevealingSplashView (0.4.0)
   - SidebarOverlay (4.2.1)
   - SVProgressHUD (2.2.2)
-  - TextFieldEffects (1.4.0)
-  - TwitterCore (3.0.2)
-  - TwitterKit (3.2.1):
-    - TwitterCore (>= 3.0.2)
 
 DEPENDENCIES:
   - Firebase
   - Firebase/Database
   - Firebase/Firestore
   - Firebase/Storage
-  - FirebaseUI/Auth
-  - FirebaseUI/Facebook
-  - FirebaseUI/Google
-  - FirebaseUI/Phone
-  - FirebaseUI/Twitter
   - GeoFire (from `https://github.com/firebase/geofire-objc.git`)
   - GTToast
   - HCSStarRatingView
@@ -156,7 +110,6 @@ DEPENDENCIES:
   - RevealingSplashView
   - SidebarOverlay
   - SVProgressHUD
-  - TextFieldEffects
 
 EXTERNAL SOURCES:
   GeoFire:
@@ -168,27 +121,21 @@ CHECKOUT OPTIONS:
     :git: https://github.com/firebase/geofire-objc.git
 
 SPEC CHECKSUMS:
-  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   BoringSSL: 84318770d120503ab1a6aaf1df777c5ca053697e
-  FBSDKCoreKit: ca961e279113f691fd83dc634c0bbad9d4e3f370
-  FBSDKLoginKit: b077381c27d800f21661757e8140cf2c80a91e4a
-  Firebase: 27321a925aa85520618255a7c630859e0502ccbd
+  Firebase: dbfb98ccec2dcfcd21ab9cc1b4981a3f3c8c5e26
   FirebaseAnalytics: 5b02a63ead2c3f0259cfc7f15e053e440587ecf8
-  FirebaseAuth: e58563adb207a43910a2ed87fecb9fa7d556df5a
-  FirebaseCore: 2a946ece8fbe3ce1fdeeb55324f273caade22df9
-  FirebaseDatabase: 2e6e8e110b93b9a6e7aac71774c769a363035cb1
-  FirebaseFirestore: a24dfccb54f883d82ee4cc086623fc2058e143b8
-  FirebaseInstanceID: 24958382a1011bba5aaff37e334e7a650b9118f5
-  FirebaseStorage: 0cca42d9b889a0227c3a50121f45a4469fc9eb27
-  FirebaseUI: 883482fea73b73bbb488c55176f4c6ad128957eb
+  FirebaseAuth: cdeee95b528958dbb7dcf220ad0fb804d3a284b0
+  FirebaseCore: 6cf108b63997bc08c04a1ffa55a3ac0d71a59ffc
+  FirebaseDatabase: 18ecb23e15c7f58bb0c4527e9cace06897cc40ca
+  FirebaseFirestore: 0b62fdbe420f2f88b6b2037ba4d92bbd4525e04a
+  FirebaseInstanceID: 148c25c986c8699e67304b114e365713dce467f2
+  FirebaseStorage: 0930e97994dc79b404179bdfafb6b16f59433a82
   GeoFire: 12dde45333e02aace5a8d921749095b9135cabc1
-  GoogleSignIn: 3fdaa34a2ba04dbd7a25d7db39aecb0da98d5bdc
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   gRPC: b56decfd0094854d2ccfe80c8fb767237dace3be
   gRPC-Core: 95c4968ae43d29219226f22b656d9f625904281e
   gRPC-ProtoRPC: b7259f51cbc19b77c7a38d96f52a00c3a4ea1637
   gRPC-RxLibrary: 4f46343e74e74a7ee8373ffeeaf772dfb330cbd7
-  GTMOAuth2: be83fd28d63ae3087e7d351b1f39c1a7e24ab6e7
   GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
   GTToast: 5c5fa8fb35091f73be09d8c5a99bbf723a081263
   HCSStarRatingView: 1d18f79654735514cd6f00e6d90e38cb6320dc31
@@ -202,10 +149,7 @@ SPEC CHECKSUMS:
   RevealingSplashView: 72be158ad5e1bc72713e8f78383dc3e1803ce4d1
   SidebarOverlay: 1a00a90b2bfac853163f305c977f106be2578497
   SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
-  TextFieldEffects: 4ee41b5216e674d55fb6ac25107bf1af7629176f
-  TwitterCore: e0420b01e02e7d20e94690e37f43e75de219ab8d
-  TwitterKit: 205ac89824bbfe9e85a16c420d30bb7bcbedac45
 
-PODFILE CHECKSUM: dcef763a288f75207a955c02e215c47ef7d0e8cd
+PODFILE CHECKSUM: 90b8faaf82032ff1a7c1a5eab5b6cff9568408b2
 
 COCOAPODS: 1.3.1

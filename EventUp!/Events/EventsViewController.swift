@@ -167,6 +167,8 @@ class EventsViewController: UITableViewController {
                     cell.tagLabel.text = cell.tagLabel.text! + ", " + tag
                 }
             }
+        } else {
+            cell.tagLabel.text = ""
         }
         
         if let userLocation = locationManager.location?.coordinate {
@@ -325,7 +327,6 @@ extension EventsViewController: FilterDelegate {
                             let distanceS = Int(coordinateS.distance(from: coordinateMe) / 1609.0)
                             let distanceF = Int(coordinateF.distance(from: coordinateMe) / 1609.0)
                             return distanceF > distanceS
-                            return first.name.lowercased() > second.name.lowercased()
                         })
                         
                         filteredEvents.sort(by: { (first, second) -> Bool in

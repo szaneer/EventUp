@@ -10,9 +10,9 @@ import UIKit
 import Firebase
 import SVProgressHUD
 import FBSDKLoginKit
-import TextFieldEffects
 import GeoFire
 import MapKit
+
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var containingView: UIView!
     @IBOutlet weak var eventUpLabel: UILabel!

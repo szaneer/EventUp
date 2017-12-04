@@ -11,7 +11,6 @@ import Firebase
 import AVFoundation
 import MapKit
 import SVProgressHUD
-import TextFieldEffects
 import CoreML
 import Vision
 

@@ -92,6 +92,8 @@ class EventDetailViewController: UIViewController, FilterDelegate {
                     tagsLabel.text = tagsLabel.text! + ", " + tag
                 }
             }
+        } else {
+            tagsLabel.text = ""
         }
         
         ratingCountLabel.text = String(format: "%d ratings", event.ratingCount)

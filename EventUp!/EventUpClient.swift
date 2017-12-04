@@ -199,8 +199,10 @@ class EventUpClient: NSObject {
         let uid = event.uid!
         let eventDoc = db.collection("events").document(uid)
         let image = db.collection("eventImages").document(uid)
-        
+        let rsvpList = db.collection("eventRsvpLists").document(eventDoc.documentID)
+        let userRsvpLists = fdb.child("userRsvpLists")
         let notifications = db.collection("notifications").document()
+        
         
         self.db.runTransaction({ (transaction, errorPointer) -> Any? in
             transaction.updateData(eventData, forDocument: eventDoc)
@@ -217,6 +219,15 @@ class EventUpClient: NSObject {
             if let error = error {
                 failure(error)
             } else {
+                rsvpList.getDocument(completion: { (snapshot, error) in
+                    if let snapshot = snapshot {
+                        for (key, _) in snapshot.data() {
+                            let geoFire = GeoFire(firebaseRef: userRsvpLists.child(key))!
+                            geoFire.setLocation(CLLocation(latitude: event.latitude, longitude: event.longitude), forKey: event.uid)
+                        }
+                        self.cdb.child(event.uid).removeValue()
+                    }
+                })
                 success()
             }
         })
@@ -244,7 +255,6 @@ class EventUpClient: NSObject {
                 failure(error)
                 
             } else if let snapshot = snapshot {
-                print(snapshot.data())
                 for (key, _) in snapshot.data() {
                     userRsvpLists.child(key).child(event.uid).removeValue()
                 }
@@ -264,11 +274,12 @@ class EventUpClient: NSObject {
         let checkInLists = db.collection("eventCheckInLists")
         let userRsvpLists = fdb.child("userRsvpLists")
         let ratingList = db.collection("eventRatingLists")
-        
+        let tags = db.collection("tags").document(uid)
         
         let deleteBatch = db.batch()
         deleteBatch.deleteDocument(user)
         deleteBatch.deleteDocument(image)
+        deleteBatch.deleteDocument(tags)
         
         let query = db.collection("events").whereField("owner", isEqualTo: uid)
         
@@ -404,8 +415,10 @@ class EventUpClient: NSObject {
                 let uid = user.uid
                 let userDoc = self.db.collection("users").document(uid)
                 let images = self.db.collection("userImages").document(uid)
+                let tags = self.db.collection("tags").document(uid)
                 self.db.runTransaction({ (transaction, errorPointer) -> Any? in
                     transaction.setData(userData, forDocument: userDoc)
+                    transaction.setData(["Social": 0, "Learning": 0, "Other": 0], forDocument: tags)
                     if let userImage = userImage {
                         let imageString = self.base64EncodeImage(userImage)
                         transaction.setData(["image": imageString], forDocument: images)
@@ -473,8 +486,10 @@ class EventUpClient: NSObject {
         userData["checkedInCount"] = 0
         let userDoc = self.db.collection("users").document(uid)
         let images = self.db.collection("userImages").document(uid)
+        let tags = self.db.collection("tags").document(uid)
         self.db.runTransaction({ (transaction, errorPointer) -> Any? in
             transaction.setData(userData, forDocument: userDoc)
+            transaction.setData(["Social": 0, "Learning": 0, "Other": 0], forDocument: tags)
             if let userImage = userImage {
                 let imageString = self.base64EncodeImage(userImage)
                 transaction.setData(["image": imageString], forDocument: images)
@@ -494,6 +509,38 @@ class EventUpClient: NSObject {
     
     func saveUserPushNotificationToken(uid: String, token: String, success: @escaping (EventUser) -> (), failure: @escaping (Error) -> ()) {
         
+    }
+    
+    func getUserTopTag(user: String, success: @escaping (EventUser?) -> (), failure: @escaping (Error) -> ()) {
+        let userRef = db.collection("users").document(user)
+        let images = db.collection("userImages").document(user)
+        db.runTransaction({ (transaction, errorPointer) -> Any? in
+            var userDoc: DocumentSnapshot
+            var imageDoc: DocumentSnapshot
+            do {
+                userDoc = try transaction.getDocument(userRef)
+                imageDoc = try transaction.getDocument(images)
+            } catch let fetchError as NSError {
+                errorPointer?.pointee = fetchError
+                return nil
+            }
+            
+            var userData = userDoc.data()
+            let userImageData = imageDoc.data()
+            if userImageData["image"] != nil {
+                userData["image"] = userImageData["image"]
+            }
+            transaction.updateData([:], forDocument: userRef)
+            transaction.updateData([:], forDocument: images)
+            return userData
+        }, completion: { (object, error) in
+            if let error = error {
+                print(error)
+                failure(error)
+            } else {
+                success(EventUser(eventData: object as! [String : Any]))
+            }
+        })
     }
     
     func getUserInfo(user: String, success: @escaping (EventUser?) -> (), failure: @escaping (Error) -> ()) {
@@ -642,6 +689,7 @@ class EventUpClient: NSObject {
     
     func cancelCheckInEvent(event: Event, uid: String, success: @escaping (Int) ->(), failure: @escaping (Error) -> ()) {
         
+        let tagCounts = db.collection("tags").document(uid)
         let eventRef = db.collection("events").document(event.uid)
         let checkInList = db.collection("eventCheckInLists").document(event.uid)
         let notifications = db.collection("notifications").document()
@@ -649,12 +697,26 @@ class EventUpClient: NSObject {
         db.runTransaction({ (transaction, errorPointer) -> Any? in
             var eventDoc: DocumentSnapshot
             var checkInListDoc: DocumentSnapshot
+            var tagDoc: DocumentSnapshot
+            
             do {
                 eventDoc = try transaction.getDocument(eventRef)
                 checkInListDoc = try transaction.getDocument(checkInList)
+                tagDoc = try transaction.getDocument(tagCounts)
             } catch let fetchError as NSError {
                 errorPointer?.pointee = fetchError
                 return nil
+            }
+            
+            var tagData = tagDoc.data()
+            if let tags = event.tags {
+                for tag in tags {
+                    if tagData[tag] != nil {
+                        tagData[tag] = (tagData[tag] as! Int) - 1
+                    } else {
+                        tagData[tag] = 0
+                    }
+                }
             }
             
             var eventData = eventDoc.data()
@@ -667,6 +729,9 @@ class EventUpClient: NSObject {
             
             transaction.updateData(["checkedInCount": checkInCount], forDocument: eventRef)
             transaction.setData(checkInListData, forDocument: checkInList)
+            
+            transaction.setData(tagData, forDocument: tagCounts)
+            
             transaction.setData(["uid": event.owner, "type": "user", "message": "A user has canceled their checkin for \(event.name!)"], forDocument: notifications)
             return checkInCount
         }, completion: { (object, error) in
@@ -682,6 +747,7 @@ class EventUpClient: NSObject {
     
     func checkInEvent(event: Event, uid: String, success: @escaping (Int) ->(), failure: @escaping (Error) -> ()) {
         
+        let tagCounts = db.collection("tags").document(uid)
         let eventRef = db.collection("events").document(event.uid)
         let checkInList = db.collection("eventCheckInLists").document(event.uid)
         let rsvpList = db.collection("eventRsvpLists").document(event.uid)
@@ -693,13 +759,26 @@ class EventUpClient: NSObject {
             var eventDoc: DocumentSnapshot
             var checkInListDoc: DocumentSnapshot
             var rsvpListDoc: DocumentSnapshot
+            var tagDoc: DocumentSnapshot
             do {
                 eventDoc = try transaction.getDocument(eventRef)
                 checkInListDoc = try transaction.getDocument(checkInList)
                 rsvpListDoc = try transaction.getDocument(rsvpList)
+                tagDoc = try transaction.getDocument(tagCounts)
             } catch let fetchError as NSError {
                 errorPointer?.pointee = fetchError
                 return nil
+            }
+            
+            var tagData = tagDoc.data()
+            if let tags = event.tags {
+                for tag in tags {
+                    if tagData[tag] != nil {
+                        tagData[tag] = (tagData[tag] as! Int) + 1
+                    } else {
+                        tagData[tag] = 1
+                    }
+                }
             }
             
             var eventData = eventDoc.data()
@@ -717,6 +796,8 @@ class EventUpClient: NSObject {
             transaction.updateData(["checkedInCount": checkInCount], forDocument: eventRef)
             transaction.updateData([uid: true], forDocument: checkInList)
             
+            transaction.setData(tagData, forDocument: tagCounts)
+            
             transaction.setData(["uid": event.owner, "type": "user", "message": "A user just has checked in for \(event.name!)"], forDocument: notifications)
             return checkInCount
         }, completion: { (object, error) in
@@ -731,6 +812,7 @@ class EventUpClient: NSObject {
     
     func checkInEventWithUID(eventUID: String, uid: String, success: @escaping () ->(), failure: @escaping (Error) -> ()) {
         
+        let tagCounts = db.collection("tags").document(uid)
         let eventRef = db.collection("events").document(eventUID)
         let checkInList = db.collection("eventCheckInLists").document(eventUID)
         let rsvpList = db.collection("eventRsvpLists").document(eventUID)
@@ -741,10 +823,12 @@ class EventUpClient: NSObject {
             var eventDoc: DocumentSnapshot
             var checkInListDoc: DocumentSnapshot
             var rsvpListDoc: DocumentSnapshot
+            var tagDoc: DocumentSnapshot
             do {
                 eventDoc = try transaction.getDocument(eventRef)
                 checkInListDoc = try transaction.getDocument(checkInList)
                 rsvpListDoc = try transaction.getDocument(rsvpList)
+                tagDoc = try transaction.getDocument(tagCounts)
             } catch let fetchError as NSError {
                 errorPointer?.pointee = fetchError
                 return nil
@@ -756,6 +840,17 @@ class EventUpClient: NSObject {
             
             
             let event = Event(eventData: eventData)
+            
+            var tagData = tagDoc.data()
+            if let tags = event.tags {
+                for tag in tags {
+                    if tagData[tag] != nil {
+                        tagData[tag] = (tagData[tag] as! Int) + 1
+                    } else {
+                        tagData[tag] = 1
+                    }
+                }
+            }
             
             if event.date > Date().timeIntervalSince1970 {
                 return nil
@@ -772,18 +867,16 @@ class EventUpClient: NSObject {
             transaction.updateData(["checkedInCount": checkInCount], forDocument: eventRef)
             transaction.updateData([uid: true], forDocument: checkInList)
             
+            transaction.setData(tagData, forDocument: tagCounts)
+            
             transaction.setData(["uid": eventData["owner"] as! String, "type": "user", "message": "A user just has checked in for \(eventData["name"] as! String)"], forDocument: notifications)
             
             
             return eventData
         }, completion: { (object, error) in
             if let error = error {
-//
-//                toast.dismiss()
                 failure(error)
             } else {
-                
-                //toast.dismiss()
                 let eventData = object as! [String: Any]
                 DispatchQueue.main.async {
                     toast = GTToast.create("You were just checked into \(eventData["name"] as! String)")
@@ -816,7 +909,6 @@ class EventUpClient: NSObject {
                     return
                 }
                 let user = EventUser(eventData: users[0].data())
-                //let uid = users[0].documentID
                 let notifications = self.db.collection("notifications").document(users[0].documentID)
                 notifications.setData(["uid": event.uid, "type": "user"])
                 success(user)
