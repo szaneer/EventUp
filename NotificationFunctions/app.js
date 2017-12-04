@@ -35,12 +35,14 @@ var observer = query.onSnapshot(querySnapshot => {
             if (change.type === "added") {
                 let type = change.doc.data().type;
                 let uid = change.doc.data().uid;
-		let message = change.doc.data().message;
+		        let message = change.doc.data().message;
                 if (type == "edit") {
-                  db.collection("events").doc(uid).collection("rsvpList").get().then(function(rsvpList) {
-                    rsvpList.forEach(function(rsvp) {
-                      if (rsvp !== undefined) {
-                        db.collection("users").doc(rsvp.data().uid).get().then(function(userInfo) {
+                  db.collection("eventRsvpLists").doc(uid).get().then(function(rsvpList) {
+                    let rsvps = rsvpList.data();
+
+                    for (var key in rsvps) {
+                    
+                        db.collection("users").doc(key).get().then(function(userInfo) {
                           let data = userInfo.data();
                           console.log(data.token);
                           if (data.token !== undefined) {
@@ -61,11 +63,11 @@ var observer = query.onSnapshot(querySnapshot => {
                             });
                           }
                         });
+                      
                       }
-                      });
                   });
 
-                  query.doc(uid).delete();
+                  query.doc(change.doc.id).delete();
                 } else if (type == "user") {
                   db.collection("users").doc(uid).get().then(function(userInfo) {
                       let data = userInfo.data();
@@ -90,7 +92,7 @@ var observer = query.onSnapshot(querySnapshot => {
 
                   });
 
-                  //query.doc(change.doc.id).delete();
+                  query.doc(change.doc.id).delete();
                 }
             }
         });

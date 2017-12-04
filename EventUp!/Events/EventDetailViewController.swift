@@ -69,12 +69,6 @@ class EventDetailViewController: UIViewController, FilterDelegate {
         
         eventView.layer.cornerRadius = 10
         
-        EventUpClient.sharedInstance.getUserInfo(uid: event.owner, success: { (user) in
-            //self.userRatingLabel.text = String(format: "%.2f", user.rating)
-        }) { (error) in
-            print(error.localizedDescription)
-        }
-        
         if (Auth.auth().currentUser!.uid != event.owner) {
             editButton.isHidden = true
         } else {
@@ -115,12 +109,15 @@ class EventDetailViewController: UIViewController, FilterDelegate {
         
         if currDay >= event.date && currDay <= event.endDate {
             rsvpButton.isEnabled = true
+            ratingView.isUserInteractionEnabled = true
             rsvpButton.setTitle("Check In: \(event.checkedInCount!)", for: .normal)
         } else if currDay < event.date {
             rsvpButton.isEnabled = true
+            ratingView.isUserInteractionEnabled = true
             rsvpButton.setTitle("RSVP: \(event.rsvpCount!)", for: .normal)
         } else {
             rsvpButton.isEnabled = false
+            ratingView.isUserInteractionEnabled = false
             rsvpButton.setTitle("Attended: \(event.checkedInCount!)", for: .normal)
         }
         

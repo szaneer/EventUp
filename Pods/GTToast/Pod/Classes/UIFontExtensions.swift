@@ -11,7 +11,7 @@ extension UIFont {
         return NSString(string: content).boundingRect(
             with: constrain,
             options: NSStringDrawingOptions.usesLineFragmentOrigin,
-            attributes: [NSAttributedStringKey.font : self],
+            attributes: [NSFontAttributeName : self],
             context: nil)
         .size
     }

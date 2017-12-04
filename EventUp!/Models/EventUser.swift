@@ -17,6 +17,7 @@ class EventUser: NSObject {
     var image: String?
     
     init(eventData: [String: Any]) {
+        
         name = eventData["username"] as! String
         email = eventData["email"] as! String
         rating = eventData["rating"] as! Double

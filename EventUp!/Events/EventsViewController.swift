@@ -25,6 +25,7 @@ class EventsViewController: UITableViewController {
     let locationManager = CLLocationManager()
     let searchController = UISearchController(searchResultsController: nil)
     var isSugg = false
+    var userTags: [String] = []
     
     @IBOutlet weak var sidebarButton: UIButton!
     
@@ -86,6 +87,11 @@ class EventsViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         loadEvents()
+        EventUpClient.sharedInstance.getUserSuggestedTags(uid: Auth.auth().currentUser!.uid, success: { (tags) in
+            self.userTags = tags
+        }) { (error) in
+            print(error.localizedDescription)
+        }
     }
     
     @objc func loadEvents() {
@@ -181,7 +187,7 @@ class EventsViewController: UITableViewController {
         }
         
         cell.tag = indexPath.row
-        
+        cell.eventView.image = nil
         EventUpClient.sharedInstance.getEventImage(uid: event.uid, success: { (image) in
             DispatchQueue.main.async {
                 if cell.tag == indexPath.row {
@@ -358,15 +364,29 @@ extension EventsViewController: FilterDelegate {
                 }
             case "sugg":
                 if value {
-                    events = events.filter({ (event) -> Bool in
+                    self.events = self.events.filter({ (event) -> Bool in
+                        if (userTags.count == 0) {
+                            return true
+                        }
                         if let tags = event.tags {
-                            return tags.contains("social")
+                            for tag in tags {
+                                if userTags.contains(tag.lowercased()) {
+                                    return true
+                                }
+                            }
                         }
                         return false
                     })
-                    filteredEvents = filteredEvents.filter({ (event) -> Bool in
+                    self.filteredEvents = self.filteredEvents.filter({ (event) -> Bool in
+                        if (userTags.count == 0) {
+                            return true
+                        }
                         if let tags = event.tags {
-                            return tags.contains("social")
+                            for tag in tags {
+                                if userTags.contains(tag.lowercased()) {
+                                    return true
+                                }
+                            }
                         }
                         return false
                     })

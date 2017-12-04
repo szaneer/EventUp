@@ -64,7 +64,6 @@ open class GTToastView: UIView, GTAnimatable {
         self.config = config
         self.message = message
         self.image = image
-        
         super.init(frame: CGRect.zero)
         
         self.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin, .flexibleRightMargin]

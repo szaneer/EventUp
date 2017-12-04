@@ -48,22 +48,15 @@ class DetailSegue: UIStoryboardSegue {
                 cell.alpha = 0.0
                 blurVisualEffectView.alpha = 0.0
             }, completion: { (finished) in
-                    //                        destinationController.titleLabel.sizeToFit()
-                    //                        destinationController.overviewLabel.sizeToFit()
-                    //                        destinationController.titleLabel.isHidden = false
-                    //                        destinationController.posterView.isHidden = false
-                    //                        destinationController.overviewLabel.isHidden = false
-                    blurVisualEffectView.removeFromSuperview()
-                    cell.removeFromSuperview()
-                    sourceController.tableView.dataSource = nil
-                    sourceController.tableView.reloadData()
-                    sourceController.tableView.dataSource = sourceController
-                    sourceController.tableView.reloadData()
-                    sourceController.tableView.separatorStyle = .singleLine
-                    sourceView.isHidden = false
-                
+                blurVisualEffectView.removeFromSuperview()
+                cell.removeFromSuperview()
+                sourceController.tableView.dataSource = nil
+                sourceController.tableView.reloadData()
+                sourceController.tableView.dataSource = sourceController
+                sourceController.tableView.reloadData()
+                sourceController.tableView.separatorStyle = .singleLine
+                sourceView.isHidden = false
             })
         }
-        
     }
 }

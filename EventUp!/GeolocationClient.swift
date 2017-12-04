@@ -61,8 +61,6 @@ class GeolocationClient: NSObject {
     
 }
 
-
-
 extension GeolocationClient: CLLocationManagerDelegate {
     func setupLocation() {
         if CLLocationManager.locationServicesEnabled() {

@@ -22,7 +22,6 @@ class ProfileViewController: UIViewController {
     
     var user: EventUser!
     
-    
     var events = [Event]()
     let locationManager = CLLocationManager()
     

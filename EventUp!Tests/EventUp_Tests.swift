@@ -358,7 +358,7 @@ class EventUp_Tests: XCTestCase {
     }
     
     func testEventRsvpCancel() {
-        let expect = expectation(description: "Event RSVP")
+        let expect = expectation(description: "Event RSVP canceled")
         
         let currDate = Double(Date().timeIntervalSince1970)
         
@@ -389,6 +389,119 @@ class EventUp_Tests: XCTestCase {
                     XCTFail(error.localizedDescription)
                 })
                 
+            }
+        }
+        
+        waitForExpectations(timeout: 30, handler: nil)
+    }
+    
+    func testEventIsRsvp() {
+        let expect = expectation(description: "Event is RSVP'd")
+        
+        let currDate = Double(Date().timeIntervalSince1970)
+        
+        var event = ["date": currDate, "endDate": currDate, "location": "test", "info": "information",
+                     "latitude": 43.934857, "longitude": 24.029348, "name": "title"] as [String : Any]
+        
+        Auth.auth().signIn(withEmail: "tester@example.com", password: "123456") { (user, error) in
+            if let error = error {
+                XCTFail(error.localizedDescription)
+            } else if let user = user {
+                event["owner"] = user.uid
+                let image = UIImage(named: "sidebarIcon")
+                EventUpClient.sharedInstance.createEvent(eventData: event, eventImage: image, success: { (event) in
+                    EventUpClient.sharedInstance.rsvpEvent(event: event, uid: user.uid, success: { (count) in
+                        EventUpClient.sharedInstance.checkIfRsvp(event: event, uid: user.uid, success: { (status) in
+                            if status {
+                                EventUpClient.sharedInstance.deleteEvent(event: event, success: {
+                                    expect.fulfill()
+                                }, failure: { (error) in
+                                    XCTFail(error.localizedDescription)
+                                })
+                            } else {
+                                EventUpClient.sharedInstance.deleteEvent(event: event, success: {
+                                    XCTFail("User was not checked in")
+                                }, failure: { (error) in
+                                    XCTFail(error.localizedDescription)
+                                })
+                            }
+                            
+                        }, failure: { (error) in
+                            XCTFail(error.localizedDescription)
+                        })
+                    }, failure: { (error) in
+                        XCTFail(error.localizedDescription)
+                    })
+                }, failure: { (error) in
+                    XCTFail(error.localizedDescription)
+                })
+                
+            }
+        }
+        
+        waitForExpectations(timeout: 30, handler: nil)
+    }
+    
+    func testEventIsCheckedIn() {
+        let expect = expectation(description: "Event is checked in")
+        
+        let currDate = Double(Date().timeIntervalSince1970)
+        
+        var event = ["date": currDate, "endDate": currDate, "location": "test", "info": "information",
+                     "latitude": 43.934857, "longitude": 24.029348, "name": "title"] as [String : Any]
+        
+        Auth.auth().signIn(withEmail: "tester@example.com", password: "123456") { (user, error) in
+            if let error = error {
+                XCTFail(error.localizedDescription)
+            } else if let user = user {
+                event["owner"] = user.uid
+                let image = UIImage(named: "sidebarIcon")
+                EventUpClient.sharedInstance.createEvent(eventData: event, eventImage: image, success: { (event) in
+                    EventUpClient.sharedInstance.checkInEvent(event: event, uid: user.uid, success: { (count) in
+                        EventUpClient.sharedInstance.checkIfCheckedIn(event: event, uid: user.uid, success: { (status) in
+                            if status {
+                                EventUpClient.sharedInstance.deleteEvent(event: event, success: {
+                                    expect.fulfill()
+                                }, failure: { (error) in
+                                    XCTFail(error.localizedDescription)
+                                })
+                            } else {
+                                EventUpClient.sharedInstance.deleteEvent(event: event, success: {
+                                    XCTFail("User was not checked in")
+                                }, failure: { (error) in
+                                    XCTFail(error.localizedDescription)
+                                })
+                            }
+                            
+                        }, failure: { (error) in
+                            XCTFail(error.localizedDescription)
+                        })
+                    }, failure: { (error) in
+                        XCTFail(error.localizedDescription)
+                    })
+                }, failure: { (error) in
+                    XCTFail(error.localizedDescription)
+                })
+                
+            }
+        }
+        
+        waitForExpectations(timeout: 30, handler: nil)
+    }
+    
+    func testGetUserMaxTags() {
+        let expect = expectation(description: "Retrieved user's max tags")
+        
+        Auth.auth().signIn(withEmail: "tester@example.com", password: "123456") { (user, error) in
+            if let error = error {
+                XCTFail(error.localizedDescription)
+            } else if let user = user {
+                EventUpClient.sharedInstance.getUserSuggestedTags(uid: user.uid, success: { (tags) in
+                    print(tags)
+                    expect.fulfill()
+                }, failure: { (error) in
+                    XCTFail(error.localizedDescription)
+                })
             }
         }
         

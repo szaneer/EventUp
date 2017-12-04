@@ -511,38 +511,6 @@ class EventUpClient: NSObject {
         
     }
     
-    func getUserTopTag(user: String, success: @escaping (EventUser?) -> (), failure: @escaping (Error) -> ()) {
-        let userRef = db.collection("users").document(user)
-        let images = db.collection("userImages").document(user)
-        db.runTransaction({ (transaction, errorPointer) -> Any? in
-            var userDoc: DocumentSnapshot
-            var imageDoc: DocumentSnapshot
-            do {
-                userDoc = try transaction.getDocument(userRef)
-                imageDoc = try transaction.getDocument(images)
-            } catch let fetchError as NSError {
-                errorPointer?.pointee = fetchError
-                return nil
-            }
-            
-            var userData = userDoc.data()
-            let userImageData = imageDoc.data()
-            if userImageData["image"] != nil {
-                userData["image"] = userImageData["image"]
-            }
-            transaction.updateData([:], forDocument: userRef)
-            transaction.updateData([:], forDocument: images)
-            return userData
-        }, completion: { (object, error) in
-            if let error = error {
-                print(error)
-                failure(error)
-            } else {
-                success(EventUser(eventData: object as! [String : Any]))
-            }
-        })
-    }
-    
     func getUserInfo(user: String, success: @escaping (EventUser?) -> (), failure: @escaping (Error) -> ()) {
         let userRef = db.collection("users").document(user)
         let images = db.collection("userImages").document(user)
@@ -910,7 +878,7 @@ class EventUpClient: NSObject {
                 }
                 let user = EventUser(eventData: users[0].data())
                 let notifications = self.db.collection("notifications").document(users[0].documentID)
-                notifications.setData(["uid": event.uid, "type": "user"])
+                notifications.setData(["uid": users[0].documentID, "type": "user", "message": "Hey \(user.name!), check out \(event.name!)!"])
                 success(user)
                 
             }
@@ -945,6 +913,39 @@ class EventUpClient: NSObject {
         }
     }
     
+    func getUserSuggestedTags(uid: String, success: @escaping ([String]) ->(), failure: @escaping (Error) -> ()) {
+        let tags = db.collection("tags").document(uid)
+        
+        tags.getDocument { (snapshot, error) in
+            if let error = error {
+                failure(error)
+            } else if let snapshot = snapshot {
+                let tagData = snapshot.data() as! [String: Int]
+                
+                let maxEntry = tagData.max(by: { (entry1, entry2) -> Bool in
+                    return entry1.value <= entry2.value
+                })
+                
+                let max = maxEntry!.value
+                
+                if max == 0 {
+                    success([])
+                    return
+                }
+                
+                var tags: [String] = []
+                
+                for (tag, value) in tagData {
+                    if value == max {
+                        tags.append(tag.lowercased())
+                    }
+                }
+                
+                success(tags)
+            }
+        }
+    }
+    
     // Chat
     func sendMessage(event: Event, message: [String: Any], success: @escaping () ->(), failure: @escaping (Error) -> ()) {
         let eventMessages = cdb.child(event.uid).child("messages")
@@ -968,7 +969,7 @@ class EventUpClient: NSObject {
             success(messageData)
         })
     }
-    // Other
+    
     // Resize a given image using a given GCSize
     func resizeImage(_ imageSize: CGSize, image: UIImage) -> Data {
         UIGraphicsBeginImageContext(imageSize)
@@ -984,7 +985,7 @@ class EventUpClient: NSObject {
         var imagedata = UIImagePNGRepresentation(image)
         
         // Resize the image if it exceeds the 2MB API limit
-        if ((imagedata?.count)! > 1048487) {
+        while ((imagedata?.count)! > 1048487) {
             let oldSize: CGSize = image.size
             let newSize: CGSize = CGSize(width: 400, height: oldSize.height / oldSize.width * 400)
             imagedata = resizeImage(newSize, image: image)
@@ -1008,7 +1009,6 @@ extension String {
         return emailTest.evaluate(with: self)
     }
 }
-
 
 protocol EventLocationSelectViewControllerDelegate {
     func setLocation(coordinate: CLLocationCoordinate2D)
