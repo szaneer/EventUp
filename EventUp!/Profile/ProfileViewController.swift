@@ -45,7 +45,7 @@ class ProfileViewController: UIViewController, FilterDelegate {
         setup()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         setup()

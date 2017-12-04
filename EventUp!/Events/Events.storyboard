@@ -7,7 +7,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -554,6 +553,14 @@
             </objects>
             <point key="canvasLocation" x="3080.8000000000002" y="-3065.7635467980299"/>
         </scene>
+        <!--Login-->
+        <scene sceneID="Iii-ZS-Tbp">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Login" id="lIs-bl-fws" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AAU-Z5-Z25" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-815" y="-1031"/>
+        </scene>
         <!--Events-->
         <scene sceneID="vPi-cY-tjA">
             <objects>
@@ -664,10 +671,7 @@
                                     <outlet property="ratingCountLabel" destination="cLa-NO-vEC" id="b3O-DK-DOu"/>
                                     <outlet property="ratingView" destination="dcG-f6-fs0" id="3Ke-8a-QyD"/>
                                     <outlet property="tagLabel" destination="HSB-Xg-xVH" id="lmz-AQ-O79"/>
-                                    <segue destination="Bsj-OG-3Y9" kind="custom" identifier="detailSegue" customClass="DetailSegue" customModule="EventUp_" customModuleProvider="target" id="Pl2-jY-X1v">
-                                        <segue key="commit" inheritsFrom="parent" id="xSd-nw-vvx"/>
-                                        <segue key="preview" inheritsFrom="commit" id="fXu-HG-yiG"/>
-                                    </segue>
+                                    <segue destination="Bsj-OG-3Y9" kind="custom" identifier="detailSegue" customClass="DetailSegue" customModule="EventUp_" customModuleProvider="target" id="Pl2-jY-X1v"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -696,6 +700,7 @@
                     <connections>
                         <outlet property="sidebarButton" destination="fqT-KF-yyc" id="5jA-mR-NWk"/>
                         <segue destination="Bsj-OG-3Y9" kind="show" identifier="notifySegue" id="hpf-e6-IQk"/>
+                        <segue destination="lIs-bl-fws" kind="presentation" identifier="errorSegue" id="0Zo-hj-RRN"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hXV-OE-L5w" userLabel="First Responder" sceneMemberID="firstResponder"/>
