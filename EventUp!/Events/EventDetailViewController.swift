@@ -48,6 +48,8 @@ class EventDetailViewController: UIViewController, FilterDelegate {
     func setupFromNotify() {
         EventUpClient.sharedInstance.getEvent(uid: UserDefaults.standard.object(forKey: "notifyUID") as! String, success: { (event) in
             self.event = event
+            print(UserDefaults.standard.removeObject(forKey: "notifyUID"))
+            
             UserDefaults.standard.removeObject(forKey: "notifyUID")
             
             self.setup()
@@ -364,16 +366,16 @@ extension EventDetailViewController: CLLocationManagerDelegate, MKMapViewDelegat
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        DispatchQueue.main.async {
-            if let userLocation = self.locationManager.location?.coordinate {
-                
-                let coordinateMe = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
-                let coordinateE = CLLocation(latitude: self.event.latitude, longitude: self.event.longitude)
-                
-                let distance = Int(coordinateE.distance(from: coordinateMe) / 1609.0)
-                self.distanceLabel.text = "\(distance)mi"
-            }
-        }
+//        DispatchQueue.main.async {
+//            if let userLocation = self.locationManager.location?.coordinate {
+//
+//                let coordinateMe = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
+//                let coordinateE = CLLocation(latitude: self.event.latitude, longitude: self.event.longitude)
+//
+//                let distance = Int(coordinateE.distance(from: coordinateMe) / 1609.0)
+//                self.distanceLabel.text = "\(distance)mi"
+//            }
+//        }
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {

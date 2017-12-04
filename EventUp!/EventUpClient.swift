@@ -817,7 +817,7 @@ class EventUpClient: NSObject {
                 }
                 let user = EventUser(eventData: users[0].data())
                 let notifications = self.db.collection("notifications").document(users[0].documentID)
-                notifications.setData(["uid": users[0].documentID, "type": "user", "message": "Hey \(user.name!), check out \(event.name!)!"])
+                notifications.setData(["uid": users[0].documentID, "event": event.uid, "type": "user", "message": "Hey \(user.name!), check out \(event.name!)!"])
                 success(user)
                 
             }

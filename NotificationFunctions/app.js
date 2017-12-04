@@ -51,7 +51,7 @@ var observer = query.onSnapshot(querySnapshot => {
                             var note = new apn.Notification();
 
                             note.expiry = Math.floor(Date.now() / 1000) + 3600; // Expires 1 hour from now.
-                            note.badge = 3;
+                            note.badge = 1;
                             note.sound = "ping.aiff";
                             note.alert = "An event you RSVP'd to has just been updated!";
                             note.payload = {'uid': uid};
@@ -78,10 +78,10 @@ var observer = query.onSnapshot(querySnapshot => {
                       var note = new apn.Notification();
 
                       note.expiry = Math.floor(Date.now() / 1000) + 3600; // Expires 1 hour from now.
-                      note.badge = 3;
+                      note.badge = 1;
                       note.sound = "ping.aiff";
                       note.alert = message;
-                      note.payload = {"uid": uid};
+                      note.payload = {"uid": change.doc.data().event};
 
                       note.topic = "com.307.EventUp";
                       provider.send(note, deviceToken).then( (result) => {

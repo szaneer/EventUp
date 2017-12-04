@@ -128,7 +128,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         loadEvents()
     }
     
-    
     func loadEvents() {
         SVProgressHUD.show()
         view.isUserInteractionEnabled = false
