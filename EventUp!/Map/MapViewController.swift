@@ -136,6 +136,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             self.events = events
             
             self.eventMapView.removeAnnotations(self.eventMapView.annotations)
+            self.eventMapView.removeOverlays(self.eventMapView.overlays)
             for event in self.events {
                 self.addEventToMap(event: event)
             }
@@ -161,8 +162,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         annotation.coordinate = CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude)
         annotation.event = event
         annotation.title = event.name
-        let heatCircle = MKCircle(center: annotation.coordinate, radius: CLLocationDistance(event.rsvpCount * 100))
+        let checkInCount = event.checkedInCount!
         eventMapView.addAnnotation(annotation)
+        if checkInCount == 0 {
+            return
+        }
+        let heatCircle = MKCircle(center: annotation.coordinate, radius: CLLocationDistance(event.checkedInCount * 100))
+        
         eventMapView.add(heatCircle)
     }
     
@@ -181,8 +187,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKCircleRenderer(overlay: overlay)
-        renderer.fillColor = UIColor.cyan.withAlphaComponent(0.5)
-        renderer.strokeColor = UIColor.cyan.withAlphaComponent(0.8)
+        let checkInCount = (overlay as! MKCircle).radius / 100
+        if checkInCount < 25 {
+            renderer.fillColor = .green
+        } else if checkInCount < 50 {
+            renderer.fillColor = .yellow
+        } else {
+            renderer.fillColor = .red
+        }
+        
+        
         return renderer
     }
     
