@@ -19,6 +19,7 @@ final class EventChatViewController: JSQMessagesViewController {
     lazy var outgoingBubbleImageView: JSQMessagesBubbleImage = self.setupOutgoingBubble()
     lazy var incomingBubbleImageView: JSQMessagesBubbleImage = self.setupIncomingBubble()
     
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         observeTyping()
@@ -30,6 +31,7 @@ final class EventChatViewController: JSQMessagesViewController {
         senderId = Auth.auth().currentUser!.uid
         senderDisplayName = Auth.auth().currentUser!.email!
         // Do any additional setup after loading the view.
+        
         
         collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSize.zero
         collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero

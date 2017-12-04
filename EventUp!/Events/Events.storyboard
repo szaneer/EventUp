@@ -999,6 +999,7 @@
                                         <rect key="frame" x="216.5" y="0.0" width="108.5" height="50"/>
                                         <state key="normal" title="Notify">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="titleShadowColor" red="0.21310615539550781" green="0.39353847503662109" blue="0.71770614385604858" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
                                         <connections>
                                             <action selector="onNotify:" destination="Bsj-OG-3Y9" eventType="touchUpInside" id="7Uq-XC-7sm"/>
@@ -1305,6 +1306,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Pl2-jY-X1v"/>
-        <segue reference="Kef-Ui-nZ7"/>
+        <segue reference="jhH-L8-Mob"/>
     </inferredMetricsTieBreakers>
 </document>

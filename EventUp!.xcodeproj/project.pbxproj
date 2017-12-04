@@ -45,8 +45,8 @@
 		C79988A81FD2485100EAD32F /* MapContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79988A71FD2485100EAD32F /* MapContainerViewController.swift */; };
 		C79D17F21FA2A37400D25C4B /* EventTagSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79D17F11FA2A37400D25C4B /* EventTagSelectViewController.swift */; };
 		C7A4059F1FB78C6B00E33A70 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A4059E1FB78C6B00E33A70 /* WelcomeViewController.swift */; };
+		C7B04EAF1FD58FD000BE510D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7B04EAE1FD58FD000BE510D /* Assets.xcassets */; };
 		C7B1427B1FAAF14500B9DC0E /* SegueFromLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B1427A1FAAF14500B9DC0E /* SegueFromLeft.swift */; };
-		C7B1427D1FAB9B8C00B9DC0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7B1427C1FAB9B8C00B9DC0E /* Assets.xcassets */; };
 		C7C164641F852AF6007226FA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C7C164631F852AE6007226FA /* GoogleService-Info.plist */; };
 		C7C5D37E1F5F2EA0001BCE38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C5D37D1F5F2EA0001BCE38 /* AppDelegate.swift */; };
 		C7C5D3831F5F2EA0001BCE38 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7C5D3811F5F2EA0001BCE38 /* Main.storyboard */; };
@@ -111,8 +111,8 @@
 		C79988A71FD2485100EAD32F /* MapContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapContainerViewController.swift; sourceTree = "<group>"; };
 		C79D17F11FA2A37400D25C4B /* EventTagSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTagSelectViewController.swift; sourceTree = "<group>"; };
 		C7A4059E1FB78C6B00E33A70 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		C7B04EAE1FD58FD000BE510D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7B1427A1FAAF14500B9DC0E /* SegueFromLeft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueFromLeft.swift; sourceTree = "<group>"; };
-		C7B1427C1FAB9B8C00B9DC0E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C7C164631F852AE6007226FA /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C7C5D37A1F5F2EA0001BCE38 /* EventUp!.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EventUp!.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7C5D37D1F5F2EA0001BCE38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -280,7 +280,7 @@
 		C7C5D37C1F5F2EA0001BCE38 /* EventUp! */ = {
 			isa = PBXGroup;
 			children = (
-				C7B1427C1FAB9B8C00B9DC0E /* Assets.xcassets */,
+				C7B04EAE1FD58FD000BE510D /* Assets.xcassets */,
 				C72C8E251FA5C8B000B16561 /* EventUp!.entitlements */,
 				B5710CD81F85D5AB000D1E70 /* Profile */,
 				C76402311F7F141B00AA3F06 /* Main */,
@@ -408,7 +408,7 @@
 				C76402111F7975E700AA3F06 /* Events.storyboard in Resources */,
 				B5710CDC1F85D607000D1E70 /* Profile.storyboard in Resources */,
 				C71CCE441FD4AA6500D4D28A /* EventAnnotationCalloutView.xib in Resources */,
-				C7B1427D1FAB9B8C00B9DC0E /* Assets.xcassets in Resources */,
+				C7B04EAF1FD58FD000BE510D /* Assets.xcassets in Resources */,
 				C7C164641F852AF6007226FA /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -456,6 +456,7 @@
 				"${BUILT_PRODUCTS_DIR}/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework",
 				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/RevealingSplashView/RevealingSplashView.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SidebarOverlay/SidebarOverlay.framework",
 				"${BUILT_PRODUCTS_DIR}/TextFieldEffects/TextFieldEffects.framework",
@@ -483,6 +484,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQSystemSoundPlayer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealingSplashView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SidebarOverlay.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TextFieldEffects.framework",
@@ -523,11 +525,11 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-EventUp!/Pods-EventUp!-resources.sh",
-				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseAuthUI.bundle,
-				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseFacebookAuthUI.bundle,
-				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseGoogleAuthUI.bundle,
-				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebasePhoneAuthUI.bundle,
-				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseTwitterAuthUI.bundle,
+				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseAuthUI.bundle",
+				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseFacebookAuthUI.bundle",
+				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseGoogleAuthUI.bundle",
+				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebasePhoneAuthUI.bundle",
+				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseTwitterAuthUI.bundle",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterShareExtensionUIResources.bundle",
@@ -563,6 +565,7 @@
 				"${BUILT_PRODUCTS_DIR}/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework",
 				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/RevealingSplashView/RevealingSplashView.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SidebarOverlay/SidebarOverlay.framework",
 				"${BUILT_PRODUCTS_DIR}/TextFieldEffects/TextFieldEffects.framework",
@@ -590,6 +593,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQSystemSoundPlayer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealingSplashView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SidebarOverlay.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TextFieldEffects.framework",
@@ -612,11 +616,11 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-EventUp!Tests/Pods-EventUp!Tests-resources.sh",
-				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseAuthUI.bundle,
-				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseFacebookAuthUI.bundle,
-				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseGoogleAuthUI.bundle,
-				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebasePhoneAuthUI.bundle,
-				$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseTwitterAuthUI.bundle,
+				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseAuthUI.bundle",
+				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseFacebookAuthUI.bundle",
+				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseGoogleAuthUI.bundle",
+				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebasePhoneAuthUI.bundle",
+				"$PODS_CONFIGURATION_BUILD_DIR/FirebaseUI/FirebaseTwitterAuthUI.bundle",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterShareExtensionUIResources.bundle",

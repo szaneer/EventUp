@@ -11,6 +11,7 @@ target 'EventUp!' do
   pod 'HCSStarRatingView'
   pod 'Firebase'
   pod 'Firebase/Database'
+  pod 'Firebase/Storage'
   pod 'Firebase/Firestore'
   pod 'FirebaseUI/Auth'
   pod 'FirebaseUI/Google'
@@ -25,6 +26,7 @@ target 'EventUp!' do
   pod 'GTToast'
   pod 'IQKeyboardManagerSwift'
   pod 'JTAppleCalendar', '~> 7.1.0'
+  pod 'RevealingSplashView'
 
   target 'EventUp!Tests' do
     inherit! :search_paths
@@ -32,6 +34,7 @@ target 'EventUp!' do
     pod 'HCSStarRatingView'
     pod 'Firebase'
     pod 'Firebase/Database'
+    pod 'Firebase/Storage'
     pod 'Firebase/Firestore'
     pod 'FirebaseUI/Auth'
     pod 'FirebaseUI/Google'
@@ -46,6 +49,7 @@ target 'EventUp!' do
     pod 'GTToast'
     pod 'IQKeyboardManagerSwift'
     pod 'JTAppleCalendar', '~> 7.1.0'
+    pod 'RevealingSplashView'
 
   end
 

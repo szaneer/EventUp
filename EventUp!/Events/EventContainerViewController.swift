@@ -8,6 +8,7 @@
 
 import UIKit
 import SidebarOverlay
+import RevealingSplashView
 
 class EventContainerViewController: SOContainerViewController {
 
@@ -19,6 +20,8 @@ class EventContainerViewController: SOContainerViewController {
         self.topViewController = self.storyboard?.instantiateViewController(withIdentifier: "eventMain")
         self.sideViewController = self.storyboard?.instantiateViewController(withIdentifier: "eventSidebar")
         ((sideViewController as! UINavigationController).topViewController as! FilterViewController).delegate = ((topViewController as! UINavigationController).topViewController as! EventsViewController)
+        
+        
     }
 
 }

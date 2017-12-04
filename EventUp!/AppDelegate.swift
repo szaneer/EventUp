@@ -11,6 +11,7 @@ import Firebase
 import FBSDKCoreKit
 import UserNotifications
 import IQKeyboardManagerSwift
+import RevealingSplashView
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -36,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             window?.rootViewController = mainViewController
         }
+        
         registerForPushNotifications()
         return true
     }

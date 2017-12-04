@@ -11,7 +11,7 @@ import Firebase
 import SVProgressHUD
 import MapKit
 import SidebarOverlay
-
+import RevealingSplashView
 
 class EventsViewController: UITableViewController {
     
@@ -31,44 +31,56 @@ class EventsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let sidebarIcon = UIImageView(image: UIImage(named: "sidebarIcon"))
-        sidebarIcon.frame = CGRect(x: 0, y: 0, width: sidebarButton.frame.height, height: sidebarButton.frame.height)
-        sidebarButton.frame = CGRect(x: 0, y: 0, width: sidebarButton.frame.height, height: sidebarButton.frame.height)
-        sidebarButton.addSubview(sidebarIcon)
         
-        let background = UIImage(named: "background")!
-        self.navigationController!.navigationBar.setBackgroundImage(background, for: .default)
+        let revealingSplashView = RevealingSplashView(iconImage: UIImage(named: "icon")!,iconInitialSize: CGSize(width: 70, height: 70), backgroundColor: UIColor(red:54.0/255.0, green:100.0/255.0, blue:183.0/255.0, alpha:1.0))
+        revealingSplashView.animationType = SplashAnimationType.squeezeAndZoomOut
         
-        self.navigationController!.navigationBar.tintColor = .black
-        if (UserDefaults.standard.object(forKey: "notifyUID") != nil) {
-            performSegue(withIdentifier: "notifySegue", sender: nil)
-            return
+        let window = UIApplication.shared.keyWindow
+        window?.insertSubview(revealingSplashView, aboveSubview: tabBarController!.view)
+        
+        //Starts animation
+        
+        revealingSplashView.startAnimation(){
+            
+            let sidebarIcon = UIImageView(image: UIImage(named: "sidebarIcon"))
+            sidebarIcon.frame = CGRect(x: 0, y: 0, width: self.sidebarButton.frame.height, height: self.sidebarButton.frame.height)
+            self.sidebarButton.frame = CGRect(x: 0, y: 0, width: self.sidebarButton.frame.height, height: self.sidebarButton.frame.height)
+            self.sidebarButton.addSubview(sidebarIcon)
+            
+            let background = UIImage(named: "background")!
+            self.navigationController!.navigationBar.setBackgroundImage(background, for: .default)
+            
+            self.navigationController!.navigationBar.tintColor = .black
+            if (UserDefaults.standard.object(forKey: "notifyUID") != nil) {
+                self.performSegue(withIdentifier: "notifySegue", sender: nil)
+                return
+            }
+            
+            //tableView.backgroundColor = .clear
+            self.searchController.searchBar.scopeButtonTitles = ["All", "Social", "Learning", "Other"]
+            
+            self.searchController.searchResultsUpdater = self
+            self.searchController.searchBar.delegate = self
+            self.searchController.searchBar.placeholder = "Search Events"
+            self.searchController.obscuresBackgroundDuringPresentation = false
+            
+            self.tableView.rowHeight = UITableViewAutomaticDimension
+            self.tableView.estimatedRowHeight = 116
+            
+            self.definesPresentationContext = true
+            self.navigationItem.searchController = self.searchController
+            
+            SVProgressHUD.show()
+            
+            
+            self.refreshControl = UIRefreshControl()
+            self.refreshControl?.addTarget(self, action: #selector(self.loadEvents), for: .valueChanged)
+            
+            self.setupLocation()
+            self.view.isUserInteractionEnabled = false
+            SVProgressHUD.show()
+            self.loadEvents()
         }
-        
-        //tableView.backgroundColor = .clear
-        searchController.searchBar.scopeButtonTitles = ["All", "Social", "Learning", "Other"]
-        
-        searchController.searchResultsUpdater = self
-        searchController.searchBar.delegate = self
-        searchController.searchBar.placeholder = "Search Events"
-        searchController.obscuresBackgroundDuringPresentation = false
-        
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 116
-        
-        definesPresentationContext = true
-        navigationItem.searchController = searchController
-        
-        SVProgressHUD.show()
-        
-        
-        refreshControl = UIRefreshControl()
-        refreshControl?.addTarget(self, action: #selector(self.loadEvents), for: .valueChanged)
-        
-        setupLocation()
-        view.isUserInteractionEnabled = false
-        SVProgressHUD.show()
-        loadEvents()
     }
     
     override func viewDidAppear(_ animated: Bool) {
