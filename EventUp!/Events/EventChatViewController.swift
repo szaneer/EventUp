@@ -30,6 +30,7 @@ final class EventChatViewController: JSQMessagesViewController {
          self.edgesForExtendedLayout = []
         senderId = Auth.auth().currentUser!.uid
         senderDisplayName = Auth.auth().currentUser!.email!
+        self.inputToolbar.contentView.leftBarButtonItem = nil
         // Do any additional setup after loading the view.
         
         

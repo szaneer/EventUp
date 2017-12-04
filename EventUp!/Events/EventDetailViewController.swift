@@ -397,7 +397,7 @@ extension EventDetailViewController: CLLocationManagerDelegate, MKMapViewDelegat
         
         annotationView?.canShowCallout = true
         annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-        let currDate = Date().timeIntervalSinceReferenceDate
+        let currDate = Date().timeIntervalSince1970
         if currDate >= event.date && currDate <= event.endDate {
             let annotationImage = UIImage(named: "EventAnnotation_green")
             annotationView?.image = annotationImage

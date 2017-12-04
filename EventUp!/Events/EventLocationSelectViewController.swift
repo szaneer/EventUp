@@ -14,13 +14,12 @@ class EventLocationSelectViewController: UIViewController {
     @IBOutlet weak var eventLocationView: MKMapView!
     
     var delegate: EventLocationSelectViewControllerDelegate!
-    let locationManger = CLLocationManager()
+    let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        locationManger.startUpdatingLocation()
+        setupLocation()
     }
     
     @IBAction func onSelect(_ sender: Any) {
@@ -34,24 +33,26 @@ class EventLocationSelectViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-        guard let identifier = segue.identifier else {
-            return
-        }
-        
-        switch identifier {
-        case "tagSelectSegue":
-            print("hsads")
-        default:
-            return
+    @IBAction func onLocation(_ sender: Any) {
+        if let userLocation = locationManager.location?.coordinate {
+            let region = MKCoordinateRegion(center: userLocation, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+            eventLocationView.setRegion(region, animated: true)
         }
     }
     
-
+    func setupLocation() {
+        eventLocationView.showsUserLocation = true
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.requestWhenInUseAuthorization()
+        }
+        
+        locationManager.startUpdatingLocation()
+        
+        onLocation(self)
+    }
+    
+    @IBAction func onCancel(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }

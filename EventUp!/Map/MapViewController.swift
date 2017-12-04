@@ -93,27 +93,27 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
         if past && current {
             filteredEvents = events.filter({ (event) -> Bool in
-                return event.date <= Date().timeIntervalSinceReferenceDate
+                return event.date <= Date().timeIntervalSince1970
             })
         } else if current, future {
             filteredEvents = events.filter({ (event) -> Bool in
-                return event.date >= Date().timeIntervalSinceReferenceDate
+                return event.date >= Date().timeIntervalSince1970
             })
         } else if past, future {
             filteredEvents = events.filter({ (event) -> Bool in
-                return event.endDate < Date().timeIntervalSinceReferenceDate || event.date > Date().timeIntervalSinceReferenceDate
+                return event.endDate < Date().timeIntervalSince1970 || event.date > Date().timeIntervalSince1970
             })
         } else if past {
             filteredEvents = events.filter({ (event) -> Bool in
-                return event.endDate <= Date().timeIntervalSinceReferenceDate
+                return event.endDate <= Date().timeIntervalSince1970
             })
         } else if current {
             filteredEvents = events.filter({ (event) -> Bool in
-                return event.date <= Date().timeIntervalSinceReferenceDate && event.endDate >= Date().timeIntervalSinceReferenceDate
+                return event.date <= Date().timeIntervalSince1970 && event.endDate >= Date().timeIntervalSince1970
             })
         } else if future {
             filteredEvents = events.filter({ (event) -> Bool in
-                return event.date > Date().timeIntervalSinceReferenceDate
+                return event.date > Date().timeIntervalSince1970
             })
         }
         

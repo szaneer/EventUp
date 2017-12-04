@@ -11,7 +11,8 @@ import SVProgressHUD
 import Firebase
 import MapKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, FilterDelegate {
+    
     @IBOutlet weak var userImageView: UIImageView!
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -23,6 +24,7 @@ class ProfileViewController: UIViewController {
     var user: EventUser!
     
     var events = [Event]()
+    var ogEvents = [Event]()
     let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
@@ -81,11 +83,14 @@ class ProfileViewController: UIViewController {
     }
 
     func setupEvents() {
-        EventUpClient.sharedInstance.getPastUserEvents(uid: Auth.auth().currentUser!.uid, success: { (events) in
+        EventUpClient.sharedInstance.getUserEvents(uid: Auth.auth().currentUser!.uid, success: { (events) in
             self.events = events
+            self.ogEvents = events
+            self.onTimeChange(nil)
             self.tableView.reloadData()
             SVProgressHUD.dismiss()
             self.view.isUserInteractionEnabled = true
+            
         }) { (error) in
             print(error.localizedDescription)
             SVProgressHUD.dismiss()
@@ -93,6 +98,42 @@ class ProfileViewController: UIViewController {
         }
     }
 
+    func filter(filters: [String : Bool]) {
+        return
+    }
+    
+    func refresh(event: Event?) {
+        setupEvents()
+    }
+    
+    @IBAction func onTimeChange(_ sender: Any?) {
+        let currDate = Date().timeIntervalSince1970
+        guard let segmentControl = sender as? UISegmentedControl else {
+            events = ogEvents.filter({ (event) -> Bool in
+                return event.endDate < currDate
+            })
+            tableView.reloadData()
+            return
+        }
+        
+        switch segmentControl.selectedSegmentIndex {
+        case 0:
+            events = ogEvents.filter({ (event) -> Bool in
+                return event.endDate < currDate
+            })
+        case 1:
+            events = ogEvents.filter({ (event) -> Bool in
+                return event.endDate >= currDate && event.date <= currDate
+            })
+        case 2:
+            events = ogEvents.filter({ (event) -> Bool in
+                return event.date > currDate
+            })
+        default:
+            return
+        }
+        tableView.reloadData()
+    }
 }
 
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
@@ -111,17 +152,16 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell", for: indexPath) as! EventCell
         
-        // Configure the cell...
+        let event = events[indexPath.row]
+        //cell.eventView.image = nil
+        cell.distanceLabel.text = ""
         
-        let event: Event
-            event = events[indexPath.row]
-        
-        
-        let date = Date(timeIntervalSinceReferenceDate: event.date)
         cell.nameLabel.text = event.name
+        cell.ratingView.value = CGFloat(event.rating)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
-        cell.dateLabel.text = dateFormatter.string(from: date)
+        let date = Date(timeIntervalSince1970: event.date)
+        
         cell.dateLabel.text = dateFormatter.string(from: date)
         cell.ratingCountLabel.text = String(format: "%d ratings", event.ratingCount)
         if let tags = event.tags {
@@ -135,13 +175,12 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.tagLabel.text = cell.tagLabel.text! + ", " + tag
                 }
             }
+        } else {
+            cell.tagLabel.text = ""
         }
-//        if let image = event.image {
-//            cell.eventView.image = EventUpClient.sharedInstance.base64DecodeImage(image)
-//            cell.eventView.layer.cornerRadius = 5
-//            cell.eventView.clipsToBounds = true
-//        }
+        
         if let userLocation = locationManager.location?.coordinate {
+            
             let coordinateMe = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
             let coordinateE = CLLocation(latitude: event.latitude, longitude: event.longitude)
             
@@ -149,8 +188,47 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             cell.distanceLabel.text = "\(distance)mi"
         }
         
+        cell.tag = indexPath.row
+        cell.eventView.image = nil
+        EventUpClient.sharedInstance.getEventImage(uid: event.uid, success: { (image) in
+            DispatchQueue.main.async {
+                if cell.tag == indexPath.row {
+                    cell.eventView.image = image
+                    cell.eventView.clipsToBounds = true
+                    cell.eventView.layer.cornerRadius = 5
+                }
+            }
+        }) { (error) in
+            print(error)
+        }
+        
+        
         
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let segueID = segue.identifier else {
+            return
+        }
+        
+        switch segueID {
+        case "detailSegue":
+            let destination = segue.destination as! EventDetailViewController
+            let cell = sender as! EventCell
+            let indexPath = tableView.indexPath(for: cell)!
+            let event = events[indexPath.row]
+            
+            destination.event = event
+            destination.eventImage = cell.eventView.image
+            destination.delegate = self
+            
+            let detailSegue = segue as! DetailSegue
+            detailSegue.event = event
+            detailSegue.index = indexPath.row
+        default:
+            return
+        }
     }
 }
 

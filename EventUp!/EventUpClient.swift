@@ -30,84 +30,24 @@ class EventUpClient: NSObject {
     
     func getEvents(filters: [String: Any], success: @escaping ([Event]) -> (), failure: @escaping (Error) -> ()) {
         let events = db.collection("events")
-        if filters.count > 0 {
-            var query: Query? = nil
-            for (key, value) in filters {
-                if (key == "past") {
-                    if !(value as! Bool) {
-                        continue
-                    }
-                    let currDate = Date.timeIntervalSinceReferenceDate.magnitude
-                    if query == nil {
-                        query = events.whereField("date", isLessThan: currDate)
-                    } else {
-                        query = query!.whereField("date", isLessThan: currDate)
-                    }
-                    continue
-                }
-                if query == nil {
-                    query = events.order(by: key, descending: value as! Bool)
-                } else {
-                    query = query!.order(by: key, descending: value as! Bool)
-                }
-            }
-            if let query = query {
-                query.getDocuments { (eventsSnapshot, error) in
-                    if let error = error {
-                        failure(error)
-                    } else {
-                        var eventResult: [Event] = []
-                        guard let events = eventsSnapshot?.documents else {
-                            success(eventResult)
-                            return
-                        }
-                        
-                        for event in events {
-                            eventResult.append(Event(eventData: event.data()))
-                        }
-                        
-                        success(eventResult)
-                    }
-                }
+        events.getDocuments { (eventsSnapshot, error) in
+            if let error = error {
+                failure(error)
             } else {
-                events.getDocuments { (eventsSnapshot, error) in
-                    if let error = error {
-                        failure(error)
-                    } else {
-                        var eventResult: [Event] = []
-                        guard let events = eventsSnapshot?.documents else {
-                            success(eventResult)
-                            return
-                        }
-                        
-                        for event in events {
-                            eventResult.append(Event(eventData: event.data()))
-                        }
-                        
-                        success(eventResult)
-                    }
-                }
-            }
-            
-        } else {
-            events.getDocuments { (eventsSnapshot, error) in
-                if let error = error {
-                    failure(error)
-                } else {
-                    var eventResult: [Event] = []
-                    guard let events = eventsSnapshot?.documents else {
-                        success(eventResult)
-                        return
-                    }
-                    
-                    for event in events {
-                        eventResult.append(Event(eventData: event.data()))
-                    }
-                    
+                var eventResult: [Event] = []
+                guard let events = eventsSnapshot?.documents else {
                     success(eventResult)
+                    return
                 }
+                
+                for event in events {
+                    eventResult.append(Event(eventData: event.data()))
+                }
+                
+                success(eventResult)
             }
         }
+        
     }
     
     func getEvent(uid: String, success: @escaping (Event) -> (), failure: @escaping (Error) -> ()) {
@@ -139,9 +79,8 @@ class EventUpClient: NSObject {
         }
     }
     
-    func getPastUserEvents(uid: String, success: @escaping ([Event]) -> (), failure: @escaping (Error) -> ()) {
-        let currDate = Date.timeIntervalSinceReferenceDate.magnitude
-        let userEvents = db.collection("events").whereField("owner", isEqualTo: uid).whereField("date", isLessThan: currDate)
+    func getUserEvents(uid: String, success: @escaping ([Event]) -> (), failure: @escaping (Error) -> ()) {
+        let userEvents = db.collection("events").whereField("owner", isEqualTo: uid)
         userEvents.getDocuments { (eventsSnapshot, error) in
             if let error = error {
                 failure(error)

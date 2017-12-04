@@ -266,9 +266,7 @@ extension EventsViewController: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        //self.tableView.reloadData()
     }
     
 }
@@ -416,45 +414,45 @@ extension EventsViewController: FilterDelegate {
         }
         if past && current {
             events = events.filter({ (event) -> Bool in
-                return event.date <= Date().timeIntervalSinceReferenceDate
+                return event.date <= Date().timeIntervalSince1970
             })
             filteredEvents = filteredEvents.filter({ (event) -> Bool in
-                return event.date <= Date().timeIntervalSinceReferenceDate
+                return event.date <= Date().timeIntervalSince1970
             })
         } else if current, future {
             events = events.filter({ (event) -> Bool in
-                return event.date >= Date().timeIntervalSinceReferenceDate
+                return event.date >= Date().timeIntervalSince1970
             })
             filteredEvents = filteredEvents.filter({ (event) -> Bool in
-                return event.date >= Date().timeIntervalSinceReferenceDate
+                return event.date >= Date().timeIntervalSince1970
             })
         } else if past, future {
             events = events.filter({ (event) -> Bool in
-                return event.endDate < Date().timeIntervalSinceReferenceDate || event.date > Date().timeIntervalSinceReferenceDate
+                return event.endDate < Date().timeIntervalSince1970 || event.date > Date().timeIntervalSince1970
             })
             filteredEvents = filteredEvents.filter({ (event) -> Bool in
-                return event.endDate < Date().timeIntervalSinceReferenceDate || event.date > Date().timeIntervalSinceReferenceDate
+                return event.endDate < Date().timeIntervalSince1970 || event.date > Date().timeIntervalSince1970
             })
         } else if past {
             events = events.filter({ (event) -> Bool in
-                return event.endDate < Date().timeIntervalSinceReferenceDate
+                return event.endDate < Date().timeIntervalSince1970
             })
             filteredEvents = filteredEvents.filter({ (event) -> Bool in
-                return event.endDate <= Date().timeIntervalSinceReferenceDate
+                return event.endDate <= Date().timeIntervalSince1970
             })
         } else if current {
             events = events.filter({ (event) -> Bool in
-                return event.date <= Date().timeIntervalSinceReferenceDate && event.endDate >= Date().timeIntervalSinceReferenceDate
+                return event.date <= Date().timeIntervalSince1970 && event.endDate >= Date().timeIntervalSince1970
             })
             filteredEvents = filteredEvents.filter({ (event) -> Bool in
-                return event.date <= Date().timeIntervalSinceReferenceDate && event.endDate >= Date().timeIntervalSinceReferenceDate
+                return event.date <= Date().timeIntervalSince1970 && event.endDate >= Date().timeIntervalSince1970
             })
         } else if future {
             events = events.filter({ (event) -> Bool in
-                return event.date > Date().timeIntervalSinceReferenceDate
+                return event.date > Date().timeIntervalSince1970
             })
             filteredEvents = filteredEvents.filter({ (event) -> Bool in
-                return event.date > Date().timeIntervalSinceReferenceDate
+                return event.date > Date().timeIntervalSince1970
             })
         }
         

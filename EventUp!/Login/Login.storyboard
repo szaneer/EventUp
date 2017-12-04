@@ -36,7 +36,7 @@
                                     <segue destination="r9L-aU-6b1" kind="show" identifier="" id="1Ya-6z-Qmh"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EventUp!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yee-3O-3l0">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EventUp!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yee-3O-3l0">
                                 <rect key="frame" x="75" y="163" width="225" height="60"/>
                                 <fontDescription key="fontDescription" name="Optima-Regular" family="Optima" pointSize="50"/>
                                 <nil key="textColor"/>
@@ -331,7 +331,7 @@
         <image name="background" width="1080" height="1920"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="YOa-Ip-hxg"/>
+        <segue reference="uUA-KT-tWa"/>
         <segue reference="Joq-JJ-pqj"/>
     </inferredMetricsTieBreakers>
 </document>
