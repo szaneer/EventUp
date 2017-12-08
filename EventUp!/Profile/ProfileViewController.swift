@@ -20,6 +20,7 @@ class ProfileViewController: UIViewController, FilterDelegate {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emailField: UILabel!
     @IBOutlet weak var settingsButton: UIButton!
+    @IBOutlet weak var segmentControl: UISegmentedControl!
     
     var user: EventUser!
     
@@ -74,7 +75,7 @@ class ProfileViewController: UIViewController, FilterDelegate {
                 self.userImageView.layer.cornerRadius = 5
                 self.userImageView.clipsToBounds = true
                 self.setupEvents()
-                
+                self.onTimeChange(self.segmentControl)
             }
         }) { (error) in
             self.view.isUserInteractionEnabled = true
@@ -87,10 +88,10 @@ class ProfileViewController: UIViewController, FilterDelegate {
             self.events = events
             self.ogEvents = events
             self.onTimeChange(nil)
-            self.tableView.reloadData()
             SVProgressHUD.dismiss()
             self.view.isUserInteractionEnabled = true
-            
+            self.onTimeChange(self.segmentControl)
+            self.tableView.reloadData()
         }) { (error) in
             print(error.localizedDescription)
             SVProgressHUD.dismiss()
@@ -105,8 +106,11 @@ class ProfileViewController: UIViewController, FilterDelegate {
     func refresh(event: Event?) {
         setupEvents()
     }
-    
+    var isFiltering = false
     @IBAction func onTimeChange(_ sender: Any?) {
+        if isFiltering {
+            return
+        }
         let currDate = Date().timeIntervalSince1970
         guard let segmentControl = sender as? UISegmentedControl else {
             events = ogEvents.filter({ (event) -> Bool in
@@ -115,7 +119,7 @@ class ProfileViewController: UIViewController, FilterDelegate {
             tableView.reloadData()
             return
         }
-        
+        isFiltering = true
         switch segmentControl.selectedSegmentIndex {
         case 0:
             events = ogEvents.filter({ (event) -> Bool in
@@ -133,6 +137,7 @@ class ProfileViewController: UIViewController, FilterDelegate {
             return
         }
         tableView.reloadData()
+        isFiltering = false
     }
 }
 

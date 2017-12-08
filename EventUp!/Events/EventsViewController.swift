@@ -26,6 +26,7 @@ class EventsViewController: UITableViewController {
     let searchController = UISearchController(searchResultsController: nil)
     var isSugg = false
     var userTags: [String] = []
+    var filters: [String: Bool] = [:]
     
     @IBOutlet weak var sidebarButton: UIButton!
     
@@ -115,7 +116,7 @@ class EventsViewController: UITableViewController {
         EventUpClient.sharedInstance.getEvents(filters: currFilter, success: { (events) in
             self.events = events
             self.eventsOG = events
-            self.tableView.reloadData()
+            self.filter(filters: self.filters)
             SVProgressHUD.dismiss()
             self.view.isUserInteractionEnabled = true
             self.refreshControl?.endRefreshing()
@@ -248,6 +249,7 @@ class EventsViewController: UITableViewController {
         case "filterSegue":
             let destination = segue.destination as! FilterViewController
             destination.delegate = self
+            destination.filter = filters
         case "notifySegue":
             let destination = segue.destination as! EventDetailViewController
             destination.delegate = self
@@ -292,6 +294,7 @@ extension EventsViewController: FilterDelegate {
     
     func filter(filters: [String: Bool]) {
         self.events = eventsOG
+        self.filters = filters
         searchEvents(searchController.searchBar.text!, scope: "ALL")
         for (key, value) in filters {
             switch key {

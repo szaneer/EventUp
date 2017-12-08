@@ -922,14 +922,10 @@ class EventUpClient: NSObject {
     // Encode image to string
     func base64EncodeImage(_ image: UIImage) -> String {
         var imagedata = UIImagePNGRepresentation(image)
-        
-        // Resize the image if it exceeds the 2MB API limit
-        while ((imagedata?.count)! > 1048487) {
-            let oldSize: CGSize = image.size
-            let newSize: CGSize = CGSize(width: 400, height: oldSize.height / oldSize.width * 400)
-            imagedata = resizeImage(newSize, image: image)
-        }
-        
+    
+        let oldSize: CGSize = image.size
+        let newSize: CGSize = CGSize(width: 200, height: oldSize.height / oldSize.width * 200)
+        imagedata = resizeImage(newSize, image: image)
         return imagedata!.base64EncodedString(options: .endLineWithCarriageReturn)
     }
     

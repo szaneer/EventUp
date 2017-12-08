@@ -21,6 +21,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     var events: [Event] = []
     var filteredEvents: [Event] = []
     let locationManager = CLLocationManager()
+    var filters: [String: Bool] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +70,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     func filter(filters: [String: Bool]) {
+        self.filters = filters
         var past = false
         var current = false
         var future = false
@@ -83,9 +85,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         if filters["future"] != nil {
             future = filters["future"]!
         }
-        
+        self.eventMapView.removeAnnotations(self.eventMapView.annotations)
+        self.eventMapView.removeOverlays(self.eventMapView.overlays)
         if ((!past && !current && !future) || (past && current && future)) {
-            self.eventMapView.removeAnnotations(self.eventMapView.annotations)
             for event in self.events {
                 self.addEventToMap(event: event)
             }
@@ -117,7 +119,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             })
         }
         
-        self.eventMapView.removeAnnotations(self.eventMapView.annotations)
         for event in self.filteredEvents {
             self.addEventToMap(event: event)
         }
@@ -134,11 +135,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         EventUpClient.sharedInstance.getEvents(success: { (events) in
             self.events = events
             
-            self.eventMapView.removeAnnotations(self.eventMapView.annotations)
-            self.eventMapView.removeOverlays(self.eventMapView.overlays)
-            for event in self.events {
-                self.addEventToMap(event: event)
-            }
+            self.filter(filters: self.filters)
             self.view.isUserInteractionEnabled = true
             SVProgressHUD.dismiss()
         }) { (error) in

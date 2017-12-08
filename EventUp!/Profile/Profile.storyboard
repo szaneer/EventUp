@@ -224,6 +224,7 @@
                         <outlet property="emailField" destination="WUb-Pj-IzV" id="rXD-T4-AWM"/>
                         <outlet property="nameLabel" destination="0Nc-s4-FmQ" id="cvJ-rf-geK"/>
                         <outlet property="ratingLabel" destination="SVx-EP-SxW" id="7bH-2x-ZR9"/>
+                        <outlet property="segmentControl" destination="z2d-Gp-uaN" id="tD3-rV-8NS"/>
                         <outlet property="settingsButton" destination="Ug0-F0-0uv" id="uyV-Zx-hSj"/>
                         <outlet property="tableView" destination="iys-6M-exR" id="ROf-Wl-vpM"/>
                         <outlet property="userImageView" destination="JXN-bd-tYQ" id="ZZA-QL-Vzp"/>
