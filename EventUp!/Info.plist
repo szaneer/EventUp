@@ -1,7 +1,7 @@
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -18,15 +18,15 @@
 	<string>1.0</string>
 	<key>CFBundleURLTypes</key>
 	<array>
-		***REMOVED***
+		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb429777670758043</string>
 			</array>
-		***REMOVED***
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-***REMOVED***
+	<string>1</string>
 	<key>FacebookAppID</key>
 	<string>429777670758043</string>
 	<key>FacebookDisplayName</key>
@@ -65,5 +65,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-***REMOVED***
-***REMOVED***
+</dict>
+</plist>
