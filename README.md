@@ -1,4 +1,7 @@
 # EventUp #
+
+![](https://media.giphy.com/media/3ohs7VugYh0gYl899u/200w_d.gif)
+
 At Purdue University events occur almost every single day, only issue is a majority of students are not even aware of them. To even get a small amount of people to be aware of requires organizers to send Facebook invites, use different department mailing lists, put in ad requests for TV boards, etc. which in turns requires students to be part of/see one of them. “EventUp!” aims to solve this issue by providing organizers a centralized platform to advertise their event as well as allow students at Purdue a simple and reliable method of being notified of events.
 
 ### Project Objectives
